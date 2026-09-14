@@ -1,0 +1,46 @@
+table 'Pipeline Task Failures'
+	lineageTag: 423fc8d4-6d5d-4774-81bd-766c06ad4e5d
+
+	column PipelineName
+		dataType: string
+		lineageTag: c0995257-0eda-45e7-ab72-2c5e3a07fa87
+		summarizeBy: none
+		sourceColumn: PipelineName
+
+	column TaskDisplayName
+		dataType: string
+		lineageTag: 9fed14c2-69cb-49ac-8403-ac81df6c2ffc
+		summarizeBy: none
+		sourceColumn: TaskDisplayName
+
+	column 'PipelineRunCompletedOn.Date'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 64264814-a72f-4737-8ee3-3bc767003c7e
+		summarizeBy: none
+		sourceColumn: PipelineRunCompletedOn.Date
+
+		variation Variation
+			isDefault
+			relationship: 087b00f2-d4eb-4a95-a16c-7c8c90437ef7
+			defaultHierarchy: LocalDateTable_a5c0b10a-3e00-4d71-b7d5-0e7dad963c98.Datumshierarchie
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column FailedCount
+		dataType: int64
+		formatString: 0
+		lineageTag: 56e38c3b-ea06-4449-91b1-1fd777be5747
+		summarizeBy: sum
+		sourceColumn: FailedCount
+
+	partition 'Pipeline Task Failures' = m
+		mode: import
+		source =
+				let
+				    Source = PowerBI.Dataflows(null),
+				    Workspace = Source{[workspaceId="1d7f83bd-9b20-42de-9fc3-0f113e2024b2"]}[Data],
+				    Pipelines = Workspace{[dataflowId="bbfa2960-daa8-4704-8d12-81d3c53fb0eb"]}[Data]
+				in
+				    Pipelines{[entity="Pipeline Task Failures"]}[Data]
+

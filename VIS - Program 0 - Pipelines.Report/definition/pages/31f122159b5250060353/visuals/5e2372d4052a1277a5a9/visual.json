@@ -1,0 +1,255 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "5e2372d4052a1277a5a9",
+  "position": {
+    "x": 742.23630746633251,
+    "y": 413.95205517725856,
+    "z": 11000,
+    "height": 260.27317213356855,
+    "width": 537.54911430601351,
+    "tabOrder": 10000
+  },
+  "visual": {
+    "visualType": "columnChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "HierarchyLevel": {
+                  "Expression": {
+                    "Hierarchy": {
+                      "Expression": {
+                        "PropertyVariationSource": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "Deployment Snapshot"
+                            }
+                          },
+                          "Name": "Variation",
+                          "Property": "deploymentDate"
+                        }
+                      },
+                      "Hierarchy": "Datumshierarchie"
+                    }
+                  },
+                  "Level": "Jahr"
+                }
+              },
+              "queryRef": "Deployment Snapshot.deploymentDate.Variation.Datumshierarchie.Jahr",
+              "nativeQueryRef": "deploymentDate Jahr",
+              "active": true
+            },
+            {
+              "field": {
+                "HierarchyLevel": {
+                  "Expression": {
+                    "Hierarchy": {
+                      "Expression": {
+                        "PropertyVariationSource": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "Deployment Snapshot"
+                            }
+                          },
+                          "Name": "Variation",
+                          "Property": "deploymentDate"
+                        }
+                      },
+                      "Hierarchy": "Datumshierarchie"
+                    }
+                  },
+                  "Level": "Monat"
+                }
+              },
+              "queryRef": "Deployment Snapshot.deploymentDate.Variation.Datumshierarchie.Monat",
+              "nativeQueryRef": "deploymentDate Monat",
+              "active": true
+            },
+            {
+              "field": {
+                "HierarchyLevel": {
+                  "Expression": {
+                    "Hierarchy": {
+                      "Expression": {
+                        "PropertyVariationSource": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "Deployment Snapshot"
+                            }
+                          },
+                          "Name": "Variation",
+                          "Property": "deploymentDate"
+                        }
+                      },
+                      "Hierarchy": "Datumshierarchie"
+                    }
+                  },
+                  "Level": "Tag"
+                }
+              },
+              "queryRef": "Deployment Snapshot.deploymentDate.Variation.Datumshierarchie.Tag",
+              "nativeQueryRef": "deploymentDate Tag",
+              "active": true
+            }
+          ]
+        },
+        "Series": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Deployment Snapshot"
+                    }
+                  },
+                  "Property": "environmentDisplayName"
+                }
+              },
+              "queryRef": "Deployment Snapshot.environmentDisplayName",
+              "nativeQueryRef": "environmentDisplayName"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Deployment Snapshot"
+                        }
+                      },
+                      "Property": "serviceName"
+                    }
+                  },
+                  "Function": 5
+                }
+              },
+              "queryRef": "CountNonNull(Deployment Snapshot.serviceName)",
+              "nativeQueryRef": "Count of serviceName"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "a00acaac4904515d9d1e",
+        "field": {
+          "HierarchyLevel": {
+            "Expression": {
+              "Hierarchy": {
+                "Expression": {
+                  "PropertyVariationSource": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "Deployment Snapshot"
+                      }
+                    },
+                    "Name": "Variation",
+                    "Property": "deploymentDate"
+                  }
+                },
+                "Hierarchy": "Datumshierarchie"
+              }
+            },
+            "Level": "Jahr"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "92ae65a1b278e08600b8",
+        "field": {
+          "HierarchyLevel": {
+            "Expression": {
+              "Hierarchy": {
+                "Expression": {
+                  "PropertyVariationSource": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "Deployment Snapshot"
+                      }
+                    },
+                    "Name": "Variation",
+                    "Property": "deploymentDate"
+                  }
+                },
+                "Hierarchy": "Datumshierarchie"
+              }
+            },
+            "Level": "Monat"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "23627116cee9000d9c30",
+        "field": {
+          "HierarchyLevel": {
+            "Expression": {
+              "Hierarchy": {
+                "Expression": {
+                  "PropertyVariationSource": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "Deployment Snapshot"
+                      }
+                    },
+                    "Name": "Variation",
+                    "Property": "deploymentDate"
+                  }
+                },
+                "Hierarchy": "Datumshierarchie"
+              }
+            },
+            "Level": "Tag"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "a148b241520290997719",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Deployment Snapshot"
+                  }
+                },
+                "Property": "serviceName"
+              }
+            },
+            "Function": 5
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "0646f884c9068673875c",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Deployment Snapshot"
+              }
+            },
+            "Property": "environmentDisplayName"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
+  }
+}

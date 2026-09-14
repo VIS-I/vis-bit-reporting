@@ -1,0 +1,103 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "280599a5b540a009ba6d",
+  "position": {
+    "x": 742.23630746633251,
+    "y": 75.204559787337658,
+    "z": 10000,
+    "height": 339.40144808372384,
+    "width": 278.5838475600508,
+    "tabOrder": 9000
+  },
+  "visual": {
+    "visualType": "clusteredColumnChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Deployment Snapshot"
+                    }
+                  },
+                  "Property": "environmentDisplayName"
+                }
+              },
+              "queryRef": "Deployment Snapshot.environmentDisplayName",
+              "nativeQueryRef": "environmentDisplayName",
+              "active": true
+            }
+          ]
+        },
+        "Series": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Deployment Snapshot"
+                    }
+                  },
+                  "Property": "platform"
+                }
+              },
+              "queryRef": "Deployment Snapshot.platform",
+              "nativeQueryRef": "platform"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Deployment Snapshot"
+                        }
+                      },
+                      "Property": "serviceName"
+                    }
+                  },
+                  "Function": 5
+                }
+              },
+              "queryRef": "CountNonNull(Deployment Snapshot.serviceName)",
+              "nativeQueryRef": "Count of serviceName"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Aggregation": {
+                "Expression": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "Deployment Snapshot"
+                      }
+                    },
+                    "Property": "serviceName"
+                  }
+                },
+                "Function": 5
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

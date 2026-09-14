@@ -1,0 +1,77 @@
+table 'Pipeline Outcome Pass Trend'
+	lineageTag: 62eb72ce-9042-4366-9f6c-494b060c357b
+
+	column PipelineName
+		dataType: string
+		lineageTag: 413c9151-1ef9-4fea-9f55-d04ecbeac2ec
+		summarizeBy: none
+		sourceColumn: PipelineName
+
+	column 'CompletedOn.Date'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 2165de5b-61f4-48b5-9bcd-a8ff1b188a6b
+		summarizeBy: none
+		sourceColumn: CompletedOn.Date
+
+		variation Variation
+			isDefault
+			relationship: 2aac513b-0f14-4472-973d-2d0eebdd0927
+			defaultHierarchy: LocalDateTable_588cffcf-8267-4583-b918-f017e02ffa28.Datumshierarchie
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column TotalCount
+		dataType: int64
+		formatString: 0
+		lineageTag: 1ec89b50-37aa-40be-ac2b-cfc348e05578
+		summarizeBy: sum
+		sourceColumn: TotalCount
+
+	column SucceededCount
+		dataType: int64
+		formatString: 0
+		lineageTag: efd31f3c-d614-43cb-8337-192a58f2d2bb
+		summarizeBy: sum
+		sourceColumn: SucceededCount
+
+	column PartiallySucceededCount
+		dataType: int64
+		formatString: 0
+		lineageTag: 4ad2f9c6-835e-41f3-97cf-15378265b022
+		summarizeBy: sum
+		sourceColumn: PartiallySucceededCount
+
+	column FailedCount
+		dataType: int64
+		formatString: 0
+		lineageTag: e7ff4876-c59e-4c23-9bf4-245f8464e0a3
+		summarizeBy: sum
+		sourceColumn: FailedCount
+
+	column CanceledCount
+		dataType: int64
+		formatString: 0
+		lineageTag: ba590948-c4e8-4cda-b7a7-2e824226b0b1
+		summarizeBy: sum
+		sourceColumn: CanceledCount
+
+	column PassRate
+		dataType: double
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 4f23b908-ba88-44c7-bfeb-5c865591ccda
+		summarizeBy: sum
+		sourceColumn: PassRate
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Pipeline Outcome Pass Trend' = m
+		mode: import
+		source =
+				let
+				    Source = PowerBI.Dataflows(null),
+				    Workspace = Source{[workspaceId="1d7f83bd-9b20-42de-9fc3-0f113e2024b2"]}[Data],
+				    Pipelines = Workspace{[dataflowId="bbfa2960-daa8-4704-8d12-81d3c53fb0eb"]}[Data]
+				in
+				    Pipelines{[entity="Pipeline Outcome Pass Trend"]}[Data]
+

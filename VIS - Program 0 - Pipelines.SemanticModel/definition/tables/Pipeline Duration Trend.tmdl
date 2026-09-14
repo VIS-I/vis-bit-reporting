@@ -1,0 +1,46 @@
+table 'Pipeline Duration Trend'
+	lineageTag: 7ed6f9ed-6516-46fe-9a0d-9094a0c0d468
+
+	measure 'Pipeline Duration P80 (min)' = DIVIDE ( AVERAGE ( 'Pipeline Duration Trend'[Duration80thPercentileInSeconds] ), 60 )
+		formatString: #,0.0
+		lineageTag: 6d3eaa53-8fb8-484f-b55c-701fb32dc7ff
+
+	column PipelineName
+		dataType: string
+		lineageTag: 91a81a04-c3b7-4dcf-8079-9ae80d84a3d1
+		summarizeBy: none
+		sourceColumn: PipelineName
+
+	column 'CompletedOn.Date'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 9c740f26-5856-4bc5-8e56-69ed0d5c2748
+		summarizeBy: none
+		sourceColumn: CompletedOn.Date
+
+		variation Variation
+			isDefault
+			relationship: a771cb04-1b88-4752-af30-1bb139d287a9
+			defaultHierarchy: LocalDateTable_450395b0-88e8-4950-974f-8d7e6a42e357.Datumshierarchie
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Duration80thPercentileInSeconds
+		dataType: double
+		formatString: #,0
+		lineageTag: c6170238-a754-4ad8-925a-c5d42ea9719d
+		summarizeBy: sum
+		sourceColumn: Duration80thPercentileInSeconds
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Pipeline Duration Trend' = m
+		mode: import
+		source =
+				let
+				    Source = PowerBI.Dataflows(null),
+				    Workspace = Source{[workspaceId="1d7f83bd-9b20-42de-9fc3-0f113e2024b2"]}[Data],
+				    Pipelines = Workspace{[dataflowId="bbfa2960-daa8-4704-8d12-81d3c53fb0eb"]}[Data]
+				in
+				    Pipelines{[entity="Pipeline Duration Trend"]}[Data]
+

@@ -1,0 +1,295 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "6c7556dd71115c240502",
+  "position": {
+    "x": 649.57199057240246,
+    "y": 379.69456686497335,
+    "z": 4004,
+    "height": 280.64381029150206,
+    "width": 630.19249472107106,
+    "tabOrder": 4004
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Pipeline Run History"
+                    }
+                  },
+                  "Property": "runId"
+                }
+              },
+              "queryRef": "CountNonNull(Pipeline Run History.runId)",
+              "nativeQueryRef": "runId"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Pipeline Run History"
+                    }
+                  },
+                  "Property": "buildNumber"
+                }
+              },
+              "queryRef": "Pipeline Run History.buildNumber",
+              "nativeQueryRef": "buildNumber"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Pipeline Run History"
+                    }
+                  },
+                  "Property": "pipelineName"
+                }
+              },
+              "queryRef": "Pipeline Run History.pipelineName",
+              "nativeQueryRef": "pipelineName"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Pipeline Run History"
+                    }
+                  },
+                  "Property": "queueTime"
+                }
+              },
+              "queryRef": "Pipeline Run History.queueTime",
+              "nativeQueryRef": "queueTime"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "c4705e70a055a1961744",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Pipeline Run History"
+              }
+            },
+            "Property": "tagsText"
+          }
+        },
+        "type": "Categorical",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "p",
+              "Entity": "Pipeline Run History",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "Not": {
+                  "Expression": {
+                    "In": {
+                      "Expressions": [
+                        {
+                          "Column": {
+                            "Expression": {
+                              "SourceRef": {
+                                "Source": "p"
+                              }
+                            },
+                            "Property": "tagsText"
+                          }
+                        }
+                      ],
+                      "Values": [
+                        [
+                          {
+                            "Literal": {
+                              "Value": "''"
+                            }
+                          }
+                        ]
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "howCreated": "User",
+        "objects": {
+          "general": [
+            {
+              "properties": {
+                "isInvertedSelectionMode": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "true"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "ed6642d74a42b0332632",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Pipeline Run History"
+              }
+            },
+            "Property": "stageName"
+          }
+        },
+        "type": "Categorical",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "p",
+              "Entity": "Pipeline Run History",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "In": {
+                  "Expressions": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "p"
+                          }
+                        },
+                        "Property": "stageName"
+                      }
+                    }
+                  ],
+                  "Values": [
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'build'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'DEV WEU'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'STAGE WEU'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'TEST WEU'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'PROD WEU'"
+                        }
+                      }
+                    ]
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "howCreated": "User"
+      },
+      {
+        "name": "c2fde3ffebecd6657034",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Pipeline Run History"
+              }
+            },
+            "Property": "buildNumber"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "e27111568013be032c49",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Pipeline Run History"
+              }
+            },
+            "Property": "runId"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "f0aa34017dbbbd256092",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Pipeline Run History"
+              }
+            },
+            "Property": "pipelineName"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "15b6ac8147980c4b3650",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Pipeline Run History"
+              }
+            },
+            "Property": "queueTime"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
+  }
+}

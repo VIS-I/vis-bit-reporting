@@ -1,0 +1,244 @@
+table 'Deployment Snapshot'
+	lineageTag: f80b0f19-0844-4798-ad53-eddf94a1dc75
+
+	column environment
+		dataType: string
+		lineageTag: 18cea222-f2c3-41a6-b5f1-8bfaf943d86d
+		summarizeBy: none
+		sourceColumn: environment
+
+		annotation SummarizationSetBy = Automatic
+
+	column locationCode
+		dataType: string
+		lineageTag: 5a3d2615-4612-4063-b9b9-ca7fdd420a5d
+		summarizeBy: none
+		sourceColumn: locationCode
+
+		annotation SummarizationSetBy = Automatic
+
+	column serviceName
+		dataType: string
+		lineageTag: d7e2ed85-95ef-4c59-bd69-e212c7e6d370
+		summarizeBy: none
+		sourceColumn: serviceName
+
+		annotation SummarizationSetBy = Automatic
+
+	column serviceVersion
+		dataType: string
+		lineageTag: 87a505de-822c-42ec-9ed0-a9c10d75e9b9
+		summarizeBy: none
+		sourceColumn: serviceVersion
+
+		annotation SummarizationSetBy = Automatic
+
+	column deploymentDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: b7e6acce-150e-4260-9b1f-1517c1aece48
+		summarizeBy: none
+		sourceColumn: deploymentDate
+
+		variation Variation
+			isDefault
+			relationship: f16d5c7b-e3b2-45c6-bb58-da8b446daa6c
+			defaultHierarchy: LocalDateTable_446ead61-7893-4bd8-aa81-07d74c6f7755.Datumshierarchie
+
+		annotation SummarizationSetBy = Automatic
+
+	column status
+		dataType: string
+		lineageTag: 2b60d4ba-18bf-429b-8652-70d67162b117
+		summarizeBy: none
+		sourceColumn: status
+
+		annotation SummarizationSetBy = Automatic
+
+	column platform
+		dataType: string
+		lineageTag: 9afd7c98-d639-47f0-93af-f0e81fd32291
+		summarizeBy: none
+		sourceColumn: platform
+
+		annotation SummarizationSetBy = Automatic
+
+	column instance
+		dataType: string
+		lineageTag: 76ffb1dd-12d1-4417-9041-c9eb30a66e6d
+		summarizeBy: none
+		sourceColumn: instance
+
+		annotation SummarizationSetBy = Automatic
+
+	column source
+		dataType: string
+		lineageTag: 17bbe29d-c6a9-4159-a68b-5d2dc8aff242
+		summarizeBy: none
+		sourceColumn: source
+
+		annotation SummarizationSetBy = Automatic
+
+	column area
+		dataType: string
+		lineageTag: bfc6b0f4-0f4a-4ed7-a3e2-8bd28edcd2f8
+		summarizeBy: none
+		sourceColumn: area
+
+		annotation SummarizationSetBy = Automatic
+
+	column environmentSortOrder
+		dataType: int64
+		formatString: 0
+		lineageTag: 9bebed32-c7b6-4810-9059-e726a922572f
+		summarizeBy: sum
+		sourceColumn: environmentSortOrder
+
+		annotation SummarizationSetBy = Automatic
+
+	column environmentDisplayName
+		dataType: string
+		lineageTag: 2b937e5f-7de0-4d21-b791-38dcfa4dbcc9
+		summarizeBy: none
+		sourceColumn: environmentDisplayName
+
+		annotation SummarizationSetBy = Automatic
+
+	column daysDeployedAgo
+		dataType: int64
+		formatString: 0
+		lineageTag: 3c66bc4f-3011-4bd5-96dc-bc74a9116cec
+		summarizeBy: sum
+		sourceColumn: daysDeployedAgo
+
+		annotation SummarizationSetBy = Automatic
+
+	column snapshotModifiedAt
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 1c4b80ef-55cf-42ae-abde-84b96a5b4eca
+		summarizeBy: none
+		sourceColumn: snapshotModifiedAt
+
+		variation Variation
+			isDefault
+			relationship: 87ae0c18-1c2f-494d-99f8-59d38c4b960f
+			defaultHierarchy: LocalDateTable_4dfa5064-c725-4e44-963a-3d33d2a1905a.Datumshierarchie
+
+		annotation SummarizationSetBy = Automatic
+
+	column workloadName
+		dataType: string
+		lineageTag: 372d8aa2-94f0-40dd-8fed-b38095fb5c88
+		summarizeBy: none
+		sourceColumn: workloadName
+
+		annotation SummarizationSetBy = Automatic
+
+	column runtimeContext
+		dataType: string
+		lineageTag: bbf5425f-c649-4868-bd4b-c99fcddb448f
+		summarizeBy: none
+		sourceColumn: runtimeContext
+
+		annotation SummarizationSetBy = Automatic
+
+	column image
+		dataType: string
+		lineageTag: 57b0b577-f900-4283-a595-3e9df2d09c58
+		summarizeBy: none
+		sourceColumn: image
+
+		annotation SummarizationSetBy = Automatic
+
+	column revisionName
+		dataType: string
+		lineageTag: 8296a973-18bf-4249-84e3-c3f0fb6820a9
+		summarizeBy: none
+		sourceColumn: revisionName
+
+		annotation SummarizationSetBy = Automatic
+
+	column buildId
+		dataType: string
+		lineageTag: 2fd0d3e1-b476-409f-b564-cd607908d95d
+		summarizeBy: none
+		sourceColumn: buildId
+
+		annotation SummarizationSetBy = Automatic
+
+	column buildNumber
+		dataType: string
+		lineageTag: defb98c6-fc0d-4e35-82a0-866e52e8b3c6
+		summarizeBy: none
+		sourceColumn: buildNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column pipelineName
+		dataType: string
+		lineageTag: 669e238c-adba-4840-b4fc-7c0a5e59fe32
+		summarizeBy: none
+		sourceColumn: pipelineName
+
+		annotation SummarizationSetBy = Automatic
+
+	column repositoryName
+		dataType: string
+		lineageTag: 167c4a73-bce2-4907-9424-caead178029d
+		summarizeBy: none
+		sourceColumn: repositoryName
+
+		annotation SummarizationSetBy = Automatic
+
+	column sourceBranch
+		dataType: string
+		lineageTag: 69aa361c-03f8-414c-98be-3e009fc727c4
+		summarizeBy: none
+		sourceColumn: sourceBranch
+
+		annotation SummarizationSetBy = Automatic
+
+	column deployedTag
+		dataType: string
+		lineageTag: bfb0c61d-a013-4f0a-ad1f-fe8998176faf
+		summarizeBy: none
+		sourceColumn: deployedTag
+
+		annotation SummarizationSetBy = Automatic
+
+	column sourceVersion
+		dataType: string
+		lineageTag: 35ac63a2-f9c4-4e84-b387-066e914a6a5e
+		summarizeBy: none
+		sourceColumn: sourceVersion
+
+		annotation SummarizationSetBy = Automatic
+
+	column pipelineRunUrl
+		dataType: string
+		lineageTag: e3ceea0d-058f-4391-84a4-5086f095c14d
+		summarizeBy: none
+		sourceColumn: pipelineRunUrl
+
+		annotation SummarizationSetBy = Automatic
+
+	column repoTagUrl
+		dataType: string
+		lineageTag: aee2f0af-2ced-477a-8e5f-a1e13f6d7802
+		summarizeBy: none
+		sourceColumn: repoTagUrl
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Deployment Snapshot' = m
+		mode: import
+		source =
+				let
+				    Source = PowerBI.Dataflows(null),
+				    #"1d7f83bd-9b20-42de-9fc3-0f113e2024b2" = Source{[workspaceId="1d7f83bd-9b20-42de-9fc3-0f113e2024b2"]}[Data],
+				    #"b4231eab-5517-456d-8f37-6d807330f9c9" = #"1d7f83bd-9b20-42de-9fc3-0f113e2024b2"{[dataflowId="b4231eab-5517-456d-8f37-6d807330f9c9"]}[Data],
+				    #"Deployment Snapshot1" = #"b4231eab-5517-456d-8f37-6d807330f9c9"{[entity="Deployment Snapshot"]}[Data]
+				in
+				    #"Deployment Snapshot1"
+

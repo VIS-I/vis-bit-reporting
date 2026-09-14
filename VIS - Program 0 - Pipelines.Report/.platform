@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "VIS - Program 0 - Pipelines"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "b24df1d1-e551-b586-40b1-b916653ad00b"
+  }
+}

@@ -1,0 +1,42 @@
+table 'Pipeline Task Duration Trend'
+	lineageTag: 8f882492-46ab-4b05-92f1-ed63264f2344
+
+	column TaskDisplayName
+		dataType: string
+		lineageTag: 7089ae03-bbd5-48d0-bf4f-39bd9cbe414f
+		summarizeBy: none
+		sourceColumn: TaskDisplayName
+
+	column 'PipelineRunCompletedOn.Date'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: d0949442-aeda-4275-b387-cb680b2c5f9c
+		summarizeBy: none
+		sourceColumn: PipelineRunCompletedOn.Date
+
+		variation Variation
+			isDefault
+			relationship: f5f2e3ee-f06d-4d56-a2b0-5ce5a661f83d
+			defaultHierarchy: LocalDateTable_6a9fcf0a-41aa-40fc-83d4-8f63658d58c0.Datumshierarchie
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column TaskDuration80thPercentileInSeconds
+		dataType: double
+		formatString: #,0
+		lineageTag: b3d9ec5b-6528-483c-b137-1939123e436a
+		summarizeBy: sum
+		sourceColumn: TaskDuration80thPercentileInSeconds
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Pipeline Task Duration Trend' = m
+		mode: import
+		source =
+				let
+				    Source = PowerBI.Dataflows(null),
+				    Workspace = Source{[workspaceId="1d7f83bd-9b20-42de-9fc3-0f113e2024b2"]}[Data],
+				    Pipelines = Workspace{[dataflowId="bbfa2960-daa8-4704-8d12-81d3c53fb0eb"]}[Data]
+				in
+				    Pipelines{[entity="Pipeline Task Duration Trend"]}[Data]
+

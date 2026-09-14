@@ -1,0 +1,80 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "cf3ff5d57622b138a791",
+  "position": {
+    "x": 1020.8201550263833,
+    "y": 184.41465965242799,
+    "z": 4000,
+    "height": 107.90219447748446,
+    "width": 258.96526674596271,
+    "tabOrder": 4000
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Deployments"
+                    }
+                  },
+                  "Property": "Average Deployment Age (Days)"
+                }
+              },
+              "queryRef": "Deployments.Average Deployment Age (Days)",
+              "nativeQueryRef": "Avg. Deployment Age",
+              "displayName": "Avg. Deployment Age"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "labels": [
+        {
+          "properties": {
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Deployments"
+                        }
+                      },
+                      "Property": "Deployment Health Color"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "b16d8f2a7be2881c5423",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Deployments"
+              }
+            },
+            "Property": "Average Deployment Age (Days)"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

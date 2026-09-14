@@ -1,0 +1,54 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "pipelineNameSlicer",
+  "position": {
+    "x": 994.00809458046285,
+    "y": 5.8855742442264249,
+    "z": 0,
+    "height": 56.2399316670525,
+    "width": 279.89175294765664,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "slicer",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Pipeline Outcome Summary"
+                    }
+                  },
+                  "Property": "PipelineName"
+                }
+              },
+              "queryRef": "Pipeline Outcome Summary.PipelineName",
+              "nativeQueryRef": "PipelineName",
+              "active": true
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "data": [
+        {
+          "properties": {
+            "mode": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Dropdown'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

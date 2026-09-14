@@ -1,0 +1,78 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "5b41691ec2eb627ecc59",
+  "position": {
+    "x": 835.75154268015228,
+    "y": 5.8855742442264249,
+    "z": 4002,
+    "height": 56.2399316670525,
+    "width": 164.79607883833989,
+    "tabOrder": 4002
+  },
+  "visual": {
+    "visualType": "slicer",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Pipeline Run History"
+                    }
+                  },
+                  "Property": "tagsText"
+                }
+              },
+              "queryRef": "Pipeline Run History.tagsText",
+              "nativeQueryRef": "Pipeline Tags",
+              "active": true,
+              "displayName": "Pipeline Tags"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "data": [
+        {
+          "properties": {
+            "mode": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Dropdown'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "general": [
+        {
+          "properties": {}
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "d8c50f516569e675589c",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Pipeline Run History"
+              }
+            },
+            "Property": "tagsText"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
+  }
+}

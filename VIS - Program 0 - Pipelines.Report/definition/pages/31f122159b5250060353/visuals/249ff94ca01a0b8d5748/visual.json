@@ -1,0 +1,82 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "249ff94ca01a0b8d5748",
+  "position": {
+    "x": 1020.8201550263833,
+    "y": 304.08800261836529,
+    "z": 3000,
+    "height": 110.5180052526962,
+    "width": 258.96526674596271,
+    "tabOrder": 3000
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Deployments"
+                        }
+                      },
+                      "Property": "daysCreatedToDeployed"
+                    }
+                  },
+                  "Function": 1
+                }
+              },
+              "queryRef": "Sum(Deployments.daysCreatedToDeployed)",
+              "nativeQueryRef": "Avg. Days to Release",
+              "displayName": "Avg. Days to Release"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Aggregation": {
+                "Expression": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "Deployments"
+                      }
+                    },
+                    "Property": "daysCreatedToDeployed"
+                  }
+                },
+                "Function": 1
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "objects": {
+      "labels": [
+        {
+          "properties": {
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1L"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

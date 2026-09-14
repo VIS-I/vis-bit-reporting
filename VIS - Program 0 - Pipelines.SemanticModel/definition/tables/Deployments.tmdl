@@ -1,0 +1,245 @@
+table Deployments
+	lineageTag: 3b44535c-2009-46dd-b870-85d9efd68a09
+
+	measure 'Average Deployment Age (Days)' =
+			
+			AVERAGE ( Deployments[daysDeployedAgo] )
+		formatString: 0
+		lineageTag: b04e1f0f-7d44-484e-a0c0-2c4d22427eed
+
+	measure 'Deployment Age Target (Days)' = 60
+		formatString: 0
+		lineageTag: 80e256cb-bc40-4fbf-a2ab-70f2215c8cd1
+
+	measure 'Deployment Health Status' =
+			
+			VAR DeploymentAge = [Average Deployment Age (Days)]
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        ISBLANK ( DeploymentAge ), "No deployment data",
+			        DeploymentAge < 60, "Green",
+			        DeploymentAge <= 90, "Orange",
+			        "Red"
+			    )
+		lineageTag: f0b33adb-c788-40ed-b7e4-d2d75bf007a9
+
+	measure 'Deployment Health Color' =
+			
+			SWITCH (
+			    [Deployment Health Status],
+			    "Green", "#107C10",
+			    "Orange", "#FF8C00",
+			    "Red", "#D13438",
+			    "#808080"
+			)
+		lineageTag: 8b2913ab-50c8-4265-87e7-b0f1cc40a2fb
+
+	measure 'Deployment Health Index' =
+			
+			VAR DeploymentAge = [Average Deployment Age (Days)]
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        ISBLANK ( DeploymentAge ), BLANK (),
+			        DeploymentAge < 60, 1,
+			        DeploymentAge <= 90, 2,
+			        3
+			    )
+		formatString: 0
+		lineageTag: 14ad3a15-6d8d-4c42-8711-8f3adaa2c675
+
+	measure 'Deployment Age Variance (Days)' =
+			
+			[Average Deployment Age (Days)] - [Deployment Age Target (Days)]
+		formatString: 0
+		lineageTag: 8965ac1b-51c4-44dc-a8ca-9c703d4980da
+
+	column instance
+		dataType: string
+		lineageTag: b33f55fc-b17d-448d-99c0-9664cbff07dc
+		summarizeBy: none
+		sourceColumn: instance
+
+		annotation SummarizationSetBy = Automatic
+
+	column environment
+		dataType: string
+		lineageTag: cb2b708b-7b28-42c1-b99c-809a4f3cb37d
+		summarizeBy: none
+		sourceColumn: environment
+
+		annotation SummarizationSetBy = Automatic
+
+	column locationCode
+		dataType: string
+		lineageTag: ebab373a-5710-4875-8405-7c5681b6838b
+		summarizeBy: none
+		sourceColumn: locationCode
+
+		annotation SummarizationSetBy = Automatic
+
+	column serviceName
+		dataType: string
+		lineageTag: 497125af-9a14-45e0-96d5-1a3481207136
+		summarizeBy: none
+		sourceColumn: serviceName
+
+		annotation SummarizationSetBy = Automatic
+
+	column serviceVersion
+		dataType: string
+		lineageTag: afddf003-8adc-4e33-a237-8bc777d385d0
+		summarizeBy: none
+		sourceColumn: serviceVersion
+
+		annotation SummarizationSetBy = Automatic
+
+	column deploymentDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: b2eabb99-aa8d-46fa-9f18-13f0d6f09a7e
+		summarizeBy: none
+		sourceColumn: deploymentDate
+
+		variation Variation
+			isDefault
+			relationship: 4767de3d-b861-436f-b447-4a69fdf48029
+			defaultHierarchy: LocalDateTable_7a83a992-42d1-466b-a57a-9e990245bc7c.Datumshierarchie
+
+		annotation SummarizationSetBy = Automatic
+
+	column deploymentTime
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 61b420e6-4767-4868-8af1-20fb86003c4b
+		summarizeBy: none
+		sourceColumn: deploymentTime
+
+		variation Variation
+			isDefault
+			relationship: c31637f7-af44-46a2-bd8a-23334b2a64d5
+			defaultHierarchy: LocalDateTable_00fb6f42-3e4d-4717-be45-561309d780c8.Datumshierarchie
+
+		annotation SummarizationSetBy = Automatic
+
+	column tagCreationTime
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 2f4eaadf-378c-481d-8c04-1694dc0c0cbe
+		summarizeBy: none
+		sourceColumn: tagCreationTime
+
+		variation Variation
+			isDefault
+			relationship: 80070f79-528b-48f8-bbd0-015b1e15bff1
+			defaultHierarchy: LocalDateTable_4144212a-9085-4800-b714-0458f872c597.Datumshierarchie
+
+		annotation SummarizationSetBy = Automatic
+
+	column latestVersion
+		dataType: string
+		lineageTag: 467ffc29-2be6-4536-92a7-e1d75018ff84
+		summarizeBy: none
+		sourceColumn: latestVersion
+
+		annotation SummarizationSetBy = Automatic
+
+	column isLatestVersionDeployed
+		dataType: string
+		lineageTag: 142d8900-5195-427b-a1b9-34736e9eb9c8
+		summarizeBy: none
+		sourceColumn: isLatestVersionDeployed
+
+		annotation SummarizationSetBy = Automatic
+
+	column daysCreatedToDeployed
+		dataType: int64
+		formatString: 0
+		lineageTag: 03cb230a-7221-47f5-aeed-05653945c3b1
+		summarizeBy: sum
+		sourceColumn: daysCreatedToDeployed
+
+		annotation SummarizationSetBy = Automatic
+
+	column status
+		dataType: string
+		lineageTag: dbf3d80d-2eb5-427a-b066-b918236aed3c
+		summarizeBy: none
+		sourceColumn: status
+
+		annotation SummarizationSetBy = Automatic
+
+	column platform
+		dataType: string
+		lineageTag: 499bdb0d-0bef-4920-85ac-e3e3e04f147d
+		summarizeBy: none
+		sourceColumn: platform
+
+		annotation SummarizationSetBy = Automatic
+
+	column source
+		dataType: string
+		lineageTag: e427d187-1b0b-4bfe-b181-754843c46789
+		summarizeBy: none
+		sourceColumn: source
+
+		annotation SummarizationSetBy = Automatic
+
+	column area
+		dataType: string
+		lineageTag: 87d40500-d931-46d4-86d7-1d539c0d0e31
+		summarizeBy: none
+		sourceColumn: area
+
+		annotation SummarizationSetBy = Automatic
+
+	column daysDeployedAgo
+		dataType: int64
+		formatString: 0
+		lineageTag: 104bea0d-c0f6-4f52-a545-eea7b2637ce9
+		summarizeBy: sum
+		sourceColumn: daysDeployedAgo
+
+		annotation SummarizationSetBy = Automatic
+
+	column EnvironmentSort =
+			
+			SWITCH(
+			    LOWER ( TRIM ( [environment] ) ),
+			    "dev", "1 - DEV",
+			    "test", "2 - TEST",
+			    "stage", "3 - STAGE",
+			    "prod", "4 - PROD",
+			    "99 - OTHER"
+			)
+		lineageTag: 02f8ab04-dbc2-487c-867e-4208cc015c0f
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Deployment Health' =
+			
+			SWITCH (
+			    TRUE (),
+			    ISBLANK ( [daysDeployedAgo] ), "No deployment data",
+			    [daysDeployedAgo] < 60, "Green",
+			    [daysDeployedAgo] <= 90, "Orange",
+			    "Red"
+			)
+		lineageTag: 0d987b06-7c2d-4d01-b9c4-9496d7cf1269
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Deployments = m
+		mode: import
+		source =
+				let
+				    Source = PowerBI.Dataflows(null),
+				    #"1d7f83bd-9b20-42de-9fc3-0f113e2024b2" = Source{[workspaceId="1d7f83bd-9b20-42de-9fc3-0f113e2024b2"]}[Data],
+				    #"b4231eab-5517-456d-8f37-6d807330f9c9" = #"1d7f83bd-9b20-42de-9fc3-0f113e2024b2"{[dataflowId="b4231eab-5517-456d-8f37-6d807330f9c9"]}[Data],
+				    Deployments1 = #"b4231eab-5517-456d-8f37-6d807330f9c9"{[entity="Deployments"]}[Data]
+				in
+				    Deployments1
+

@@ -1,0 +1,98 @@
+relationship 2aac513b-0f14-4472-973d-2d0eebdd0927
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Pipeline Outcome Pass Trend'.'CompletedOn.Date'
+	toColumn: LocalDateTable_588cffcf-8267-4583-b918-f017e02ffa28.Date
+
+relationship a771cb04-1b88-4752-af30-1bb139d287a9
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Pipeline Duration Trend'.'CompletedOn.Date'
+	toColumn: LocalDateTable_450395b0-88e8-4950-974f-8d7e6a42e357.Date
+
+relationship d56762da-da60-4544-8c50-b355b0283ac6
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Pipeline Jobs Failures'.'PipelineRunCompletedOn.Date'
+	toColumn: LocalDateTable_f1cd4fb2-972f-464f-af9d-e866c6da833e.Date
+
+relationship f5f2e3ee-f06d-4d56-a2b0-5ce5a661f83d
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Pipeline Task Duration Trend'.'PipelineRunCompletedOn.Date'
+	toColumn: LocalDateTable_6a9fcf0a-41aa-40fc-83d4-8f63658d58c0.Date
+
+relationship 087b00f2-d4eb-4a95-a16c-7c8c90437ef7
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Pipeline Task Failures'.'PipelineRunCompletedOn.Date'
+	toColumn: LocalDateTable_a5c0b10a-3e00-4d71-b7d5-0e7dad963c98.Date
+
+relationship 4767de3d-b861-436f-b447-4a69fdf48029
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Deployments.deploymentDate
+	toColumn: LocalDateTable_7a83a992-42d1-466b-a57a-9e990245bc7c.Date
+
+relationship c31637f7-af44-46a2-bd8a-23334b2a64d5
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Deployments.deploymentTime
+	toColumn: LocalDateTable_00fb6f42-3e4d-4717-be45-561309d780c8.Date
+
+relationship 80070f79-528b-48f8-bbd0-015b1e15bff1
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Deployments.tagCreationTime
+	toColumn: LocalDateTable_4144212a-9085-4800-b714-0458f872c597.Date
+
+relationship f16d5c7b-e3b2-45c6-bb58-da8b446daa6c
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Deployment Snapshot'.deploymentDate
+	toColumn: LocalDateTable_446ead61-7893-4bd8-aa81-07d74c6f7755.Date
+
+relationship bcf8e17c-fccf-4479-8dbb-516b1a8ae992
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Pipeline Run History'.'Date accessed'
+	toColumn: LocalDateTable_c253d84f-db59-417a-a2e0-399b95594a45.Date
+
+relationship 9ce94ccc-f654-4728-a770-0dd8e531533d
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Pipeline Run History'.'Date created'
+	toColumn: LocalDateTable_aa1ee7f0-5be4-49a5-acfb-94799137ffd5.Date
+
+relationship a2cb84aa-fdee-4b28-9f7f-60c4bf8d88ad
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Pipeline Run History'.collectedAt
+	toColumn: LocalDateTable_8729a547-5727-4025-bd4b-0c249f2cbd59.Date
+
+relationship 47f8162d-15d6-4bc7-bed2-72cf966de6da
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Pipeline Run History'.queueTime
+	toColumn: LocalDateTable_fceaeee2-387b-4fbe-9b0c-5af83fc69564.Date
+
+relationship c40c901a-7de4-4548-9482-0f82ebfbec37
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Pipeline Run History'.startTime
+	toColumn: LocalDateTable_98f80276-ea77-48f3-a23b-5195e9f3efff.Date
+
+relationship 6429d892-ff21-4fde-8ffd-2b1d10d15278
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Pipeline Run History'.finishTime
+	toColumn: LocalDateTable_d6bc9828-981b-4652-aad6-769b6c35b056.Date
+
+relationship 271462bd-5eb7-43e8-b27f-c3c4d2da92d8
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Pipeline Run History'.stageStartTime
+	toColumn: LocalDateTable_de223169-f2e1-4c04-aa5f-307982f4e4dd.Date
+
+relationship 6708e919-fbf1-4093-83cc-5ac5ab232c9d
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Pipeline Run History'.stageFinishTime
+	toColumn: LocalDateTable_a7a85dd2-7ecb-4200-99a4-1b606486380e.Date
+
+relationship AutoDetected_0e26a924-bdaf-4b3e-944f-e67c8934ef12
+	fromColumn: 'Pipeline Run History'.pipelineName
+	toColumn: 'Pipeline Outcome Summary'.PipelineName
+
+relationship 87ae0c18-1c2f-494d-99f8-59d38c4b960f
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Deployment Snapshot'.snapshotModifiedAt
+	toColumn: LocalDateTable_4dfa5064-c725-4e44-963a-3d33d2a1905a.Date
+
+relationship AutoDetected_89a5b950-6146-4785-b343-600f0f071936
+	fromColumn: 'Deployment Snapshot'.pipelineName
+	toColumn: 'Pipeline Outcome Summary'.PipelineName
+

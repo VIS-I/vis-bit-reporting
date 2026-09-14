@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "VIS - Program 0 - Pipelines"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "f0456799-9fc7-8aae-4b90-f9920aa5fdaa"
+  }
+}

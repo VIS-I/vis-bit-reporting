@@ -1,0 +1,260 @@
+table 'Pipeline Run History'
+	lineageTag: 3df8663c-d592-4f92-9abd-212efb3e510c
+
+	column Name
+		dataType: string
+		lineageTag: 56e86b04-0238-4cea-adc8-b7a369ec8936
+		summarizeBy: none
+		sourceColumn: Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Extension
+		dataType: string
+		lineageTag: 312f8c67-d338-4081-ae1c-5214d7754317
+		summarizeBy: none
+		sourceColumn: Extension
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Date accessed'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: cf817c3f-99aa-42b2-8986-2269eddc27ee
+		summarizeBy: none
+		sourceColumn: Date accessed
+
+		variation Variation
+			isDefault
+			relationship: bcf8e17c-fccf-4479-8dbb-516b1a8ae992
+			defaultHierarchy: LocalDateTable_c253d84f-db59-417a-a2e0-399b95594a45.Datumshierarchie
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Date created'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: c45c8b2f-3bd9-4db3-b7aa-267c755d5f28
+		summarizeBy: none
+		sourceColumn: Date created
+
+		variation Variation
+			isDefault
+			relationship: 9ce94ccc-f654-4728-a770-0dd8e531533d
+			defaultHierarchy: LocalDateTable_aa1ee7f0-5be4-49a5-acfb-94799137ffd5.Datumshierarchie
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Folder Path'
+		dataType: string
+		lineageTag: 9d831d97-a54e-4d51-8637-5868c9ec8b1d
+		summarizeBy: none
+		sourceColumn: Folder Path
+
+		annotation SummarizationSetBy = Automatic
+
+	column collectedAt
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: b146228c-de90-4d10-a8e4-b3f7f1805fa1
+		summarizeBy: none
+		sourceColumn: collectedAt
+
+		variation Variation
+			isDefault
+			relationship: a2cb84aa-fdee-4b28-9f7f-60c4bf8d88ad
+			defaultHierarchy: LocalDateTable_8729a547-5727-4025-bd4b-0c249f2cbd59.Datumshierarchie
+
+		annotation SummarizationSetBy = Automatic
+
+	column runId
+		dataType: int64
+		formatString: 0
+		lineageTag: 947f2042-775e-4bf3-a1e1-d590d4e37bcd
+		summarizeBy: count
+		sourceColumn: runId
+
+		annotation SummarizationSetBy = Automatic
+
+	column buildNumber
+		dataType: string
+		lineageTag: 04d88113-2f4d-4178-bbaa-acf9de8b2b84
+		summarizeBy: none
+		sourceColumn: buildNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column pipelineName
+		dataType: string
+		lineageTag: 32957a0e-6bf7-446e-bb27-78a681b3c8da
+		summarizeBy: none
+		sourceColumn: pipelineName
+
+		annotation SummarizationSetBy = Automatic
+
+	column pipelineId
+		dataType: int64
+		formatString: 0
+		lineageTag: e2f93b7c-c6b6-4a47-b859-73cb14daa001
+		summarizeBy: count
+		sourceColumn: pipelineId
+
+		annotation SummarizationSetBy = Automatic
+
+	column status
+		dataType: string
+		lineageTag: b85b86cc-269a-4d5d-9a77-7c63cd232cdb
+		summarizeBy: none
+		sourceColumn: status
+
+		annotation SummarizationSetBy = Automatic
+
+	column result
+		dataType: string
+		lineageTag: fcc9a0a5-da08-491c-a065-16e775e26bd7
+		summarizeBy: none
+		sourceColumn: result
+
+		annotation SummarizationSetBy = Automatic
+
+	column sourceBranch
+		dataType: string
+		lineageTag: aa09634a-ba65-42e6-b24d-5250030614f4
+		summarizeBy: none
+		sourceColumn: sourceBranch
+
+		annotation SummarizationSetBy = Automatic
+
+	column queueTime
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 10b9da7a-51ce-4199-9c4f-04a48bee82f7
+		summarizeBy: none
+		sourceColumn: queueTime
+
+		variation Variation
+			isDefault
+			relationship: 47f8162d-15d6-4bc7-bed2-72cf966de6da
+			defaultHierarchy: LocalDateTable_fceaeee2-387b-4fbe-9b0c-5af83fc69564.Datumshierarchie
+
+		annotation SummarizationSetBy = Automatic
+
+	column startTime
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: aea6c64f-fa8c-43da-9b79-a1907766e911
+		summarizeBy: none
+		sourceColumn: startTime
+
+		variation Variation
+			isDefault
+			relationship: c40c901a-7de4-4548-9482-0f82ebfbec37
+			defaultHierarchy: LocalDateTable_98f80276-ea77-48f3-a23b-5195e9f3efff.Datumshierarchie
+
+		annotation SummarizationSetBy = Automatic
+
+	column finishTime
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 4d59ea65-daad-4a0c-bf41-a09d5bc666a6
+		summarizeBy: none
+		sourceColumn: finishTime
+
+		variation Variation
+			isDefault
+			relationship: 6429d892-ff21-4fde-8ffd-2b1d10d15278
+			defaultHierarchy: LocalDateTable_d6bc9828-981b-4652-aad6-769b6c35b056.Datumshierarchie
+
+		annotation SummarizationSetBy = Automatic
+
+	column requestedFor
+		dataType: string
+		lineageTag: 77e9b072-ccd5-4321-b231-89526d4a013e
+		summarizeBy: none
+		sourceColumn: requestedFor
+
+		annotation SummarizationSetBy = Automatic
+
+	column stageName
+		dataType: string
+		lineageTag: 79896184-3e35-4b67-90d9-b0f1a3eb3800
+		summarizeBy: none
+		sourceColumn: stageName
+
+		annotation SummarizationSetBy = Automatic
+
+	column stageIdentifier
+		dataType: string
+		lineageTag: 7250a9d6-5207-42e0-908c-3919a2083c2b
+		summarizeBy: none
+		sourceColumn: stageIdentifier
+
+		annotation SummarizationSetBy = Automatic
+
+	column stageState
+		dataType: string
+		lineageTag: 1f31a35f-27d1-402c-852b-302fa049e7f8
+		summarizeBy: none
+		sourceColumn: stageState
+
+		annotation SummarizationSetBy = Automatic
+
+	column stageResult
+		dataType: string
+		lineageTag: f0364923-3f21-4a5e-b447-6f8ac1d07176
+		summarizeBy: none
+		sourceColumn: stageResult
+
+		annotation SummarizationSetBy = Automatic
+
+	column stageStartTime
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 23f825bb-e52e-414e-b59b-cab343961832
+		summarizeBy: none
+		sourceColumn: stageStartTime
+
+		variation Variation
+			isDefault
+			relationship: 271462bd-5eb7-43e8-b27f-c3c4d2da92d8
+			defaultHierarchy: LocalDateTable_de223169-f2e1-4c04-aa5f-307982f4e4dd.Datumshierarchie
+
+		annotation SummarizationSetBy = Automatic
+
+	column stageFinishTime
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 754e9ec5-9956-4ed6-a59e-2097f31adc66
+		summarizeBy: none
+		sourceColumn: stageFinishTime
+
+		variation Variation
+			isDefault
+			relationship: 6708e919-fbf1-4093-83cc-5ac5ab232c9d
+			defaultHierarchy: LocalDateTable_a7a85dd2-7ecb-4200-99a4-1b606486380e.Datumshierarchie
+
+		annotation SummarizationSetBy = Automatic
+
+	column tagsText
+		dataType: string
+		lineageTag: 8dbf5aef-9ee2-4350-9fca-24b8602fada1
+		summarizeBy: none
+		sourceColumn: tagsText
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Pipeline Run History' = m
+		mode: import
+		source =
+				let
+				    Source = PowerBI.Dataflows(null),
+				    #"1d7f83bd-9b20-42de-9fc3-0f113e2024b2" = Source{[workspaceId="1d7f83bd-9b20-42de-9fc3-0f113e2024b2"]}[Data],
+				    #"b4231eab-5517-456d-8f37-6d807330f9c9" = #"1d7f83bd-9b20-42de-9fc3-0f113e2024b2"{[dataflowId="b4231eab-5517-456d-8f37-6d807330f9c9"]}[Data],
+				    #"Pipeline Run History1" = #"b4231eab-5517-456d-8f37-6d807330f9c9"{[entity="Pipeline Run History"]}[Data]
+				in
+				    #"Pipeline Run History1"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

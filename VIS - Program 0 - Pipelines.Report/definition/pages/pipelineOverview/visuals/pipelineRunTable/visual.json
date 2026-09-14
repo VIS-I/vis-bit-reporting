@@ -1,0 +1,157 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "pipelineRunTable",
+  "position": {
+    "x": 650,
+    "y": 100,
+    "z": 2000,
+    "height": 280,
+    "width": 610,
+    "tabOrder": 2000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Pipeline Outcome Summary"
+                    }
+                  },
+                  "Property": "PipelineName"
+                }
+              },
+              "queryRef": "Pipeline Outcome Summary.PipelineName",
+              "active": true
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Pipeline Outcome Summary"
+                    }
+                  },
+                  "Property": "Pipeline Runs"
+                }
+              },
+              "queryRef": "Pipeline Outcome Summary.Pipeline Runs",
+              "active": true
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Pipeline Outcome Summary"
+                    }
+                  },
+                  "Property": "Success Rate"
+                }
+              },
+              "queryRef": "Pipeline Outcome Summary.Success Rate",
+              "active": true
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Pipeline Outcome Summary"
+                    }
+                  },
+                  "Property": "Failed Runs"
+                }
+              },
+              "queryRef": "Pipeline Outcome Summary.Failed Runs",
+              "active": true
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Pipeline Outcome Summary"
+                  }
+                },
+                "Property": "Success Rate"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ]
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "23a3ae6008ce225454e6",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Pipeline Outcome Summary"
+              }
+            },
+            "Property": "PipelineName"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "c07bfc88922ca0ad07a1",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Pipeline Outcome Summary"
+              }
+            },
+            "Property": "Pipeline Runs"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "28429ed12edcec6c5d11",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Pipeline Outcome Summary"
+              }
+            },
+            "Property": "Success Rate"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "e98b6a0237d8cebd6820",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Pipeline Outcome Summary"
+              }
+            },
+            "Property": "Failed Runs"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

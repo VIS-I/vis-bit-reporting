@@ -1,0 +1,45 @@
+model 'VIS - Program 0 - Pipelines'
+	culture: de-DE
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: de-DE
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_ProTooling = ["TMDL-Extension","DevMode"]
+
+annotation PBI_QueryOrder = ["Pipeline Outcome Summary","Pipeline Outcome Pass Trend","Pipeline Duration Trend","Pipeline Jobs Failures","Pipeline Task Duration Trend","Pipeline Task Failures","Deployments","Deployment Snapshot","Pipeline Run History"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+ref table 'Pipeline Outcome Summary'
+ref table 'Pipeline Outcome Pass Trend'
+ref table 'Pipeline Duration Trend'
+ref table 'Pipeline Jobs Failures'
+ref table 'Pipeline Task Duration Trend'
+ref table 'Pipeline Task Failures'
+ref table DateTableTemplate_90875423-ed00-48cd-aa3d-3a1b53db80ce
+ref table LocalDateTable_588cffcf-8267-4583-b918-f017e02ffa28
+ref table LocalDateTable_450395b0-88e8-4950-974f-8d7e6a42e357
+ref table LocalDateTable_f1cd4fb2-972f-464f-af9d-e866c6da833e
+ref table LocalDateTable_6a9fcf0a-41aa-40fc-83d4-8f63658d58c0
+ref table LocalDateTable_a5c0b10a-3e00-4d71-b7d5-0e7dad963c98
+ref table Deployments
+ref table LocalDateTable_7a83a992-42d1-466b-a57a-9e990245bc7c
+ref table LocalDateTable_00fb6f42-3e4d-4717-be45-561309d780c8
+ref table LocalDateTable_4144212a-9085-4800-b714-0458f872c597
+ref table 'Deployment Snapshot'
+ref table LocalDateTable_446ead61-7893-4bd8-aa81-07d74c6f7755
+ref table 'Pipeline Run History'
+ref table LocalDateTable_c253d84f-db59-417a-a2e0-399b95594a45
+ref table LocalDateTable_aa1ee7f0-5be4-49a5-acfb-94799137ffd5
+ref table LocalDateTable_8729a547-5727-4025-bd4b-0c249f2cbd59
+ref table LocalDateTable_fceaeee2-387b-4fbe-9b0c-5af83fc69564
+ref table LocalDateTable_98f80276-ea77-48f3-a23b-5195e9f3efff
+ref table LocalDateTable_d6bc9828-981b-4652-aad6-769b6c35b056
+ref table LocalDateTable_de223169-f2e1-4c04-aa5f-307982f4e4dd
+ref table LocalDateTable_a7a85dd2-7ecb-4200-99a4-1b606486380e
+ref table LocalDateTable_4dfa5064-c725-4e44-963a-3d33d2a1905a
+
+ref cultureInfo de-DE
+
