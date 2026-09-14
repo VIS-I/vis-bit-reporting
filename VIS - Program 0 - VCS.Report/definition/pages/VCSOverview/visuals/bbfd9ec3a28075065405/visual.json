@@ -1,0 +1,334 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "bbfd9ec3a28075065405",
+  "position": {
+    "x": 32.097264437689972,
+    "y": 132.27963525835867,
+    "z": 0,
+    "height": 475.62310030395139,
+    "width": 1224.5592705167173,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "pivotTable",
+    "query": {
+      "queryState": {
+        "Columns": {
+          "projections": [
+            {
+              "field": {
+                "HierarchyLevel": {
+                  "Expression": {
+                    "Hierarchy": {
+                      "Expression": {
+                        "PropertyVariationSource": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "SonarQube"
+                            }
+                          },
+                          "Name": "Variation",
+                          "Property": "date"
+                        }
+                      },
+                      "Hierarchy": "Datumshierarchie"
+                    }
+                  },
+                  "Level": "Jahr"
+                }
+              },
+              "queryRef": "SonarQube.date.Variation.Datumshierarchie.Jahr",
+              "nativeQueryRef": "date Jahr",
+              "active": true
+            },
+            {
+              "field": {
+                "HierarchyLevel": {
+                  "Expression": {
+                    "Hierarchy": {
+                      "Expression": {
+                        "PropertyVariationSource": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "SonarQube"
+                            }
+                          },
+                          "Name": "Variation",
+                          "Property": "date"
+                        }
+                      },
+                      "Hierarchy": "Datumshierarchie"
+                    }
+                  },
+                  "Level": "Monat"
+                }
+              },
+              "queryRef": "SonarQube.date.Variation.Datumshierarchie.Monat",
+              "nativeQueryRef": "date Monat",
+              "active": true
+            }
+          ]
+        },
+        "Rows": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "SonarQube"
+                    }
+                  },
+                  "Property": "portfolio_key"
+                }
+              },
+              "queryRef": "SonarQube.portfolio_key",
+              "nativeQueryRef": "portfolio_key",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "SonarQube"
+                    }
+                  },
+                  "Property": "metric"
+                }
+              },
+              "queryRef": "SonarQube.metric",
+              "nativeQueryRef": "metric",
+              "active": false
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "SonarQube"
+                    }
+                  },
+                  "Property": "project_key"
+                }
+              },
+              "queryRef": "SonarQube.project_key",
+              "nativeQueryRef": "project_key",
+              "active": false
+            }
+          ]
+        },
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "SonarQube"
+                        }
+                      },
+                      "Property": "kpi_percent"
+                    }
+                  },
+                  "Function": 1
+                }
+              },
+              "queryRef": "Sum(SonarQube.kpi_percent)",
+              "nativeQueryRef": "Durchschnitt von kpi_percent"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Aggregation": {
+                "Expression": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "SonarQube"
+                      }
+                    },
+                    "Property": "kpi_percent"
+                  }
+                },
+                "Function": 1
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "expansionStates": [
+      {
+        "roles": [
+          "Rows"
+        ],
+        "levels": [
+          {
+            "queryRefs": [
+              "SonarQube.portfolio_key"
+            ],
+            "isCollapsed": true,
+            "identityKeys": [
+              {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "SonarQube"
+                    }
+                  },
+                  "Property": "portfolio_key"
+                }
+              }
+            ],
+            "isPinned": true
+          },
+          {
+            "queryRefs": [
+              "SonarQube.metric"
+            ],
+            "isCollapsed": true,
+            "identityKeys": [
+              {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "SonarQube"
+                    }
+                  },
+                  "Property": "metric"
+                }
+              }
+            ],
+            "isPinned": true
+          },
+          {
+            "queryRefs": [
+              "SonarQube.project_key"
+            ],
+            "isCollapsed": true,
+            "identityKeys": [
+              {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "SonarQube"
+                    }
+                  },
+                  "Property": "project_key"
+                }
+              }
+            ],
+            "isPinned": true
+          }
+        ],
+        "root": {}
+      }
+    ],
+    "objects": {
+      "columnFormatting": [
+        {
+          "properties": {
+            "dataBars": {
+              "positiveColor": {
+                "solid": {
+                  "color": {
+                    "expr": {
+                      "Literal": {
+                        "Value": "'#9fd4ff'"
+                      }
+                    }
+                  }
+                }
+              },
+              "negativeColor": {
+                "solid": {
+                  "color": {
+                    "expr": {
+                      "Literal": {
+                        "Value": "'minColor'"
+                      }
+                    }
+                  }
+                }
+              },
+              "axisColor": {
+                "solid": {
+                  "color": {
+                    "expr": {
+                      "Literal": {
+                        "Value": "'foreground'"
+                      }
+                    }
+                  }
+                }
+              },
+              "reverseDirection": {
+                "expr": {
+                  "Literal": {
+                    "Value": "false"
+                  }
+                }
+              },
+              "hideText": {
+                "expr": {
+                  "Literal": {
+                    "Value": "false"
+                  }
+                }
+              },
+              "totalMatchingOption": {
+                "expr": {
+                  "Literal": {
+                    "Value": "1L"
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Sum(SonarQube.kpi_percent)"
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "9d44e3d7baae16ded3c3",
+        "field": {
+          "HierarchyLevel": {
+            "Expression": {
+              "Hierarchy": {
+                "Expression": {
+                  "PropertyVariationSource": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "SonarQube"
+                      }
+                    },
+                    "Name": "Variation",
+                    "Property": "date"
+                  }
+                },
+                "Hierarchy": "Datumshierarchie"
+              }
+            },
+            "Level": "Jahr"
+          }
+        },
+        "type": "Categorical",
+        "howCreated": "Drill"
+      }
+    ]
+  }
+}

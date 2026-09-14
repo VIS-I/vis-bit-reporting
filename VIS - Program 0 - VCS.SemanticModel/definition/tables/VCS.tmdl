@@ -1,0 +1,180 @@
+table VCS
+	lineageTag: 45044082-a437-43b7-b0b3-25294e5a0ae6
+
+	column WorkItemId
+		dataType: int64
+		formatString: 0
+		lineageTag: 7d8b4b1e-f296-4b8f-9070-0ec2b3aa910b
+		summarizeBy: count
+		sourceColumn: WorkItemId
+
+		annotation SummarizationSetBy = Automatic
+
+	column WorkItemType
+		dataType: string
+		lineageTag: 7f632fff-452a-47a2-8528-d73e4e0656f2
+		summarizeBy: none
+		sourceColumn: WorkItemType
+
+		annotation SummarizationSetBy = Automatic
+
+	column Title
+		dataType: string
+		lineageTag: e1627d06-3e25-459d-8c6a-06b9532dbe0b
+		summarizeBy: none
+		sourceColumn: Title
+
+		annotation SummarizationSetBy = Automatic
+
+	column Developer
+		dataType: string
+		lineageTag: c41180d4-9400-46f3-af53-0dde36483e65
+		summarizeBy: none
+		sourceColumn: Developer
+
+		annotation SummarizationSetBy = Automatic
+
+	column ActionDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 31147d93-41b4-4f59-add1-308dbcfe35e2
+		summarizeBy: none
+		sourceColumn: ActionDate
+
+		variation Variation
+			isDefault
+			relationship: 83a31834-ff47-4bbf-9cd9-d083919c1481
+			defaultHierarchy: LocalDateTable_d1787bff-785a-4c84-bce2-513284b8ffe4.Datumshierarchie
+
+		annotation SummarizationSetBy = Automatic
+
+	column State
+		dataType: string
+		lineageTag: 664aee95-c766-487e-8a20-6004cff1bb42
+		summarizeBy: none
+		sourceColumn: State
+
+		annotation SummarizationSetBy = Automatic
+
+	column Priority
+		dataType: double
+		lineageTag: 49f813a8-ad29-4b43-83bb-2e49a0626c7e
+		summarizeBy: sum
+		sourceColumn: Priority
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ActualEffort
+		dataType: double
+		lineageTag: 743a066f-fec0-481d-94e4-07bb230355eb
+		summarizeBy: sum
+		sourceColumn: ActualEffort
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column EstimatedEffort
+		dataType: double
+		lineageTag: 5660b098-d36c-45f9-9f5e-5db674f2ca04
+		summarizeBy: sum
+		sourceColumn: EstimatedEffort
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column StoryPoints
+		dataType: double
+		lineageTag: 1e9b3dd7-9261-4727-92ad-8a8c8a9caf0c
+		summarizeBy: sum
+		sourceColumn: StoryPoints
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column AreaSK
+		dataType: string
+		lineageTag: 9823f474-5edd-44c0-a003-f58fd629308f
+		summarizeBy: none
+		sourceColumn: AreaSK
+
+		annotation SummarizationSetBy = Automatic
+
+	column AreaName
+		dataType: string
+		lineageTag: 05e8b48a-09bd-489b-9353-15354f5afa2c
+		summarizeBy: none
+		sourceColumn: AreaName
+
+		annotation SummarizationSetBy = Automatic
+
+	column IterationSK
+		dataType: string
+		lineageTag: bcefea7e-8815-447e-a8e9-48843155ad20
+		summarizeBy: none
+		sourceColumn: IterationSK
+
+		annotation SummarizationSetBy = Automatic
+
+	column Action
+		dataType: string
+		lineageTag: b6afce52-31e8-4fa5-b019-8a6316b52c89
+		summarizeBy: none
+		sourceColumn: Action
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: 4b659cf3-5429-48e6-845c-d1cd14d5e623
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month
+		dataType: int64
+		formatString: 0
+		lineageTag: 1a2c7a6e-545c-422e-ab51-ee989b168ccb
+		summarizeBy: sum
+		sourceColumn: Month
+
+		annotation SummarizationSetBy = Automatic
+
+	column WeekNumber
+		dataType: int64
+		formatString: 0
+		lineageTag: 48b916f6-0605-4001-8b62-41c0ba43117f
+		summarizeBy: sum
+		sourceColumn: WeekNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column YearMonth
+		dataType: string
+		lineageTag: 509362e4-6dd8-4382-aeed-dffe2f66f34c
+		summarizeBy: none
+		sourceColumn: YearMonth
+
+		annotation SummarizationSetBy = Automatic
+
+	partition VCS = m
+		mode: import
+		source =
+				let
+				    Source = PowerBI.Dataflows(null),
+				    #"1d7f83bd-9b20-42de-9fc3-0f113e2024b2" = Source{[workspaceId="1d7f83bd-9b20-42de-9fc3-0f113e2024b2"]}[Data],
+				    #"1d72647c-62cb-46ba-91f9-0eb5c71bb512" = #"1d7f83bd-9b20-42de-9fc3-0f113e2024b2"{[dataflowId="1d72647c-62cb-46ba-91f9-0eb5c71bb512"]}[Data],
+				    VCS1 = #"1d72647c-62cb-46ba-91f9-0eb5c71bb512"{[entity="VCS"]}[Data]
+				in
+				    VCS1
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

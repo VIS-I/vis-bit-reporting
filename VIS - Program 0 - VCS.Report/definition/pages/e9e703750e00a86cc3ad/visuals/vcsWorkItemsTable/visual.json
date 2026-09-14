@@ -1,0 +1,132 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "vcsWorkItemsTable",
+  "position": {
+    "x": 5.2316215504234886,
+    "y": 379.94651509950586,
+    "z": 5000,
+    "height": 325.01448882005923,
+    "width": 1268.668225977696,
+    "tabOrder": 5000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "VCS"
+                    }
+                  },
+                  "Property": "WorkItemId"
+                }
+              },
+              "queryRef": "VCS.WorkItemId",
+              "nativeQueryRef": "WorkItemId"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "VCS"
+                    }
+                  },
+                  "Property": "Title"
+                }
+              },
+              "queryRef": "VCS.Title",
+              "nativeQueryRef": "Title"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "VCS"
+                    }
+                  },
+                  "Property": "AreaName"
+                }
+              },
+              "queryRef": "VCS.AreaName",
+              "nativeQueryRef": "AreaName"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "VCS"
+                    }
+                  },
+                  "Property": "Developer"
+                }
+              },
+              "queryRef": "VCS.Developer",
+              "nativeQueryRef": "Developer"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "VCS"
+                    }
+                  },
+                  "Property": "State"
+                }
+              },
+              "queryRef": "VCS.State",
+              "nativeQueryRef": "State"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "VCS"
+                        }
+                      },
+                      "Property": "EstimatedEffort"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(VCS.EstimatedEffort)",
+              "nativeQueryRef": "Estimated"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "VCS"
+                        }
+                      },
+                      "Property": "ActualEffort"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(VCS.ActualEffort)",
+              "nativeQueryRef": "Actual"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

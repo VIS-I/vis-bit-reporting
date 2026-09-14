@@ -1,0 +1,15 @@
+relationship a23c7b25-8bb5-4360-a1b4-cc65677e302a
+	joinOnDateBehavior: datePartOnly
+	fromColumn: SonarQube.date
+	toColumn: LocalDateTable_1426061b-84bf-4344-ac74-a7cbda7df42d.Date
+
+relationship 9c4b8945-9f24-481d-aed0-c460e82294c9
+	joinOnDateBehavior: datePartOnly
+	fromColumn: SonarQube.month
+	toColumn: LocalDateTable_acf86cac-b9a1-4822-8e94-7cd6a906a5ee.Date
+
+relationship 83a31834-ff47-4bbf-9cd9-d083919c1481
+	joinOnDateBehavior: datePartOnly
+	fromColumn: VCS.ActionDate
+	toColumn: LocalDateTable_d1787bff-785a-4c84-bce2-513284b8ffe4.Date
+

@@ -1,0 +1,23 @@
+model Model
+	culture: de-DE
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: de-DE
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["SonarQube","VCS"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_ProTooling = ["WebModelingEdit","TMDL-Extension","DevMode"]
+
+ref table SonarQube
+ref table DateTableTemplate_bb0c0fce-a21f-49e7-8dd6-5da2328c57a5
+ref table LocalDateTable_1426061b-84bf-4344-ac74-a7cbda7df42d
+ref table LocalDateTable_acf86cac-b9a1-4822-8e94-7cd6a906a5ee
+ref table VCS
+ref table LocalDateTable_d1787bff-785a-4c84-bce2-513284b8ffe4
+
+ref cultureInfo de-DE
+
