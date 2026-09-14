@@ -1,0 +1,349 @@
+table 'Pull Requests Review Turnaround History'
+	lineageTag: 14527ae5-2068-4048-84d1-d834b949e3de
+
+	measure 'Executive Median PR Review Queue Age (Selected Month)' =
+			VAR SelectedMonthStart = 'Reporting Month'[Executive Selected Reporting Month Start]
+			VAR SelectedMonthEnd = 'Reporting Month'[Executive Selected Reporting Month End]
+			VAR SnapshotDate =
+				CALCULATE (
+					MAX ( 'Pull Requests Review Turnaround History'[snapshotDate] ),
+					REMOVEFILTERS ( 'Pull Requests Review Turnaround History'[snapshotDate] ),
+					'Pull Requests Review Turnaround History'[snapshotDate] >= SelectedMonthStart,
+					'Pull Requests Review Turnaround History'[snapshotDate] <= SelectedMonthEnd
+				)
+			VAR SnapshotTimestamp =
+				CALCULATE (
+					MAX ( 'Pull Requests Review Turnaround History'[extractedAt] ),
+					REMOVEFILTERS ( 'Pull Requests Review Turnaround History'[snapshotDate] ),
+					'Pull Requests Review Turnaround History'[snapshotDate] = SnapshotDate
+				)
+			RETURN
+				CALCULATE (
+					MEDIANX (
+						FILTER (
+							'Pull Requests Review Turnaround History',
+							'Pull Requests Review Turnaround History'[status] = "active" &&
+							'Pull Requests Review Turnaround History'[isDraft] = FALSE () &&
+							'Pull Requests Review Turnaround History'[createdByType] = "Human" &&
+							'Pull Requests Review Turnaround History'[reviewerCount] > 0 &&
+							'Pull Requests Review Turnaround History'[waitingReviewerCount] > 0 &&
+							NOT ISBLANK ( 'Pull Requests Review Turnaround History'[creationDate] )
+						),
+						DIVIDE (
+							DATEDIFF (
+								'Pull Requests Review Turnaround History'[creationDate],
+								SnapshotTimestamp,
+								MINUTE
+							),
+							1440
+						)
+					),
+					'Pull Requests Review Turnaround History'[snapshotDate] = SnapshotDate,
+					REMOVEFILTERS ( 'Pull Requests Review Turnaround History'[extractedAt] )
+				)
+		formatString: #,0.0 " days"
+		lineageTag: 621d7f26-1b7a-4a3d-8624-cce6dd738bdf
+
+	measure 'Executive Median PR Review Queue Age (Previous Month)' =
+			VAR PreviousMonthStart = 'Reporting Month'[Executive Previous Reporting Month Start]
+			VAR PreviousMonthEnd = 'Reporting Month'[Executive Selected Reporting Month Start] - 1
+			VAR SnapshotDate =
+				CALCULATE (
+					MAX ( 'Pull Requests Review Turnaround History'[snapshotDate] ),
+					REMOVEFILTERS ( 'Pull Requests Review Turnaround History'[snapshotDate] ),
+					'Pull Requests Review Turnaround History'[snapshotDate] >= PreviousMonthStart,
+					'Pull Requests Review Turnaround History'[snapshotDate] <= PreviousMonthEnd
+				)
+			VAR SnapshotTimestamp =
+				CALCULATE (
+					MAX ( 'Pull Requests Review Turnaround History'[extractedAt] ),
+					REMOVEFILTERS ( 'Pull Requests Review Turnaround History'[snapshotDate] ),
+					'Pull Requests Review Turnaround History'[snapshotDate] = SnapshotDate
+				)
+			RETURN
+				CALCULATE (
+					MEDIANX (
+						FILTER (
+							'Pull Requests Review Turnaround History',
+							'Pull Requests Review Turnaround History'[status] = "active" &&
+							'Pull Requests Review Turnaround History'[isDraft] = FALSE () &&
+							'Pull Requests Review Turnaround History'[createdByType] = "Human" &&
+							'Pull Requests Review Turnaround History'[reviewerCount] > 0 &&
+							'Pull Requests Review Turnaround History'[waitingReviewerCount] > 0 &&
+							NOT ISBLANK ( 'Pull Requests Review Turnaround History'[creationDate] )
+						),
+						DIVIDE (
+							DATEDIFF (
+								'Pull Requests Review Turnaround History'[creationDate],
+								SnapshotTimestamp,
+								MINUTE
+							),
+							1440
+						)
+					),
+					'Pull Requests Review Turnaround History'[snapshotDate] = SnapshotDate,
+					REMOVEFILTERS ( 'Pull Requests Review Turnaround History'[extractedAt] )
+				)
+		formatString: #,0.0 " days"
+		lineageTag: 9c4f0b04-2654-48de-9964-0e5eced2c26f
+
+	measure 'Executive PR Review Queue Age MoM Change' =
+			[Executive Median PR Review Queue Age (Selected Month)] -
+				[Executive Median PR Review Queue Age (Previous Month)]
+		formatString: +0.0;-0.0;0.0 " days"
+		lineageTag: 5e89c992-6ec9-4242-b510-e56ad3b2c540
+
+	measure 'Executive PR Review Queue Age with Change (Selected Month)' =
+			VAR CurrentValue = [Executive Median PR Review Queue Age (Selected Month)]
+			VAR Change = [Executive PR Review Queue Age MoM Change]
+			RETURN
+				IF (
+					ISBLANK ( CurrentValue ),
+					BLANK (),
+					FORMAT ( CurrentValue, "0.0" ) & " days" &
+						IF (
+							ISBLANK ( Change ),
+							BLANK (),
+							" (" & FORMAT ( Change, "+0.0;-0.0;0.0" ) & "d)"
+						)
+				)
+		lineageTag: 07f5d8ce-078c-4c44-a1c3-5e6766d32bfe
+
+	measure 'Executive PR Review Queue Age Color' =
+			VAR QueueAge = [Executive Median PR Review Queue Age (Selected Month)]
+			RETURN
+				SWITCH (
+					TRUE (),
+					ISBLANK ( QueueAge ), "#6B6B6B",
+					QueueAge <= 2, "#107C10",
+					QueueAge <= 3, "#CA5010",
+					"#D13438"
+				)
+		lineageTag: 12549c9b-ce54-4cb0-8333-8a32d6b10d9f
+
+	column snapshotDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 0ac79843-1fef-4f9d-a079-14a8e772ba83
+		summarizeBy: none
+		sourceColumn: snapshotDate
+
+		variation Variation
+			isDefault
+			relationship: 73343307-9e74-4562-9319-64a9035ff0c1
+			defaultHierarchy: LocalDateTable_912fc321-7306-4a2a-b573-b4ea603dcc93.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column extractedAt
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 3b54968f-cade-4111-b59c-1391c84ca13f
+		summarizeBy: none
+		sourceColumn: extractedAt
+
+		variation Variation
+			isDefault
+			relationship: f3eeae17-bbf5-4ce4-b197-89b91bbc01fd
+			defaultHierarchy: LocalDateTable_abbc5f7c-35dc-4948-8ff3-eaeb03f435e7.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column repoName
+		dataType: string
+		lineageTag: 59e9fb38-92d1-4dbf-83c4-98c081f8696a
+		summarizeBy: none
+		sourceColumn: repoName
+
+		annotation SummarizationSetBy = Automatic
+
+	column area
+		dataType: string
+		lineageTag: ec8c2529-42a6-48ac-aea1-ab3aaa812b9a
+		summarizeBy: none
+		sourceColumn: area
+
+		annotation SummarizationSetBy = Automatic
+
+	column pullRequestId
+		dataType: int64
+		formatString: 0
+		lineageTag: ba4c437f-6796-41d5-a811-aa6dc7afe051
+		summarizeBy: none
+		sourceColumn: pullRequestId
+
+		annotation SummarizationSetBy = Automatic
+
+	column status
+		dataType: string
+		lineageTag: 1fa6587c-d6bf-4695-9541-8a22ffff5998
+		summarizeBy: none
+		sourceColumn: status
+
+		annotation SummarizationSetBy = Automatic
+
+	column sourceRefName
+		dataType: string
+		lineageTag: d5f4c89f-b5f1-4402-8e22-5099423b1228
+		summarizeBy: none
+		sourceColumn: sourceRefName
+
+		annotation SummarizationSetBy = Automatic
+
+	column sourceBranchName
+		dataType: string
+		lineageTag: d76c4ee2-3513-40ab-b011-03c8d4373ea4
+		summarizeBy: none
+		sourceColumn: sourceBranchName
+
+		annotation SummarizationSetBy = Automatic
+
+	column isDraft
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: f6781c1d-aa3a-4dee-83c7-c18fce19d036
+		summarizeBy: none
+		sourceColumn: isDraft
+
+		annotation SummarizationSetBy = Automatic
+
+	column reviewerCount
+		dataType: int64
+		formatString: 0
+		lineageTag: 5f02f060-ee3c-4917-a1ba-0e30a939a960
+		summarizeBy: sum
+		sourceColumn: reviewerCount
+
+		annotation SummarizationSetBy = Automatic
+
+	column approvedReviewerCount
+		dataType: int64
+		formatString: 0
+		lineageTag: 29dcf496-0306-45e9-9786-459af5e68238
+		summarizeBy: sum
+		sourceColumn: approvedReviewerCount
+
+		annotation SummarizationSetBy = Automatic
+
+	column rejectedReviewerCount
+		dataType: int64
+		formatString: 0
+		lineageTag: 696c125b-854e-4513-ac10-63477f256a5f
+		summarizeBy: sum
+		sourceColumn: rejectedReviewerCount
+
+		annotation SummarizationSetBy = Automatic
+
+	column waitingReviewerCount
+		dataType: int64
+		formatString: 0
+		lineageTag: 9a6fa38b-37b7-4bbf-80cd-fad0e40b9180
+		summarizeBy: sum
+		sourceColumn: waitingReviewerCount
+
+		annotation SummarizationSetBy = Automatic
+
+	column activeThreadCount
+		dataType: int64
+		formatString: 0
+		lineageTag: 68b91d61-fc0b-4c47-9461-768c4a98b61c
+		summarizeBy: sum
+		sourceColumn: activeThreadCount
+
+		annotation SummarizationSetBy = Automatic
+
+	column creationDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: a6ed86df-2e82-4ddb-a3dd-c98a3e18da83
+		summarizeBy: none
+		sourceColumn: creationDate
+
+		variation Variation
+			isDefault
+			relationship: 64f0ef50-7e20-4a6b-8452-423886e63991
+			defaultHierarchy: LocalDateTable_1aa8e474-210c-4cdc-a679-ea9abdb2f9d3.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column closedDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 45592f9a-5ea8-404c-9b4a-d082f2f314ef
+		summarizeBy: none
+		sourceColumn: closedDate
+
+		variation Variation
+			isDefault
+			relationship: 969319ec-c366-4685-b2cc-558c5ca87342
+			defaultHierarchy: LocalDateTable_5aaf82d6-8383-4067-83ca-428656d535a8.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column isClosed
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 0f13b9a1-12de-4d04-a8a3-7d491f9b27bc
+		summarizeBy: none
+		sourceColumn: isClosed
+
+		annotation SummarizationSetBy = Automatic
+
+	column reviewTurnaroundDays
+		dataType: double
+		lineageTag: 77fe88ba-f9d9-4e3c-8761-4f4734e0148d
+		summarizeBy: sum
+		sourceColumn: reviewTurnaroundDays
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column reviewTurnaroundRating
+		dataType: string
+		lineageTag: a31eed0c-015a-4668-a2f4-3af78b348c6f
+		summarizeBy: none
+		sourceColumn: reviewTurnaroundRating
+
+		annotation SummarizationSetBy = Automatic
+
+	column hasReviewDecision
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 71748909-5e45-40dd-acba-edf4b49b2cd7
+		summarizeBy: none
+		sourceColumn: hasReviewDecision
+
+		annotation SummarizationSetBy = Automatic
+
+	column isUnreviewedStalePr
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 1863eb3b-20c6-4b59-86ca-041ac3acf7b3
+		summarizeBy: none
+		sourceColumn: isUnreviewedStalePr
+
+		annotation SummarizationSetBy = Automatic
+
+	column createdByType
+		dataType: string
+		lineageTag: 2a92fda3-f49d-4cb2-ba73-142088cd6821
+		summarizeBy: none
+		sourceColumn: createdByType
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Pull Requests Review Turnaround History' = m
+		mode: import
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"1d7f83bd-9b20-42de-9fc3-0f113e2024b2" = Workspaces{[workspaceId="1d7f83bd-9b20-42de-9fc3-0f113e2024b2"]}[Data],
+				    #"b4231eab-5517-456d-8f37-6d807330f9c9" = #"1d7f83bd-9b20-42de-9fc3-0f113e2024b2"{[dataflowId="b4231eab-5517-456d-8f37-6d807330f9c9"]}[Data],
+				    #"Pull Requests Review Turnaround History_" = #"b4231eab-5517-456d-8f37-6d807330f9c9"{[entity="Pull Requests Review Turnaround History",version=""]}[Data]
+				in
+				    #"Pull Requests Review Turnaround History_"
+

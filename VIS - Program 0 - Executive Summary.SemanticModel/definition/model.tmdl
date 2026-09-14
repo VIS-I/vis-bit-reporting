@@ -1,0 +1,88 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: de-DE
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_ProTooling = ["DevMode","TMDL-Extension"]
+
+annotation PBI_QueryOrder = ["Features","Done Work","Requirement Churn","Work Item State Transitions","Backlog","Cumulative Flow Diagram","Deployment Snapshot","Pipeline Outcome Summary","Pull Requests Review Turnaround","Pull Requests","SonarQube","Work Item Snapshot","Commits","Pipeline Duration Trend","Pipeline Task Failures","Pipeline Jobs Failures","Executive Costs","Pull Requests Review Turnaround History"]
+
+ref table Features
+ref table DateTableTemplate_deef6b84-acc7-439e-b175-b4a02092f6f3
+ref table LocalDateTable_03b7c39e-0a44-4cde-8f34-01ec70818ce8
+ref table LocalDateTable_06b86a22-40ec-40e0-a37f-ae537da38fa9
+ref table LocalDateTable_3f24834d-55db-485a-b74f-e676b5ce56b8
+ref table LocalDateTable_0cd06494-9121-411e-9319-6e086f07b4ad
+ref table LocalDateTable_15b9a1fb-a613-4615-ba14-63a4246bfb9e
+ref table LocalDateTable_e730731d-5964-4a31-878b-991f509afaf5
+ref table 'Done Work'
+ref table LocalDateTable_c44f4d53-eff8-4d64-9b1f-02ef1a50c3bd
+ref table LocalDateTable_0d1b254d-98d2-41d9-bb43-ac9cf6aa00e0
+ref table LocalDateTable_2d682a53-35ec-4f59-ad70-2421468dd299
+ref table LocalDateTable_15be34b9-315a-4dbd-abfe-507c3dd0625c
+ref table LocalDateTable_0f38168e-af74-485b-9bbf-9bfc5cbfcb35
+ref table LocalDateTable_8854e170-61d9-46ad-b5ac-1ecec039e00c
+ref table Backlog
+ref table LocalDateTable_752ba12f-1f68-41f6-a21c-79f48f7c860b
+ref table LocalDateTable_43149137-aaf4-44af-b140-00b226dbfcc5
+ref table LocalDateTable_78eb5ed2-a092-4db3-bc5d-234e9c47fe4a
+ref table LocalDateTable_95c11fbf-a66d-4261-b105-4d3f75173d96
+ref table LocalDateTable_3ee2f8d6-db85-4aba-8ad7-0332d745fdd7
+ref table LocalDateTable_c5de01e3-f47b-4d8c-a3bd-1aa8ffcc77e4
+ref table LocalDateTable_9a95d0eb-4fe1-4ebe-b997-8208310bca38
+ref table 'Cumulative Flow Diagram'
+ref table LocalDateTable_53080dc1-b3bc-466e-933a-4de031ef8f4c
+ref table 'Deployment Snapshot'
+ref table LocalDateTable_5876adf9-9780-4e56-a611-51de7d439463
+ref table LocalDateTable_d6b954b8-bb83-43f5-8f7c-c286e90658bf
+ref table 'Pipeline Outcome Summary'
+ref table 'Pull Requests Review Turnaround'
+ref table LocalDateTable_5ea6e26c-d34e-4540-a1d3-1724c03872bb
+ref table LocalDateTable_e1754970-3dd7-4b7b-b555-889cfd0abc53
+ref table LocalDateTable_b5061292-2f6b-46e5-8391-2e9fa4d99259
+ref table 'Pull Requests'
+ref table LocalDateTable_3c6f327b-c8d1-4f01-a5b8-1dedd7579cb5
+ref table LocalDateTable_cba8069a-6fc9-400c-a6fe-9600659631dc
+ref table LocalDateTable_cc3b700b-a28f-4846-91c3-84fb0abbccf5
+ref table LocalDateTable_7a46c952-bcaa-4487-beaa-9dbbfc0009f5
+ref table SonarQube
+ref table LocalDateTable_0ba67aaf-1c90-4732-8f14-5d52d3c87543
+ref table LocalDateTable_e52bb159-bbe0-4ffa-bd4b-378b9baab89e
+ref table 'Work Item Snapshot'
+ref table LocalDateTable_41c9d6ca-5356-4852-8cca-8954a7d4296e
+ref table LocalDateTable_97faf219-bb27-442b-9393-3d4a263a8d31
+ref table LocalDateTable_e10616c1-b26e-49e6-b750-51e624c73259
+ref table LocalDateTable_b219ebb9-f2e1-4f89-9617-98e51028f9c6
+ref table LocalDateTable_1127839c-a6e0-4f45-80fa-262830709165
+ref table LocalDateTable_0057547b-51cd-4ec4-a7f8-f824c0b6533d
+ref table LocalDateTable_a04cda2d-133f-4d2b-b3e7-fc6c352f50f8
+ref table Commits
+ref table LocalDateTable_b81ebe13-a9d2-4c64-9abc-f1e0cfb17a9d
+ref table LocalDateTable_222495a0-a54a-4353-87d0-2cd1a0ed5b09
+ref table 'Pipeline Duration Trend'
+ref table LocalDateTable_0b1fb3c4-4f75-48e1-96f2-3a906fb074f7
+ref table 'Pipeline Task Failures'
+ref table LocalDateTable_9947250e-67a9-463b-9d62-a07a01229e85
+ref table 'Pipeline Jobs Failures'
+ref table LocalDateTable_602bd721-294a-4235-8489-95cc19238748
+ref table 'Executive Costs'
+ref table 'Reporting Month'
+ref table 'Pull Requests Review Turnaround History'
+ref table LocalDateTable_4fd07d01-f74b-4288-9939-b567e08f7036
+ref table LocalDateTable_511d550a-8e8a-4de3-bd60-db262a3d74d1
+ref table LocalDateTable_912fc321-7306-4a2a-b573-b4ea603dcc93
+ref table LocalDateTable_abbc5f7c-35dc-4948-8ff3-eaeb03f435e7
+ref table LocalDateTable_1aa8e474-210c-4cdc-a679-ea9abdb2f9d3
+ref table LocalDateTable_5aaf82d6-8383-4067-83ca-428656d535a8
+ref table 'Requirement Churn'
+ref table LocalDateTable_b93945fc-bf14-42ca-941d-04f6d0d73855
+ref table LocalDateTable_333c4484-faaa-4358-8a16-e327274438bc
+ref table 'Work Item State Transitions'
+
+ref cultureInfo en-US
+

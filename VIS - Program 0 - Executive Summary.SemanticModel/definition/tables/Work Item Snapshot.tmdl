@@ -1,0 +1,224 @@
+table 'Work Item Snapshot'
+	lineageTag: 6d7a06de-9522-4001-ab39-29ebfc6ca409
+
+	column WorkItemId
+		dataType: int64
+		formatString: 0
+		lineageTag: d1340c04-7d92-499c-9072-2d74bdcb9e65
+		summarizeBy: count
+		sourceColumn: WorkItemId
+
+		annotation SummarizationSetBy = Automatic
+
+	column DateValue
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: e391b1ee-03da-4077-989f-1ce335f797a3
+		summarizeBy: none
+		sourceColumn: DateValue
+
+		variation Variation
+			isDefault
+			relationship: d4b853e4-6ae4-4717-9d5c-0554e95e6258
+			defaultHierarchy: LocalDateTable_41c9d6ca-5356-4852-8cca-8954a7d4296e.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Title
+		dataType: string
+		lineageTag: 501185bd-b1d7-4496-8ff8-9f2b282d3cdd
+		summarizeBy: none
+		sourceColumn: Title
+
+		annotation SummarizationSetBy = Automatic
+
+	column WorkItemType
+		dataType: string
+		lineageTag: 56bd577e-ec57-486c-b4c3-74d1dce71006
+		summarizeBy: none
+		sourceColumn: WorkItemType
+
+		annotation SummarizationSetBy = Automatic
+
+	column ChangedDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 14a72d4c-6959-4b38-85ad-409d156f4d28
+		summarizeBy: none
+		sourceColumn: ChangedDate
+
+		variation Variation
+			isDefault
+			relationship: 94f286e4-cce3-46a9-897d-28948c788188
+			defaultHierarchy: LocalDateTable_97faf219-bb27-442b-9393-3d4a263a8d31.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column CreatedDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 7cb5ff9e-db5c-4d7f-a415-8377d3ac98fb
+		summarizeBy: none
+		sourceColumn: CreatedDate
+
+		variation Variation
+			isDefault
+			relationship: 2d7ff735-f4fe-4d12-a62b-8718df1ad3f2
+			defaultHierarchy: LocalDateTable_e10616c1-b26e-49e6-b750-51e624c73259.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column State
+		dataType: string
+		lineageTag: b1a8722d-89d0-401c-844f-906ac9b3d8d1
+		summarizeBy: none
+		sourceColumn: State
+
+		annotation SummarizationSetBy = Automatic
+
+	column ActivatedDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 56b13779-25d3-4f40-8e06-ead442ab81c8
+		summarizeBy: none
+		sourceColumn: ActivatedDate
+
+		variation Variation
+			isDefault
+			relationship: be2ce445-e78c-4656-8009-c5b70b8aa680
+			defaultHierarchy: LocalDateTable_b219ebb9-f2e1-4f89-9617-98e51028f9c6.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column ClosedDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: c3b1df44-5a5a-4e33-a6ec-74709bb67cd3
+		summarizeBy: none
+		sourceColumn: ClosedDate
+
+		variation Variation
+			isDefault
+			relationship: 59cc91f6-b781-4049-9666-2af3e4de2af2
+			defaultHierarchy: LocalDateTable_1127839c-a6e0-4f45-80fa-262830709165.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Priority
+		dataType: int64
+		formatString: 0
+		lineageTag: e3b46fa0-4053-4121-a454-2d7d320d4f15
+		summarizeBy: sum
+		sourceColumn: Priority
+
+		annotation SummarizationSetBy = Automatic
+
+	column Severity
+		dataType: string
+		lineageTag: ff2b244e-ac16-407b-b40f-4f29224eec43
+		summarizeBy: none
+		sourceColumn: Severity
+
+		annotation SummarizationSetBy = Automatic
+
+	column ValueArea
+		dataType: string
+		lineageTag: 79cfc526-eb54-4fd2-9b39-ad4a18c8f6f6
+		summarizeBy: none
+		sourceColumn: ValueArea
+
+		annotation SummarizationSetBy = Automatic
+
+	column StateCategory
+		dataType: string
+		lineageTag: c56f6b84-a0cf-4ac8-ace4-4911ac40e41a
+		summarizeBy: none
+		sourceColumn: StateCategory
+
+		annotation SummarizationSetBy = Automatic
+
+	column StateChangeDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 57558c3c-864a-4e53-b0bd-558019ee3f4e
+		summarizeBy: none
+		sourceColumn: StateChangeDate
+
+		variation Variation
+			isDefault
+			relationship: f1a02a2b-1a17-48d9-bf97-9f19c92a466c
+			defaultHierarchy: LocalDateTable_0057547b-51cd-4ec4-a7f8-f824c0b6533d.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Custom_ActualEffort
+		dataType: double
+		lineageTag: 72c53b9d-4518-4443-827b-e394da092c11
+		summarizeBy: sum
+		sourceColumn: Custom_ActualEffort
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Custom_EstimatedEffortQG2
+		dataType: double
+		lineageTag: 6bf1607a-940c-4dae-8ada-032281a14e9c
+		summarizeBy: sum
+		sourceColumn: Custom_EstimatedEffortQG2
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column AreaPath
+		dataType: string
+		lineageTag: 1bfc68ca-3ef6-4ecf-acfe-6df620ec2a5e
+		summarizeBy: none
+		sourceColumn: AreaPath
+
+		annotation SummarizationSetBy = Automatic
+
+	column IterationName
+		dataType: string
+		lineageTag: e2d44497-64e5-460e-985d-f76524e8945f
+		summarizeBy: none
+		sourceColumn: IterationName
+
+		annotation SummarizationSetBy = Automatic
+
+	column Tags
+		dataType: string
+		lineageTag: b7dda155-44da-42d0-ab52-a014bcc9a0d7
+		summarizeBy: none
+		sourceColumn: Tags
+
+		annotation SummarizationSetBy = Automatic
+
+	column SnapshotDateTime
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: af4d2e25-2363-4258-993b-8ecc2884324f
+		summarizeBy: none
+		sourceColumn: SnapshotDateTime
+
+		variation Variation
+			isDefault
+			relationship: 0c87e6cc-2b3c-4fe6-8325-91e3fb8f4ff3
+			defaultHierarchy: LocalDateTable_a04cda2d-133f-4d2b-b3e7-fc6c352f50f8.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Work Item Snapshot' = m
+		mode: import
+		source =
+				let
+				    Source = PowerBI.Dataflows(null),
+				    #"1d7f83bd-9b20-42de-9fc3-0f113e2024b2" = Source{[workspaceId="1d7f83bd-9b20-42de-9fc3-0f113e2024b2"]}[Data],
+				    #"1d72647c-62cb-46ba-91f9-0eb5c71bb512" = #"1d7f83bd-9b20-42de-9fc3-0f113e2024b2"{[dataflowId="1d72647c-62cb-46ba-91f9-0eb5c71bb512"]}[Data],
+				    #"Work Item Snapshot1" = #"1d72647c-62cb-46ba-91f9-0eb5c71bb512"{[entity="Work Item Snapshot"]}[Data]
+				in
+				    #"Work Item Snapshot1"
+

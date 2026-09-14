@@ -1,0 +1,73 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "activeContributors",
+  "position": {
+    "x": 623.121601018149,
+    "y": 488.267497674684,
+    "z": 15000,
+    "height": 108,
+    "width": 270,
+    "tabOrder": 15000
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Cumulative Flow Diagram"
+                    }
+                  },
+                  "Property": "Executive Active Developers (Latest Completed Month)"
+                }
+              },
+              "queryRef": "Cumulative Flow Diagram.Executive Active Developers (Latest Completed Month)",
+              "nativeQueryRef": "Active developers",
+              "displayName": "Unique User Story and Bug assignees in Active at month end"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "labels": [
+        {
+          "properties": {}
+        }
+      ],
+      "categoryLabels": [
+        {
+          "properties": {}
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'ACTIVE DEVELOPERS'"
+                }
+              }
+            },
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

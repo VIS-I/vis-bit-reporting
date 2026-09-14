@@ -1,0 +1,492 @@
+table 'Cumulative Flow Diagram'
+	lineageTag: 97875062-0ed8-4f0f-a7d1-bbc1c71f4738
+
+	measure 'Executive Active Contributors (Latest Completed Month)' = [Executive Active Developers (Latest Completed Month)]
+		formatString: #,0
+		lineageTag: 8aab4fe6-8b5a-42fa-9413-9971e172940d
+
+	measure 'Executive Monthly Capacity (Person Days)' = [Executive Active Developers (Latest Completed Month)] * 20
+		formatString: #,0 " person days"
+		lineageTag: 4f20ee0c-59e4-411c-9acf-bc7ba83c622c
+
+	measure 'Executive Active Developers (Latest Completed Month)' =
+			VAR LatestCompletedMonthEnd = 'Reporting Month'[Executive Selected Reporting Month End]
+			VAR SnapshotDate =
+			    CALCULATE (
+			        MAX ( 'Cumulative Flow Diagram'[DateValue] ),
+			        REMOVEFILTERS ( 'Cumulative Flow Diagram'[DateValue] ),
+			        'Cumulative Flow Diagram'[DateValue] <= LatestCompletedMonthEnd
+			    )
+			RETURN
+			    CALCULATE (
+			        DISTINCTCOUNT ( 'Cumulative Flow Diagram'[AssignedTo.UserName] ),
+			        'Cumulative Flow Diagram'[DateValue] = SnapshotDate,
+			        'Cumulative Flow Diagram'[WorkItemType] IN { "User Story", "Bug" },
+			        'Cumulative Flow Diagram'[State] = "Active",
+			        FILTER (
+			            'Cumulative Flow Diagram',
+			            NOT ISBLANK ( 'Cumulative Flow Diagram'[AssignedTo.UserName] ) &&
+			            'Cumulative Flow Diagram'[AssignedTo.UserName] <> "NoAssignee"
+			        )
+			    )
+		formatString: #,0
+		lineageTag: f6f5d80d-5ad2-4542-b508-cccdbb768edc
+
+	measure 'Executive Active Testers (Latest Completed Month)' =
+			VAR LatestCompletedMonthEnd = 'Reporting Month'[Executive Selected Reporting Month End]
+			VAR SnapshotDate =
+			    CALCULATE (
+			        MAX ( 'Cumulative Flow Diagram'[DateValue] ),
+			        REMOVEFILTERS ( 'Cumulative Flow Diagram'[DateValue] ),
+			        'Cumulative Flow Diagram'[DateValue] <= LatestCompletedMonthEnd
+			    )
+			RETURN
+			    CALCULATE (
+			        DISTINCTCOUNT ( 'Cumulative Flow Diagram'[AssignedTo.UserName] ),
+			        'Cumulative Flow Diagram'[DateValue] = SnapshotDate,
+			        'Cumulative Flow Diagram'[WorkItemType] IN { "User Story", "Bug" },
+			        'Cumulative Flow Diagram'[State] = "Ready for Testing",
+			        FILTER (
+			            'Cumulative Flow Diagram',
+			            NOT ISBLANK ( 'Cumulative Flow Diagram'[AssignedTo.UserName] ) &&
+			            'Cumulative Flow Diagram'[AssignedTo.UserName] <> "NoAssignee"
+			        )
+			    )
+		formatString: #,0
+		lineageTag: 2b947d6b-cae4-417b-bcc6-1fb35668da90
+
+	measure 'Executive Delivery Flow New or In Concept (Latest Completed Month)' =
+			VAR LatestCompletedMonthEnd = 'Reporting Month'[Executive Selected Reporting Month End]
+			VAR SnapshotDate =
+			    CALCULATE (
+			        MAX ( 'Cumulative Flow Diagram'[DateValue] ),
+			        REMOVEFILTERS ( 'Cumulative Flow Diagram'[DateValue] ),
+			        'Cumulative Flow Diagram'[DateValue] <= LatestCompletedMonthEnd
+			    )
+			RETURN
+			    CALCULATE (
+			        SUM ( 'Cumulative Flow Diagram'[Count] ),
+			        'Cumulative Flow Diagram'[DateValue] = SnapshotDate,
+			        'Cumulative Flow Diagram'[WorkItemType] IN { "User Story", "Bug" },
+			        'Cumulative Flow Diagram'[State] IN { "New", "In Concept" }
+			    )
+		formatString: #,0
+		lineageTag: 0f28e548-0d31-4b81-8b3a-1b4370dc4f11
+
+	measure 'Executive Delivery Flow Ready for Refinement (Latest Completed Month)' =
+			VAR LatestCompletedMonthEnd = 'Reporting Month'[Executive Selected Reporting Month End]
+			VAR SnapshotDate =
+			    CALCULATE (
+			        MAX ( 'Cumulative Flow Diagram'[DateValue] ),
+			        REMOVEFILTERS ( 'Cumulative Flow Diagram'[DateValue] ),
+			        'Cumulative Flow Diagram'[DateValue] <= LatestCompletedMonthEnd
+			    )
+			RETURN
+			    CALCULATE (
+			        SUM ( 'Cumulative Flow Diagram'[Count] ),
+			        'Cumulative Flow Diagram'[DateValue] = SnapshotDate,
+			        'Cumulative Flow Diagram'[WorkItemType] IN { "User Story", "Bug" },
+			        'Cumulative Flow Diagram'[State] = "Ready for Refinement"
+			    )
+		formatString: #,0
+		lineageTag: f5a6c2af-93ab-4fa4-a6a5-d0c39e81d135
+
+	measure 'Executive Delivery Flow Ready for Development (Latest Completed Month)' =
+			VAR LatestCompletedMonthEnd = 'Reporting Month'[Executive Selected Reporting Month End]
+			VAR SnapshotDate =
+			    CALCULATE (
+			        MAX ( 'Cumulative Flow Diagram'[DateValue] ),
+			        REMOVEFILTERS ( 'Cumulative Flow Diagram'[DateValue] ),
+			        'Cumulative Flow Diagram'[DateValue] <= LatestCompletedMonthEnd
+			    )
+			RETURN
+			    CALCULATE (
+			        SUM ( 'Cumulative Flow Diagram'[Count] ),
+			        'Cumulative Flow Diagram'[DateValue] = SnapshotDate,
+			        'Cumulative Flow Diagram'[WorkItemType] IN { "User Story", "Bug" },
+			        'Cumulative Flow Diagram'[State] = "Ready for Development"
+			    )
+		formatString: #,0
+		lineageTag: 2e029043-1e04-4df0-a7e7-d242d4cdb1f2
+
+	measure 'Executive Delivery Flow Active (Latest Completed Month)' =
+			VAR LatestCompletedMonthEnd = 'Reporting Month'[Executive Selected Reporting Month End]
+			VAR SnapshotDate =
+			    CALCULATE (
+			        MAX ( 'Cumulative Flow Diagram'[DateValue] ),
+			        REMOVEFILTERS ( 'Cumulative Flow Diagram'[DateValue] ),
+			        'Cumulative Flow Diagram'[DateValue] <= LatestCompletedMonthEnd
+			    )
+			RETURN
+			    CALCULATE (
+			        SUM ( 'Cumulative Flow Diagram'[Count] ),
+			        'Cumulative Flow Diagram'[DateValue] = SnapshotDate,
+			        'Cumulative Flow Diagram'[WorkItemType] IN { "User Story", "Bug" },
+			        'Cumulative Flow Diagram'[State] = "Active"
+			    )
+		formatString: #,0
+		lineageTag: 7c03319a-3c09-42ef-957d-bccdf9a2be4f
+
+	measure 'Executive Delivery Flow Resolved (Latest Completed Month)' =
+			VAR LatestCompletedMonthEnd = 'Reporting Month'[Executive Selected Reporting Month End]
+			VAR SnapshotDate =
+			    CALCULATE (
+			        MAX ( 'Cumulative Flow Diagram'[DateValue] ),
+			        REMOVEFILTERS ( 'Cumulative Flow Diagram'[DateValue] ),
+			        'Cumulative Flow Diagram'[DateValue] <= LatestCompletedMonthEnd
+			    )
+			RETURN
+			    CALCULATE (
+			        SUM ( 'Cumulative Flow Diagram'[Count] ),
+			        'Cumulative Flow Diagram'[DateValue] = SnapshotDate,
+			        'Cumulative Flow Diagram'[WorkItemType] IN { "User Story", "Bug" },
+			        'Cumulative Flow Diagram'[State] = "Resolved"
+			    )
+		formatString: #,0
+		lineageTag: 68d25e29-a3e1-4d52-9a8c-ab7b15b75bb0
+
+	measure 'Executive Delivery Flow Ready for Testing (Latest Completed Month)' =
+			VAR LatestCompletedMonthEnd = 'Reporting Month'[Executive Selected Reporting Month End]
+			VAR SnapshotDate =
+			    CALCULATE (
+			        MAX ( 'Cumulative Flow Diagram'[DateValue] ),
+			        REMOVEFILTERS ( 'Cumulative Flow Diagram'[DateValue] ),
+			        'Cumulative Flow Diagram'[DateValue] <= LatestCompletedMonthEnd
+			    )
+			RETURN
+			    CALCULATE (
+			        SUM ( 'Cumulative Flow Diagram'[Count] ),
+			        'Cumulative Flow Diagram'[DateValue] = SnapshotDate,
+			        'Cumulative Flow Diagram'[WorkItemType] IN { "User Story", "Bug" },
+			        'Cumulative Flow Diagram'[State] = "Ready for Testing"
+			    )
+		formatString: #,0
+		lineageTag: 60916559-2b22-47b9-9930-34dfa4822cb0
+
+	measure 'Executive Delivery Flow Closed (Latest Completed Month)' =
+			VAR LatestCompletedMonthEnd = 'Reporting Month'[Executive Selected Reporting Month End]
+			VAR SnapshotDate =
+			    CALCULATE (
+			        MAX ( 'Cumulative Flow Diagram'[DateValue] ),
+			        REMOVEFILTERS ( 'Cumulative Flow Diagram'[DateValue] ),
+			        'Cumulative Flow Diagram'[DateValue] <= LatestCompletedMonthEnd
+			    )
+			RETURN
+			    CALCULATE (
+			        SUM ( 'Cumulative Flow Diagram'[Count] ),
+			        'Cumulative Flow Diagram'[DateValue] = SnapshotDate,
+			        'Cumulative Flow Diagram'[WorkItemType] IN { "User Story", "Bug" },
+			        'Cumulative Flow Diagram'[State] = "Closed"
+			    )
+		formatString: #,0
+		lineageTag: 14fa2922-4e4c-4aa6-ba03-9c5d9911f8e5
+
+	measure 'Executive Delivery Flow Unmapped States (Latest Completed Month)' =
+			VAR LatestCompletedMonthEnd = 'Reporting Month'[Executive Selected Reporting Month End]
+			VAR SnapshotDate =
+			    CALCULATE (
+			        MAX ( 'Cumulative Flow Diagram'[DateValue] ),
+			        REMOVEFILTERS ( 'Cumulative Flow Diagram'[DateValue] ),
+			        'Cumulative Flow Diagram'[DateValue] <= LatestCompletedMonthEnd
+			    )
+			RETURN
+			    CALCULATE (
+			        SUM ( 'Cumulative Flow Diagram'[Count] ),
+			        'Cumulative Flow Diagram'[DateValue] = SnapshotDate,
+			        'Cumulative Flow Diagram'[WorkItemType] IN { "User Story", "Bug" },
+			        FILTER (
+			            'Cumulative Flow Diagram',
+			            NOT (
+			                'Cumulative Flow Diagram'[State] IN {
+			                    "New", "In Concept", "Ready for Refinement", "Ready for Development",
+			                    "Active", "Resolved", "Ready for Testing", "Closed"
+			                }
+			            )
+			        )
+			    )
+		formatString: #,0
+		lineageTag: 31e2ae17-1c22-4bc3-9809-c1fc5084ee88
+
+	measure 'Executive Delivery Flow Items (Six Complete Months)' =
+			VAR FirstSnapshotDate = EOMONTH ( 'Reporting Month'[Executive Selected Reporting Month End], -6 ) + 1
+			VAR LastSnapshotDate = 'Reporting Month'[Executive Selected Reporting Month End]
+			RETURN
+			    CALCULATE (
+			        SUM ( 'Cumulative Flow Diagram'[Count] ),
+			        KEEPFILTERS ( 'Cumulative Flow Diagram'[DateValue] >= FirstSnapshotDate ),
+			        KEEPFILTERS ( 'Cumulative Flow Diagram'[DateValue] < LastSnapshotDate + 1 ),
+			        KEEPFILTERS ( 'Cumulative Flow Diagram'[WorkItemType] IN { "User Story", "Bug" } ),
+			        KEEPFILTERS (
+			            'Cumulative Flow Diagram'[State] IN {
+			                "New", "In Concept", "Ready for Refinement", "Ready for Development",
+			                "Active", "Resolved", "Ready for Testing"
+			            }
+			        )
+			    )
+		formatString: #,0
+		lineageTag: 3ff0144f-497a-45a6-a1ce-148ebf9b7b6d
+
+	measure 'Executive Monthly Capacity (Previous Completed Month)' =
+			VAR PreviousCompletedMonthEnd = EOMONTH ( 'Reporting Month'[Executive Selected Reporting Month End], -1 )
+			VAR SnapshotDate =
+			    CALCULATE (
+			        MAX ( 'Cumulative Flow Diagram'[DateValue] ),
+			        REMOVEFILTERS ( 'Cumulative Flow Diagram'[DateValue] ),
+			        'Cumulative Flow Diagram'[DateValue] <= PreviousCompletedMonthEnd
+			    )
+			RETURN
+			    CALCULATE (
+			        DISTINCTCOUNT ( 'Cumulative Flow Diagram'[AssignedTo.UserName] ),
+			        'Cumulative Flow Diagram'[DateValue] = SnapshotDate,
+			        'Cumulative Flow Diagram'[WorkItemType] IN { "User Story", "Bug" },
+			        'Cumulative Flow Diagram'[State] = "Active",
+			        FILTER (
+			            'Cumulative Flow Diagram',
+			            NOT ISBLANK ( 'Cumulative Flow Diagram'[AssignedTo.UserName] ) &&
+			            'Cumulative Flow Diagram'[AssignedTo.UserName] <> "NoAssignee"
+			        )
+			    ) * 20
+		formatString: #,0 " person days"
+		lineageTag: 6e3207a6-bdd2-4b74-b6a6-9fe3f898fb1e
+
+	measure 'Executive Active Developers (Previous Completed Month)' =
+			VAR PreviousCompletedMonthEnd = EOMONTH ( 'Reporting Month'[Executive Selected Reporting Month End], -1 )
+			VAR SnapshotDate =
+				CALCULATE (
+					MAX ( 'Cumulative Flow Diagram'[DateValue] ),
+					REMOVEFILTERS ( 'Cumulative Flow Diagram'[DateValue] ),
+					'Cumulative Flow Diagram'[DateValue] <= PreviousCompletedMonthEnd
+				)
+			RETURN
+				CALCULATE (
+					DISTINCTCOUNT ( 'Cumulative Flow Diagram'[AssignedTo.UserName] ),
+					'Cumulative Flow Diagram'[DateValue] = SnapshotDate,
+					'Cumulative Flow Diagram'[WorkItemType] IN { "User Story", "Bug" },
+					'Cumulative Flow Diagram'[State] = "Active",
+					FILTER (
+						'Cumulative Flow Diagram',
+						NOT ISBLANK ( 'Cumulative Flow Diagram'[AssignedTo.UserName] ) &&
+						'Cumulative Flow Diagram'[AssignedTo.UserName] <> "NoAssignee"
+					)
+				)
+		formatString: #,0
+		lineageTag: 3266f470-4669-4257-9dd3-038f39d9f5bb
+
+	measure 'Executive Active Developers MoM Change' =
+			[Executive Active Developers (Latest Completed Month)] -
+				[Executive Active Developers (Previous Completed Month)]
+		formatString: +0;-0;0
+		lineageTag: 4f152b48-46fd-4236-aaae-5171b9598c93
+
+	measure 'Executive Active Developers with Change (Selected Month)' =
+			VAR CurrentValue = [Executive Active Developers (Latest Completed Month)]
+			VAR Change = [Executive Active Developers MoM Change]
+			RETURN
+				IF (
+					ISBLANK ( CurrentValue ),
+					BLANK (),
+					FORMAT ( CurrentValue, "0" ) &
+						IF ( ISBLANK ( Change ), BLANK (), " (" & FORMAT ( Change, "+0;-0;0" ) & ")" )
+				)
+		lineageTag: d1e20687-e0f0-48e2-b6bd-7a588a769f1e
+
+	measure 'Executive Active Testers (Previous Completed Month)' =
+			VAR PreviousCompletedMonthEnd = EOMONTH ( 'Reporting Month'[Executive Selected Reporting Month End], -1 )
+			VAR SnapshotDate =
+				CALCULATE (
+					MAX ( 'Cumulative Flow Diagram'[DateValue] ),
+					REMOVEFILTERS ( 'Cumulative Flow Diagram'[DateValue] ),
+					'Cumulative Flow Diagram'[DateValue] <= PreviousCompletedMonthEnd
+				)
+			RETURN
+				CALCULATE (
+					DISTINCTCOUNT ( 'Cumulative Flow Diagram'[AssignedTo.UserName] ),
+					'Cumulative Flow Diagram'[DateValue] = SnapshotDate,
+					'Cumulative Flow Diagram'[WorkItemType] IN { "User Story", "Bug" },
+					'Cumulative Flow Diagram'[State] = "Ready for Testing",
+					FILTER (
+						'Cumulative Flow Diagram',
+						NOT ISBLANK ( 'Cumulative Flow Diagram'[AssignedTo.UserName] ) &&
+						'Cumulative Flow Diagram'[AssignedTo.UserName] <> "NoAssignee"
+					)
+				)
+		formatString: #,0
+		lineageTag: f5eafb54-1585-4e00-8fd7-b52f6d5fcff5
+
+	measure 'Executive Active Testers MoM Change' =
+			[Executive Active Testers (Latest Completed Month)] -
+				[Executive Active Testers (Previous Completed Month)]
+		formatString: +0;-0;0
+		lineageTag: 427ec70b-5af1-453d-9dd1-63ef6bfb1f92
+
+	measure 'Executive Active Testers with Change (Selected Month)' =
+			VAR CurrentValue = [Executive Active Testers (Latest Completed Month)]
+			VAR Change = [Executive Active Testers MoM Change]
+			RETURN
+				IF (
+					ISBLANK ( CurrentValue ),
+					BLANK (),
+					FORMAT ( CurrentValue, "0" ) &
+						IF ( ISBLANK ( Change ), BLANK (), " (" & FORMAT ( Change, "+0;-0;0" ) & ")" )
+				)
+		lineageTag: 11b02d95-554f-43b3-884e-d23381a0b85a
+
+	measure 'Executive Delivery Flow Active (Previous Completed Month)' =
+			VAR PreviousCompletedMonthEnd = EOMONTH ( 'Reporting Month'[Executive Selected Reporting Month End], -1 )
+			VAR SnapshotDate =
+				CALCULATE (
+					MAX ( 'Cumulative Flow Diagram'[DateValue] ),
+					REMOVEFILTERS ( 'Cumulative Flow Diagram'[DateValue] ),
+					'Cumulative Flow Diagram'[DateValue] <= PreviousCompletedMonthEnd
+				)
+			RETURN
+				CALCULATE (
+					SUM ( 'Cumulative Flow Diagram'[Count] ),
+					'Cumulative Flow Diagram'[DateValue] = SnapshotDate,
+					'Cumulative Flow Diagram'[WorkItemType] IN { "User Story", "Bug" },
+					'Cumulative Flow Diagram'[State] = "Active"
+				)
+		formatString: #,0
+		lineageTag: 93558c90-d016-4a2d-91bc-992ca8a1cfaf
+
+	measure 'Executive Delivery Flow Active MoM Change' =
+			[Executive Delivery Flow Active (Latest Completed Month)] -
+				[Executive Delivery Flow Active (Previous Completed Month)]
+		formatString: +0;-0;0
+		lineageTag: 3ee877a8-7d1a-47b7-af03-52c91e46c92a
+
+	measure 'Executive Delivery Flow Active with Change (Selected Month)' =
+			VAR CurrentValue = [Executive Delivery Flow Active (Latest Completed Month)]
+			VAR Change = [Executive Delivery Flow Active MoM Change]
+			RETURN
+				IF (
+					ISBLANK ( CurrentValue ),
+					BLANK (),
+					FORMAT ( CurrentValue, "0" ) &
+						IF ( ISBLANK ( Change ), BLANK (), " (" & FORMAT ( Change, "+0;-0;0" ) & ")" )
+				)
+		lineageTag: 2f6e037b-302d-4ef4-aa8b-da7685894794
+
+	column DateValue
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: ae93d2de-fa4a-4d8e-a3d5-1a61cdc8f582
+		summarizeBy: none
+		sourceColumn: DateValue
+
+		variation Variation
+			isDefault
+			relationship: 1bf20db6-e1dd-4775-a2d2-353083e37f19
+			defaultHierarchy: LocalDateTable_53080dc1-b3bc-466e-933a-4de031ef8f4c.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column ColumnName
+		dataType: string
+		lineageTag: 78031de1-41f1-40f0-b9b4-503046b8bb65
+		summarizeBy: none
+		sourceColumn: ColumnName
+
+		annotation SummarizationSetBy = Automatic
+
+	column LaneName
+		dataType: string
+		lineageTag: 8acf1dd9-4631-47d2-9edf-25062e7d9d67
+		summarizeBy: none
+		sourceColumn: LaneName
+
+		annotation SummarizationSetBy = Automatic
+
+	column WorkItemType
+		dataType: string
+		lineageTag: 32445095-953e-4b63-803d-ac5a9eddcf05
+		summarizeBy: none
+		sourceColumn: WorkItemType
+
+		annotation SummarizationSetBy = Automatic
+
+	column State
+		dataType: string
+		lineageTag: 8d584c80-fed5-42b9-8e98-95fba92d618a
+		summarizeBy: none
+		sourceColumn: State
+
+		annotation SummarizationSetBy = Automatic
+
+	column Count
+		dataType: int64
+		formatString: 0
+		lineageTag: c89d39c1-8efb-4f77-9cc5-6b2d23a84b74
+		summarizeBy: sum
+		sourceColumn: Count
+
+		annotation SummarizationSetBy = Automatic
+
+	column AreaPath
+		dataType: string
+		lineageTag: 1000f044-0a4f-4793-bf20-4fb5dd3248f2
+		summarizeBy: none
+		sourceColumn: AreaPath
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'AssignedTo.UserName'
+		dataType: string
+		lineageTag: edeea655-1772-4608-87cf-a2a31488080e
+		summarizeBy: none
+		sourceColumn: AssignedTo.UserName
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Executive Delivery Flow Stage' =
+			SWITCH (
+			    TRUE (),
+			    'Cumulative Flow Diagram'[State] IN { "New", "In Concept" }, "New / In Concept",
+			    'Cumulative Flow Diagram'[State] = "Ready for Refinement", "Ready for Refinement",
+			    'Cumulative Flow Diagram'[State] = "Ready for Development", "Ready for Development",
+			    'Cumulative Flow Diagram'[State] = "Active", "Active",
+			    'Cumulative Flow Diagram'[State] = "Resolved", "Resolved",
+			    'Cumulative Flow Diagram'[State] = "Ready for Testing", "Ready for Testing",
+			    'Cumulative Flow Diagram'[State] = "Closed", "Closed",
+			    "Unmapped States"
+			)
+		dataType: string
+		lineageTag: 7d501dd2-26ae-4772-a249-27ea075a63cc
+		summarizeBy: none
+		sortByColumn: 'Executive Delivery Flow Stage Sort'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Executive Delivery Flow Stage Sort' =
+			SWITCH (
+			    TRUE (),
+			    'Cumulative Flow Diagram'[State] IN { "New", "In Concept" }, 1,
+			    'Cumulative Flow Diagram'[State] = "Ready for Refinement", 2,
+			    'Cumulative Flow Diagram'[State] = "Ready for Development", 3,
+			    'Cumulative Flow Diagram'[State] = "Active", 4,
+			    'Cumulative Flow Diagram'[State] = "Resolved", 5,
+			    'Cumulative Flow Diagram'[State] = "Ready for Testing", 6,
+			    'Cumulative Flow Diagram'[State] = "Closed", 7,
+			    8
+			)
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 77f920ce-c897-42ca-9174-d1a68257fe1b
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Cumulative Flow Diagram' = m
+		mode: import
+		source =
+				let
+				    Source = PowerBI.Dataflows(null),
+				    #"1d7f83bd-9b20-42de-9fc3-0f113e2024b2" = Source{[workspaceId="1d7f83bd-9b20-42de-9fc3-0f113e2024b2"]}[Data],
+				    #"1d72647c-62cb-46ba-91f9-0eb5c71bb512" = #"1d7f83bd-9b20-42de-9fc3-0f113e2024b2"{[dataflowId="1d72647c-62cb-46ba-91f9-0eb5c71bb512"]}[Data],
+				    #"Cumulative Flow Diagram1" = #"1d72647c-62cb-46ba-91f9-0eb5c71bb512"{[entity="Cumulative Flow Diagram"]}[Data]
+				in
+				    #"Cumulative Flow Diagram1"
+

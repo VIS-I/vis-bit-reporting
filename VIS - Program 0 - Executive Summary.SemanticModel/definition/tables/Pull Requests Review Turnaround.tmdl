@@ -1,0 +1,212 @@
+table 'Pull Requests Review Turnaround'
+	lineageTag: f1f250b2-8d3a-4c2d-b773-17ece39f88a5
+
+	measure 'Executive Unreviewed Stale PRs' =
+			CALCULATE (
+			    DISTINCTCOUNT ( 'Pull Requests Review Turnaround'[pullRequestId] ),
+			    'Pull Requests Review Turnaround'[isUnreviewedStalePr] = TRUE ()
+			)
+		formatString: #,0
+		lineageTag: eb8ff8ab-a2f2-442d-937c-8a745866979a
+
+	column extractedAt
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 8970ce1b-9c5c-4084-8675-800421236efd
+		summarizeBy: none
+		sourceColumn: extractedAt
+
+		variation Variation
+			isDefault
+			relationship: 81e98db7-d39d-4132-b594-a7bc523f7aa7
+			defaultHierarchy: LocalDateTable_5ea6e26c-d34e-4540-a1d3-1724c03872bb.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column repoName
+		dataType: string
+		lineageTag: 5eaba41c-f307-4cf1-98ed-44adabd901ca
+		summarizeBy: none
+		sourceColumn: repoName
+
+		annotation SummarizationSetBy = Automatic
+
+	column area
+		dataType: string
+		lineageTag: 5ca29a67-f0de-4794-833e-8c725691da10
+		summarizeBy: none
+		sourceColumn: area
+
+		annotation SummarizationSetBy = Automatic
+
+	column pullRequestId
+		dataType: int64
+		formatString: 0
+		lineageTag: 0662a97c-8e87-4cf1-ba44-aeabb9cc14e7
+		summarizeBy: none
+		sourceColumn: pullRequestId
+
+		annotation SummarizationSetBy = Automatic
+
+	column status
+		dataType: string
+		lineageTag: 0ebf47d7-6ecc-42e7-af56-dbf635816e96
+		summarizeBy: none
+		sourceColumn: status
+
+		annotation SummarizationSetBy = Automatic
+
+	column sourceRefName
+		dataType: string
+		lineageTag: d9606e36-cd2b-4c5d-ad96-dee45fc4d393
+		summarizeBy: none
+		sourceColumn: sourceRefName
+
+		annotation SummarizationSetBy = Automatic
+
+	column sourceBranchName
+		dataType: string
+		lineageTag: 3ce31bd5-c03f-49cd-b852-5a40a5969ffe
+		summarizeBy: none
+		sourceColumn: sourceBranchName
+
+		annotation SummarizationSetBy = Automatic
+
+	column isDraft
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 6f1a90ce-a56f-4afa-88b3-33895f0df7c3
+		summarizeBy: none
+		sourceColumn: isDraft
+
+		annotation SummarizationSetBy = Automatic
+
+	column reviewerCount
+		dataType: int64
+		formatString: 0
+		lineageTag: 166d8ae7-d6e8-4fc2-ab67-e6fc58d92965
+		summarizeBy: sum
+		sourceColumn: reviewerCount
+
+		annotation SummarizationSetBy = Automatic
+
+	column approvedReviewerCount
+		dataType: int64
+		formatString: 0
+		lineageTag: dd4d76b8-76db-41ff-bd33-e1338c94a7ad
+		summarizeBy: sum
+		sourceColumn: approvedReviewerCount
+
+		annotation SummarizationSetBy = Automatic
+
+	column rejectedReviewerCount
+		dataType: int64
+		formatString: 0
+		lineageTag: 42828e4a-868a-42fc-955b-44a69cf4d906
+		summarizeBy: sum
+		sourceColumn: rejectedReviewerCount
+
+		annotation SummarizationSetBy = Automatic
+
+	column waitingReviewerCount
+		dataType: int64
+		formatString: 0
+		lineageTag: e62b2812-6db0-47cc-89ee-128a7183a8f3
+		summarizeBy: sum
+		sourceColumn: waitingReviewerCount
+
+		annotation SummarizationSetBy = Automatic
+
+	column activeThreadCount
+		dataType: int64
+		formatString: 0
+		lineageTag: 99be92d6-5cc3-472d-bc68-ebba1848aaa8
+		summarizeBy: sum
+		sourceColumn: activeThreadCount
+
+		annotation SummarizationSetBy = Automatic
+
+	column creationDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 95ec604d-55c1-4960-857b-df5f12aeaece
+		summarizeBy: none
+		sourceColumn: creationDate
+
+		variation Variation
+			isDefault
+			relationship: d4e7203b-e86e-44fe-a975-b8a10c933b81
+			defaultHierarchy: LocalDateTable_e1754970-3dd7-4b7b-b555-889cfd0abc53.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column closedDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 485e893a-0ab7-4850-ad6c-9bf88591e239
+		summarizeBy: none
+		sourceColumn: closedDate
+
+		variation Variation
+			isDefault
+			relationship: 493f097c-ca2a-49c3-8d34-1f51468b99cd
+			defaultHierarchy: LocalDateTable_b5061292-2f6b-46e5-8391-2e9fa4d99259.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column isClosed
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 1091eadc-c155-4da3-9043-c076cc67f3d5
+		summarizeBy: none
+		sourceColumn: isClosed
+
+		annotation SummarizationSetBy = Automatic
+
+	column reviewTurnaroundDays
+		dataType: double
+		lineageTag: a96098c0-104b-4bd3-8a1b-ffac1beea499
+		summarizeBy: sum
+		sourceColumn: reviewTurnaroundDays
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column reviewTurnaroundRating
+		dataType: string
+		lineageTag: 7e458b8f-a3c0-47dd-96a4-1bfeb751fe01
+		summarizeBy: none
+		sourceColumn: reviewTurnaroundRating
+
+		annotation SummarizationSetBy = Automatic
+
+	column hasReviewDecision
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 13c28561-bccc-4ff2-b147-f22a1237fc1b
+		summarizeBy: none
+		sourceColumn: hasReviewDecision
+
+		annotation SummarizationSetBy = Automatic
+
+	column isUnreviewedStalePr
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 38997e13-23ff-4fb3-af89-2ff2c9049fc4
+		summarizeBy: none
+		sourceColumn: isUnreviewedStalePr
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Pull Requests Review Turnaround' = m
+		mode: import
+		source =
+				let
+				    Source = PowerBI.Dataflows(null),
+				    #"1d7f83bd-9b20-42de-9fc3-0f113e2024b2" = Source{[workspaceId="1d7f83bd-9b20-42de-9fc3-0f113e2024b2"]}[Data],
+				    #"b4231eab-5517-456d-8f37-6d807330f9c9" = #"1d7f83bd-9b20-42de-9fc3-0f113e2024b2"{[dataflowId="b4231eab-5517-456d-8f37-6d807330f9c9"]}[Data],
+				    #"Pull Requests Review Turnaround1" = #"b4231eab-5517-456d-8f37-6d807330f9c9"{[entity="Pull Requests Review Turnaround"]}[Data]
+				in
+				    #"Pull Requests Review Turnaround1"
+

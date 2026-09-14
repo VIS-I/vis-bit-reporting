@@ -1,0 +1,13 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/pagesMetadata/1.0.0/schema.json",
+  "pageOrder": [
+    "600d193abea8f8e75157",
+    "monthlyDeliveryReview",
+    "deliveryFlow",
+    "focusedTransitions",
+    "monthlyCostReview",
+    "executiveActions",
+    "kpiGuide"
+  ],
+  "activePageName": "monthlyDeliveryReview"
+}

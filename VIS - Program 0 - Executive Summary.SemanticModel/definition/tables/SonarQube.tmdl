@@ -1,0 +1,146 @@
+table SonarQube
+	lineageTag: 32428f7c-5230-45dd-921a-1aa026ae6f0d
+
+	measure 'Executive Quality Score' =
+			VAR LatestDate =
+			    CALCULATE ( MAX ( SonarQube[date] ), REMOVEFILTERS ( SonarQube ) )
+			RETURN
+			    DIVIDE (
+			        CALCULATE ( AVERAGE ( SonarQube[kpi_percent] ), SonarQube[date] = LatestDate ),
+			        100
+			    )
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: c12d9c6c-c5c4-423f-a95f-53fd9780af85
+
+	measure 'Executive Quality Risk Color' =
+			VAR QualityScore = [Executive Quality Score]
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        ISBLANK ( QualityScore ), "#6B6B6B",
+			        QualityScore >= 0.9, "#107C10",
+			        QualityScore >= 0.8, "#CA5010",
+			        "#D13438"
+			    )
+		lineageTag: 5792f997-f1a8-407c-8f8d-758c86b1fcc0
+
+	column portfolio_key
+		dataType: string
+		lineageTag: 128ac18d-7f42-4c37-8714-23727668d81a
+		summarizeBy: none
+		sourceColumn: portfolio_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column project_key
+		dataType: string
+		lineageTag: 87e09d34-6741-46f0-b079-07b5bbe4a231
+		summarizeBy: none
+		sourceColumn: project_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column metric
+		dataType: string
+		lineageTag: d0832899-c934-4b54-abc5-9787a9375a01
+		summarizeBy: none
+		sourceColumn: metric
+
+		annotation SummarizationSetBy = Automatic
+
+	column date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 86bc6f67-935f-4aa4-b8ab-5fd7a8b96b5f
+		summarizeBy: none
+		sourceColumn: date
+
+		variation Variation
+			isDefault
+			relationship: f6f2bd87-85c4-4f3e-b626-04bf4252e4c5
+			defaultHierarchy: LocalDateTable_0ba67aaf-1c90-4732-8f14-5d52d3c87543.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column month
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: b1ba6dd8-b3bb-47ba-9729-f4bcf23eac11
+		summarizeBy: none
+		sourceColumn: month
+
+		variation Variation
+			isDefault
+			relationship: 24e41b2f-a46c-4711-aa3b-c8b0601bd740
+			defaultHierarchy: LocalDateTable_e52bb159-bbe0-4ffa-bd4b-378b9baab89e.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column month_name
+		dataType: string
+		lineageTag: cb732a8f-63fe-4d4c-8214-2f1ae0843662
+		summarizeBy: none
+		sourceColumn: month_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column year
+		dataType: int64
+		formatString: 0
+		lineageTag: efcd5ead-8545-40d1-a705-54449b026999
+		summarizeBy: sum
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column year_month
+		dataType: string
+		lineageTag: e5ba2fed-c474-4039-9e63-2abe6ab3ee82
+		summarizeBy: none
+		sourceColumn: year_month
+
+		annotation SummarizationSetBy = Automatic
+
+	column sonar_rating
+		dataType: double
+		lineageTag: 2eb4a2c7-23b6-4d39-b501-da7ee4c9db04
+		summarizeBy: sum
+		sourceColumn: sonar_rating
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column rating_letter
+		dataType: string
+		lineageTag: 207e6fd9-bf69-423a-8bc9-5f8d18633424
+		summarizeBy: none
+		sourceColumn: rating_letter
+
+		annotation SummarizationSetBy = Automatic
+
+	column kpi_percent
+		dataType: double
+		lineageTag: 609bd20a-f92e-4e07-83c4-15efee707be7
+		summarizeBy: sum
+		sourceColumn: kpi_percent
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition SonarQube = m
+		mode: import
+		source =
+				let
+				    Source = PowerBI.Dataflows(null),
+				    #"1d7f83bd-9b20-42de-9fc3-0f113e2024b2" = Source{[workspaceId="1d7f83bd-9b20-42de-9fc3-0f113e2024b2"]}[Data],
+				    #"b4231eab-5517-456d-8f37-6d807330f9c9" = #"1d7f83bd-9b20-42de-9fc3-0f113e2024b2"{[dataflowId="b4231eab-5517-456d-8f37-6d807330f9c9"]}[Data],
+				    SonarQube1 = #"b4231eab-5517-456d-8f37-6d807330f9c9"{[entity="SonarQube"]}[Data]
+				in
+				    SonarQube1
+

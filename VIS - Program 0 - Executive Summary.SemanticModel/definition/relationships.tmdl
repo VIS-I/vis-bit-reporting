@@ -1,0 +1,289 @@
+relationship 2b633d22-57f8-41d8-86b4-0fa66cef6503
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Features.ClosedDate
+	toColumn: LocalDateTable_03b7c39e-0a44-4cde-8f34-01ec70818ce8.Date
+
+relationship bff63506-f3b3-4c9a-a9d9-56c329788916
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Features.CreatedDate
+	toColumn: LocalDateTable_06b86a22-40ec-40e0-a37f-ae537da38fa9.Date
+
+relationship d498c284-e2b5-45c8-95db-aab2aba7749e
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Features.ChangedDate
+	toColumn: LocalDateTable_3f24834d-55db-485a-b74f-e676b5ce56b8.Date
+
+relationship c9f5b502-bcc8-4155-aab8-751a7ea3ca16
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Features.ActivatedDate
+	toColumn: LocalDateTable_0cd06494-9121-411e-9319-6e086f07b4ad.Date
+
+relationship c18c262a-03f2-4bc1-afe0-86189f764295
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Features.StateChangeDate
+	toColumn: LocalDateTable_15b9a1fb-a613-4615-ba14-63a4246bfb9e.Date
+
+relationship ba387bf8-54fb-46c3-9462-a91b3786b60d
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Features.'Planned End Date'
+	toColumn: LocalDateTable_e730731d-5964-4a31-878b-991f509afaf5.Date
+
+relationship ff751325-5cf0-4e4b-8e4a-79e970fea642
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Done Work'.ChangedDate
+	toColumn: LocalDateTable_c44f4d53-eff8-4d64-9b1f-02ef1a50c3bd.Date
+
+relationship cc49c92f-0356-443f-be56-fb1a1ef86260
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Done Work'.CreatedDate
+	toColumn: LocalDateTable_0d1b254d-98d2-41d9-bb43-ac9cf6aa00e0.Date
+
+relationship 0d0bb9b8-32ee-43a5-acc4-15004f52fb1b
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Done Work'.ActivatedDate
+	toColumn: LocalDateTable_2d682a53-35ec-4f59-ad70-2421468dd299.Date
+
+relationship a641a8ce-4aa0-46b6-9fc1-fde438b85d4d
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Done Work'.ClosedDate
+	toColumn: LocalDateTable_15be34b9-315a-4dbd-abfe-507c3dd0625c.Date
+
+relationship d08a6f8c-1433-4d90-a9f5-6836a95104bc
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Done Work'.StartDate
+	toColumn: LocalDateTable_0f38168e-af74-485b-9bbf-9bfc5cbfcb35.Date
+
+relationship 6966152d-3e06-416a-a346-d2c34d366db9
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Done Work'.StateChangeDate
+	toColumn: LocalDateTable_8854e170-61d9-46ad-b5ac-1ecec039e00c.Date
+
+relationship d0bf9de1-60cc-44ce-863e-e8f20a7e8fca
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Backlog.ChangedDate
+	toColumn: LocalDateTable_752ba12f-1f68-41f6-a21c-79f48f7c860b.Date
+
+relationship fe7c88bc-a40f-453f-95ba-ee9bbc2ed529
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Backlog.CreatedDate
+	toColumn: LocalDateTable_43149137-aaf4-44af-b140-00b226dbfcc5.Date
+
+relationship 18e2cc72-cb0c-4d7c-8d85-b11fb0ad613c
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Backlog.ActivatedDate
+	toColumn: LocalDateTable_78eb5ed2-a092-4db3-bc5d-234e9c47fe4a.Date
+
+relationship 8c835ca4-2327-42c9-b56e-f89c2c4f6afe
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Backlog.ClosedDate
+	toColumn: LocalDateTable_95c11fbf-a66d-4261-b105-4d3f75173d96.Date
+
+relationship a3657200-1ac2-418b-a3be-fe9e2dd81280
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Backlog.StateChangeDate
+	toColumn: LocalDateTable_3ee2f8d6-db85-4aba-8ad7-0332d745fdd7.Date
+
+relationship bd3691bc-5ea5-4ca8-a659-2af8d0d4ba47
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Backlog.'Planned End Date'
+	toColumn: LocalDateTable_c5de01e3-f47b-4d8c-a3bd-1aa8ffcc77e4.Date
+
+relationship 045c3018-901d-477c-9ec6-9953cb3db0c1
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Backlog.'Linked.Planned End Date'
+	toColumn: LocalDateTable_9a95d0eb-4fe1-4ebe-b997-8208310bca38.Date
+
+relationship 1bf20db6-e1dd-4775-a2d2-353083e37f19
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Cumulative Flow Diagram'.DateValue
+	toColumn: LocalDateTable_53080dc1-b3bc-466e-933a-4de031ef8f4c.Date
+
+relationship 4e4df3ca-973d-4c1e-a833-cf9ca090912d
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Deployment Snapshot'.snapshotModifiedAt
+	toColumn: LocalDateTable_5876adf9-9780-4e56-a611-51de7d439463.Date
+
+relationship 9976ebf6-63be-4867-bad3-5f3aa367127c
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Deployment Snapshot'.deploymentDate
+	toColumn: LocalDateTable_d6b954b8-bb83-43f5-8f7c-c286e90658bf.Date
+
+relationship 81e98db7-d39d-4132-b594-a7bc523f7aa7
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Pull Requests Review Turnaround'.extractedAt
+	toColumn: LocalDateTable_5ea6e26c-d34e-4540-a1d3-1724c03872bb.Date
+
+relationship d4e7203b-e86e-44fe-a975-b8a10c933b81
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Pull Requests Review Turnaround'.creationDate
+	toColumn: LocalDateTable_e1754970-3dd7-4b7b-b555-889cfd0abc53.Date
+
+relationship 493f097c-ca2a-49c3-8d34-1f51468b99cd
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Pull Requests Review Turnaround'.closedDate
+	toColumn: LocalDateTable_b5061292-2f6b-46e5-8391-2e9fa4d99259.Date
+
+relationship afd42c78-9b53-45b7-8ab0-4ab84dddc579
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Pull Requests'.extractedAt
+	toColumn: LocalDateTable_3c6f327b-c8d1-4f01-a5b8-1dedd7579cb5.Date
+
+relationship 4dc81b69-f904-4e89-beff-644ee7656c6d
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Pull Requests'.extractedDate
+	toColumn: LocalDateTable_cba8069a-6fc9-400c-a6fe-9600659631dc.Date
+
+relationship d90362a3-a6c8-431e-be29-c2bbbd6772c6
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Pull Requests'.creationDate
+	toColumn: LocalDateTable_cc3b700b-a28f-4846-91c3-84fb0abbccf5.Date
+
+relationship 78be3822-4fcb-46f9-a285-56b70b9640fc
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Pull Requests'.closedDate
+	toColumn: LocalDateTable_7a46c952-bcaa-4487-beaa-9dbbfc0009f5.Date
+
+relationship f6f2bd87-85c4-4f3e-b626-04bf4252e4c5
+	joinOnDateBehavior: datePartOnly
+	fromColumn: SonarQube.date
+	toColumn: LocalDateTable_0ba67aaf-1c90-4732-8f14-5d52d3c87543.Date
+
+relationship 24e41b2f-a46c-4711-aa3b-c8b0601bd740
+	joinOnDateBehavior: datePartOnly
+	fromColumn: SonarQube.month
+	toColumn: LocalDateTable_e52bb159-bbe0-4ffa-bd4b-378b9baab89e.Date
+
+relationship d4b853e4-6ae4-4717-9d5c-0554e95e6258
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Work Item Snapshot'.DateValue
+	toColumn: LocalDateTable_41c9d6ca-5356-4852-8cca-8954a7d4296e.Date
+
+relationship 94f286e4-cce3-46a9-897d-28948c788188
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Work Item Snapshot'.ChangedDate
+	toColumn: LocalDateTable_97faf219-bb27-442b-9393-3d4a263a8d31.Date
+
+relationship 2d7ff735-f4fe-4d12-a62b-8718df1ad3f2
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Work Item Snapshot'.CreatedDate
+	toColumn: LocalDateTable_e10616c1-b26e-49e6-b750-51e624c73259.Date
+
+relationship be2ce445-e78c-4656-8009-c5b70b8aa680
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Work Item Snapshot'.ActivatedDate
+	toColumn: LocalDateTable_b219ebb9-f2e1-4f89-9617-98e51028f9c6.Date
+
+relationship 59cc91f6-b781-4049-9666-2af3e4de2af2
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Work Item Snapshot'.ClosedDate
+	toColumn: LocalDateTable_1127839c-a6e0-4f45-80fa-262830709165.Date
+
+relationship f1a02a2b-1a17-48d9-bf97-9f19c92a466c
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Work Item Snapshot'.StateChangeDate
+	toColumn: LocalDateTable_0057547b-51cd-4ec4-a7f8-f824c0b6533d.Date
+
+relationship 0c87e6cc-2b3c-4fe6-8325-91e3fb8f4ff3
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Work Item Snapshot'.SnapshotDateTime
+	toColumn: LocalDateTable_a04cda2d-133f-4d2b-b3e7-fc6c352f50f8.Date
+
+relationship f36a7d23-d8dc-4f2d-8a16-6f42715e3521
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Commits.authorDate
+	toColumn: LocalDateTable_b81ebe13-a9d2-4c64-9abc-f1e0cfb17a9d.Date
+
+relationship 64935ff5-a95b-4d99-8fa2-ab166800fedd
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Commits.committerDate
+	toColumn: LocalDateTable_222495a0-a54a-4353-87d0-2cd1a0ed5b09.Date
+
+relationship a590b93d-fc69-416e-9eb5-ac21c0c74f1d
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Pipeline Duration Trend'.'CompletedOn.Date'
+	toColumn: LocalDateTable_0b1fb3c4-4f75-48e1-96f2-3a906fb074f7.Date
+
+relationship 985f8fd1-94f9-4efd-b105-8928b00cd112
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Pipeline Task Failures'.'PipelineRunCompletedOn.Date'
+	toColumn: LocalDateTable_9947250e-67a9-463b-9d62-a07a01229e85.Date
+
+relationship b5969d59-15ad-402e-b2ac-67b63435a27f
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Pipeline Jobs Failures'.'PipelineRunCompletedOn.Date'
+	toColumn: LocalDateTable_602bd721-294a-4235-8489-95cc19238748.Date
+
+relationship AutoDetected_1779ae10-04a9-44e2-b429-f2e66a42162f
+	fromColumn: 'Done Work'.WorkItemId
+	toColumn: Features.WorkItemId
+
+relationship AutoDetected_0fc58cd2-f8b9-4c88-8f22-12f1a81698cb
+	fromColumn: Backlog.WorkItemId
+	toColumn: Features.WorkItemId
+
+relationship AutoDetected_8e58a57a-7f96-4255-9ee4-cc341c609250
+	fromColumn: 'Deployment Snapshot'.pipelineName
+	toColumn: 'Pipeline Outcome Summary'.PipelineName
+
+relationship AutoDetected_67d223ff-9d82-44df-8d61-300b93e92a9f
+	fromColumn: 'Pipeline Duration Trend'.PipelineName
+	toColumn: 'Pipeline Outcome Summary'.PipelineName
+
+relationship AutoDetected_8662c680-974f-4bee-8b64-d222e77d99e9
+	fromColumn: 'Pipeline Task Failures'.PipelineName
+	toColumn: 'Pipeline Outcome Summary'.PipelineName
+
+relationship AutoDetected_c3ea4a4a-f031-4b17-9c46-eb097902d7fa
+	fromColumn: 'Pipeline Jobs Failures'.PipelineName
+	toColumn: 'Pipeline Outcome Summary'.PipelineName
+
+relationship AutoDetected_e0d5995b-16b8-4c46-9dab-fb9fbff728c0
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: 'Pull Requests'.pullRequestId
+	toColumn: 'Pull Requests Review Turnaround'.pullRequestId
+
+relationship 7084aa8d-797b-46a9-8cf5-4833be42e898
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Executive Costs'.ChargePeriodStart
+	toColumn: LocalDateTable_4fd07d01-f74b-4288-9939-b567e08f7036.Date
+
+relationship 0a0ab692-6cdf-47c8-b6bd-05b08d90d62d
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Reporting Month'.'Month End'
+	toColumn: LocalDateTable_511d550a-8e8a-4de3-bd60-db262a3d74d1.Date
+
+relationship 73343307-9e74-4562-9319-64a9035ff0c1
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Pull Requests Review Turnaround History'.snapshotDate
+	toColumn: LocalDateTable_912fc321-7306-4a2a-b573-b4ea603dcc93.Date
+
+relationship f3eeae17-bbf5-4ce4-b197-89b91bbc01fd
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Pull Requests Review Turnaround History'.extractedAt
+	toColumn: LocalDateTable_abbc5f7c-35dc-4948-8ff3-eaeb03f435e7.Date
+
+relationship 64f0ef50-7e20-4a6b-8452-423886e63991
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Pull Requests Review Turnaround History'.creationDate
+	toColumn: LocalDateTable_1aa8e474-210c-4cdc-a679-ea9abdb2f9d3.Date
+
+relationship 969319ec-c366-4685-b2cc-558c5ca87342
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Pull Requests Review Turnaround History'.closedDate
+	toColumn: LocalDateTable_5aaf82d6-8383-4067-83ca-428656d535a8.Date
+
+relationship AutoDetected_11eb0361-43ac-42ba-b127-b58f3f469c59
+	fromColumn: 'Pull Requests Review Turnaround History'.pullRequestId
+	toColumn: 'Pull Requests Review Turnaround'.pullRequestId
+
+relationship b2ec624c-5b39-44ea-acaa-f136bd5112d5
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Deployment Snapshot'.snapshotDate
+	toColumn: LocalDateTable_b93945fc-bf14-42ca-941d-04f6d0d73855.Date
+
+relationship c51fa245-d90d-4f8c-be15-5ad4b1ff0621
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Requirement Churn'.'Snapshot Date'
+	toColumn: LocalDateTable_333c4484-faaa-4358-8a16-e327274438bc.Date
+

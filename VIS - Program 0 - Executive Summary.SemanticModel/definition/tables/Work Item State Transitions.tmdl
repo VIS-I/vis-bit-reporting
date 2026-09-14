@@ -1,0 +1,100 @@
+table 'Work Item State Transitions'
+	lineageTag: 8330fb0c-bdc4-478e-9d5f-79fb24bd5509
+
+	measure 'Executive Delivery State Changes (Selected Month)' =
+			VAR SelectedMonthStart = 'Reporting Month'[Executive Selected Reporting Month Start]
+			VAR SelectedMonthEnd = 'Reporting Month'[Executive Selected Reporting Month End]
+			VAR StateChanges =
+				CALCULATE (
+					SUM ( 'Work Item State Transitions'[Transition Count] ),
+					FILTER (
+						ALL ( 'Work Item State Transitions'[Transition Date] ),
+						'Work Item State Transitions'[Transition Date] >= SelectedMonthStart &&
+						'Work Item State Transitions'[Transition Date] < SelectedMonthEnd + 1
+					)
+				)
+			RETURN
+				IF ( StateChanges = 0, BLANK (), StateChanges )
+		formatString: #,0
+		lineageTag: af711054-2177-4d26-b833-736f225997f6
+
+	column 'Transition Date'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 82c763ab-45df-4739-a8cb-30e6bd86db83
+		summarizeBy: none
+		sourceColumn: TransitionDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column WorkItemId
+		dataType: int64
+		formatString: 0
+		lineageTag: 907b5f84-5f1f-4f1c-8e93-4448b4d1bd65
+		summarizeBy: count
+		sourceColumn: WorkItemId
+
+		annotation SummarizationSetBy = Automatic
+
+	column WorkItemType
+		dataType: string
+		lineageTag: f72f99be-a314-4537-b120-3bc6f874cd3e
+		summarizeBy: none
+		sourceColumn: WorkItemType
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Source State'
+		dataType: string
+		lineageTag: 59a7167e-35c0-4f55-a9cd-f221934c4e76
+		summarizeBy: none
+		sourceColumn: SourceState
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Destination State'
+		dataType: string
+		lineageTag: 376f8c47-bd89-45a9-8100-f7ae5144546b
+		summarizeBy: none
+		sourceColumn: DestinationState
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Delivery Flow Source'
+		dataType: string
+		lineageTag: 5cb86677-fdb8-4b27-a5cc-5c18342172c4
+		summarizeBy: none
+		sourceColumn: DeliveryFlowSource
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Delivery Flow Destination'
+		dataType: string
+		lineageTag: 06a9f409-bb8d-4a77-bf8d-e641b5ecb66d
+		summarizeBy: none
+		sourceColumn: DeliveryFlowDestination
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Transition Count'
+		dataType: int64
+		formatString: 0
+		lineageTag: afbb5907-385d-429d-bbc7-70e09b404942
+		summarizeBy: sum
+		sourceColumn: TransitionCount
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Work Item State Transitions' = m
+		mode: import
+		source =
+				let
+				    Source = PowerBI.Dataflows(null),
+				    #"1d7f83bd-9b20-42de-9fc3-0f113e2024b2" = Source{[workspaceId="1d7f83bd-9b20-42de-9fc3-0f113e2024b2"]}[Data],
+				    #"1d72647c-62cb-46ba-91f9-0eb5c71bb512" = #"1d7f83bd-9b20-42de-9fc3-0f113e2024b2"{[dataflowId="1d72647c-62cb-46ba-91f9-0eb5c71bb512"]}[Data],
+				    #"Work Item State Transitions1" = #"1d72647c-62cb-46ba-91f9-0eb5c71bb512"{[entity="Work Item State Transitions"]}[Data],
+				    #"Selected Columns" = Table.SelectColumns(#"Work Item State Transitions1", {"TransitionDate", "WorkItemId", "WorkItemType", "SourceState", "DestinationState", "DeliveryFlowSource", "DeliveryFlowDestination", "TransitionCount"}),
+				    #"Typed Columns" = Table.TransformColumnTypes(#"Selected Columns", {{"TransitionDate", type datetime}, {"WorkItemId", Int64.Type}, {"TransitionCount", Int64.Type}}, "en-US")
+				in
+				    #"Typed Columns"
+

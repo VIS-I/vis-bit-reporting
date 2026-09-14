@@ -1,0 +1,57 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "monthlyKpiExplanation",
+  "position": {
+    "x": 29.179331306990882,
+    "y": 613.73860182370822,
+    "z": 16000,
+    "height": 106.01823708206688,
+    "width": 1205.1063829787236,
+    "tabOrder": 16000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "FLOW PERFORMANCE uses completed User Stories from the reporting month. All four delivery-health KPIs compare with the preceding complete month: Lead and Cycle Time are shown in days; Capacity Load and Delivery Defect Rate are shown in percentage points. Lower Lead Time, Cycle Time, and Delivery Defect Rate improve flow.",
+                    "textStyle": {
+                      "fontFamily": "DIN",
+                      "fontSize": "9pt",
+                      "color": "#424242"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": ""
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "DELIVERY HEALTH combines the worst RAG (Red, Amber, Green) status across Lead Time, Cycle Time, Capacity Load, and Delivery Defect Rate. CURRENT QUEUE & CAPACITY SIGNALS use the current backlog and month-end snapshot; Active Testers are a state-based assignment proxy, not an HR tester count.",
+                    "textStyle": {
+                      "fontFamily": "DIN",
+                      "fontSize": "9pt",
+                      "color": "#424242"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

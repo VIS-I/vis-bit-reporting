@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "costExplanation",
+  "position": {
+    "x": 631.56231003039511,
+    "y": 461.78115501519761,
+    "z": 8000,
+    "height": 200,
+    "width": 566,
+    "tabOrder": 8000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "WHAT THIS SHOWS\nEffective Cost is amortized cost for the selected reporting month. Reservation and savings-plan purchases are allocated to the period in which their benefit was used, so it can differ from the invoice amount.\n\nService Tier shows the cost split using FOCUS SKU tier, then meter category, then service category when a tier is unavailable. AI Investments classify Azure AI, OpenAI, Cognitive Services, Machine Learning, AI Search, Content Safety, and Bot Service by ServiceName, ServiceCategory, or meter metadata.\n\nEffective Cost and AI Investments include month-over-month movement, not a red-amber-green target. A budget or forecast for the same scope is needed before variance can be rated.",
+                    "textStyle": {
+                      "fontFamily": "DIN",
+                      "fontSize": "10pt",
+                      "color": "#424242"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

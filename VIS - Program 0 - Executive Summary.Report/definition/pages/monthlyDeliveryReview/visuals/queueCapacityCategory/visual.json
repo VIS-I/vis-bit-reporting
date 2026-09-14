@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "queueCapacityCategory",
+  "position": {
+    "x": 33.529411764705884,
+    "y": 454.11764705882354,
+    "z": 10000,
+    "height": 31.764705882352942,
+    "width": 1152.9411764705883,
+    "tabOrder": 10000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "BACKLOG & ASSIGNMENTS | Backlog composition and month-end assignment proxies",
+                    "textStyle": {
+                      "fontFamily": "DIN",
+                      "fontSize": "10pt",
+                      "color": "#197278"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,304 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "guideContent",
+  "position": {
+    "x": 39.878419452887542,
+    "y": 109.90881458966565,
+    "z": 0,
+    "height": 609.84802431610944,
+    "width": 1209.969604863222,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "COMMITMENT RISK | Currently overdue active Features / all currently active Features. This is a current-state KPI and does not change with the reporting-month selector. Green <=5%; orange >5% to 10%; red >10%.",
+                    "textStyle": {
+                      "fontFamily": "DIN",
+                      "fontSize": "10pt",
+                      "color": "#424242"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": ""
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "FLOW HEALTH | Median cycle time for completed User Stories. Cycle time is ActivatedDate, or StartDate when activation is unavailable, to ClosedDate. Green <15 days; orange 15 to <20; red >=20. A value at or above 25 remains red and needs immediate action.",
+                    "textStyle": {
+                      "fontFamily": "DIN",
+                      "fontSize": "10pt",
+                      "color": "#424242"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": ""
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "LEAD TIME | Median time from CreatedDate to ClosedDate for completed User Stories. Green <30 days; orange 30 to <35; red >=35. A value at or above 40 remains red and needs immediate action. The monthly page compares the selected complete calendar month with its preceding calendar month; a negative change is better.",
+                    "textStyle": {
+                      "fontFamily": "DIN",
+                      "fontSize": "10pt",
+                      "color": "#424242"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": ""
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "OVERALL DELIVERY STATUS | The worst health signal of Lead Time, Cycle Time, Capacity Load, and Delivery Defect Rate. It is green when every available signal is green, orange when none is red but at least one is orange, and red when any signal is red. In Concept and On Hold are diagnostic and do not influence this status.",
+                    "textStyle": {
+                      "fontFamily": "DIN",
+                      "fontSize": "10pt",
+                      "color": "#424242"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": ""
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "RELEASE RELIABILITY | Successful plus partially successful pipeline runs / all pipeline runs completed since the configured StartDate. This is a cumulative KPI and does not change with the reporting-month selector. Green >=95%; orange 90% to <95%; red <90%.",
+                    "textStyle": {
+                      "fontFamily": "DIN",
+                      "fontSize": "10pt",
+                      "color": "#424242"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": ""
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "SERVICE CURRENCY | Deployment instances no more than 90 days old / deployment instances with a known deployment date, measured at the final deployment snapshot in the selected month. The change compares with the final snapshot in the preceding month and is shown in percentage points. If no snapshot was retained in the selected month, the latest available value is shown without a change. Green = 100%; orange 90% to <100%; red <90%.",
+                    "textStyle": {
+                      "fontFamily": "DIN",
+                      "fontSize": "10pt",
+                      "color": "#424242"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": ""
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "PR REVIEW QUEUE AGE | Median age of active, non-draft Human PRs with assigned reviewers still waiting, calculated at the final available extraction in the selected month. It compares with the final extraction in the preceding month. Green <=2 days; orange >2 to 3; red >3.",
+                    "textStyle": {
+                      "fontFamily": "DIN",
+                      "fontSize": "10pt",
+                      "color": "#424242"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": ""
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "REQUIREMENT REWORK RATE | Distinct committed User Stories and Bugs with a material rework event / distinct work items in a committed state during the selected month. Events are estimate revisions, moves back to planning, entry to On Hold, removal, return from Closed, or iteration changes after Ready for Development. The change compares with the preceding month. Green <=10%; orange >10% to 20%; red >20%. It does not affect Overall Delivery Status.",
+                    "textStyle": {
+                      "fontFamily": "DIN",
+                      "fontSize": "10pt",
+                      "color": "#424242"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": ""
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "ESTIMATION DRIFT | (Actual Effort / Estimated Effort) - 1 for completed User Stories and Bugs with both effort values recorded. Positive means actual effort exceeded the estimate; negative means less actual effort than estimated. The change is versus the preceding month. Green within +/-10%; orange within +/-25%; red beyond +/-25%.",
+                    "textStyle": {
+                      "fontFamily": "DIN",
+                      "fontSize": "10pt",
+                      "color": "#424242"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": ""
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "QUALITY SCORE | Average of the latest available SonarQube security, reliability, security-review, and releasability ratings, normalized so higher is better. This latest-snapshot KPI does not change with the reporting-month selector. Green >=90%; orange 80% to <90%; red <80%.",
+                    "textStyle": {
+                      "fontFamily": "DIN",
+                      "fontSize": "10pt",
+                      "color": "#424242"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": ""
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "FEATURE DELIVERY PROGRESS | Completed child User Stories / all child User Stories under currently active Features. The portfolio result is weighted by story count, not an average of feature percentages. Remaining User Stories is the corresponding current count of open child stories. Both are current-state KPIs and do not change with the reporting-month selector.",
+                    "textStyle": {
+                      "fontFamily": "DIN",
+                      "fontSize": "10pt",
+                      "color": "#424242"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": ""
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "ACTIVE DELIVERY BACKLOG | The current Backlog source already excludes completed work. Estimation Coverage and Active Defect Load also exclude State = In Concept and State = On Hold. These are current-state KPIs and do not change with the reporting-month selector. Estimation coverage: green >=90%; orange 75% to <90%; red <75%. Active defect load: green <=10%; orange >10% to 20%; red >20%.",
+                    "textStyle": {
+                      "fontFamily": "DIN",
+                      "fontSize": "10pt",
+                      "color": "#424242"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": ""
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "CAPACITY LOAD (PROXY) | Estimated effort from User Stories and Bugs completed in the latest full month / (Active Developers x 20 person days). Active Developers are unique assignees of User Stories and Bugs in State = Active at the latest month-end CFD snapshot. Active Testers use the same assignment rule with State = Ready for Testing. These are state-based planning proxies, not booked time, staffing records, or contractual capacity. Green 70% to 100%; orange 50% to <70% or >100% to 120%; red outside those ranges.",
+                    "textStyle": {
+                      "fontFamily": "DIN",
+                      "fontSize": "10pt",
+                      "color": "#424242"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": ""
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "DELIVERY FLOW | The Sankey bands count observed User Story and Bug state changes during the reporting month; wider bands represent more changes. Daily snapshots show the last state observed each day and cannot distinguish multiple same-day changes. The cards below are month-end inventory and assignment proxies.",
+                    "textStyle": {
+                      "fontFamily": "DIN",
+                      "fontSize": "10pt",
+                      "color": "#424242"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": ""
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "COST AND AI INVESTMENTS | Effective Cost is amortized cost for the selected reporting month. Service Tier uses FOCUS SKU tier, then meter category, then service category when a tier is unavailable. AI Investments classify Azure AI, OpenAI, Cognitive Services, Machine Learning, AI Search, Content Safety, and Bot Service using service and meter metadata. Effective Cost and AI Investments include month-over-month movement only; no cost red-amber-green status is shown until an approved budget or forecast exists.",
+                    "textStyle": {
+                      "fontFamily": "DIN",
+                      "fontSize": "10pt",
+                      "color": "#424242"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

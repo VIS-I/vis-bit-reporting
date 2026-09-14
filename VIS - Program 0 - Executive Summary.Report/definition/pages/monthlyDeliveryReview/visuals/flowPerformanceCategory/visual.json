@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "flowPerformanceCategory",
+  "position": {
+    "x": 38.905775075987833,
+    "y": 126.44376899696047,
+    "z": 1000,
+    "height": 28.206686930091188,
+    "width": 1157.4468085106384,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "FLOW PERFORMANCE | Completed work and month-over-month movement",
+                    "textStyle": {
+                      "fontFamily": "DIN",
+                      "fontSize": "10pt",
+                      "color": "#197278"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

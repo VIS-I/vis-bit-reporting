@@ -1,0 +1,157 @@
+table Commits
+	lineageTag: 79d83f90-b202-45a3-ae23-05e11d33f9ab
+
+	column repoId
+		dataType: string
+		lineageTag: 76ba3d4a-18a1-4f2a-9fae-3bbd7e04c833
+		summarizeBy: none
+		sourceColumn: repoId
+
+		annotation SummarizationSetBy = Automatic
+
+	column repoName
+		dataType: string
+		lineageTag: bd661b82-26e7-4ec4-9315-6ea09b9b723e
+		summarizeBy: none
+		sourceColumn: repoName
+
+		annotation SummarizationSetBy = Automatic
+
+	column Team
+		dataType: string
+		lineageTag: 066ad2eb-cff6-42a9-95c4-bd2ae3d982f5
+		summarizeBy: none
+		sourceColumn: Team
+
+		annotation SummarizationSetBy = Automatic
+
+	column commitId
+		dataType: string
+		lineageTag: c485937c-59ca-41ac-a6c7-30600c88ee5b
+		summarizeBy: none
+		sourceColumn: commitId
+
+		annotation SummarizationSetBy = Automatic
+
+	column authorName
+		dataType: string
+		lineageTag: e651fa58-dc88-45dc-8d32-813edb2a6fad
+		summarizeBy: none
+		sourceColumn: authorName
+
+		annotation SummarizationSetBy = Automatic
+
+	column authorEmail
+		dataType: string
+		lineageTag: fe7c1023-df9d-44bf-b137-b94ee856946a
+		summarizeBy: none
+		sourceColumn: authorEmail
+
+		annotation SummarizationSetBy = Automatic
+
+	column authorDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 469d3a93-9b70-4df1-be37-645b3a484a8c
+		summarizeBy: none
+		sourceColumn: authorDate
+
+		variation Variation
+			isDefault
+			relationship: f36a7d23-d8dc-4f2d-8a16-6f42715e3521
+			defaultHierarchy: LocalDateTable_b81ebe13-a9d2-4c64-9abc-f1e0cfb17a9d.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column committerName
+		dataType: string
+		lineageTag: d24687f0-042f-45ae-8157-f22df108e904
+		summarizeBy: none
+		sourceColumn: committerName
+
+		annotation SummarizationSetBy = Automatic
+
+	column committerEmail
+		dataType: string
+		lineageTag: 75ff8306-127e-4341-b340-e197da8a4256
+		summarizeBy: none
+		sourceColumn: committerEmail
+
+		annotation SummarizationSetBy = Automatic
+
+	column committerDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: be229329-e335-4a58-935b-a62d0afe0d8c
+		summarizeBy: none
+		sourceColumn: committerDate
+
+		variation Variation
+			isDefault
+			relationship: 64935ff5-a95b-4d99-8fa2-ab166800fedd
+			defaultHierarchy: LocalDateTable_222495a0-a54a-4353-87d0-2cd1a0ed5b09.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column comment
+		dataType: string
+		lineageTag: feb30d34-4978-4204-b03b-490328dbb40b
+		summarizeBy: none
+		sourceColumn: comment
+
+		annotation SummarizationSetBy = Automatic
+
+	column Add
+		dataType: int64
+		formatString: 0
+		lineageTag: 0bd6ab69-35af-43d0-bb98-fde8b89bdab8
+		summarizeBy: sum
+		sourceColumn: Add
+
+		annotation SummarizationSetBy = Automatic
+
+	column Edit
+		dataType: int64
+		formatString: 0
+		lineageTag: 3e216223-9417-4056-b015-b2a8b83aabca
+		summarizeBy: sum
+		sourceColumn: Edit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Delete
+		dataType: int64
+		formatString: 0
+		lineageTag: 8d2860d6-4b6b-4b61-8d60-f30f72049b76
+		summarizeBy: sum
+		sourceColumn: Delete
+
+		annotation SummarizationSetBy = Automatic
+
+	column area
+		dataType: string
+		lineageTag: 22f7dacf-8fd7-421a-bcaf-fcba0940e7ca
+		summarizeBy: none
+		sourceColumn: area
+
+		annotation SummarizationSetBy = Automatic
+
+	column authorType
+		dataType: string
+		lineageTag: 787784ff-255d-47dc-a11e-7d5db24913a7
+		summarizeBy: none
+		sourceColumn: authorType
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Commits = m
+		mode: import
+		source =
+				let
+				    Source = PowerBI.Dataflows(null),
+				    #"1d7f83bd-9b20-42de-9fc3-0f113e2024b2" = Source{[workspaceId="1d7f83bd-9b20-42de-9fc3-0f113e2024b2"]}[Data],
+				    #"b4231eab-5517-456d-8f37-6d807330f9c9" = #"1d7f83bd-9b20-42de-9fc3-0f113e2024b2"{[dataflowId="b4231eab-5517-456d-8f37-6d807330f9c9"]}[Data],
+				    Commits1 = #"b4231eab-5517-456d-8f37-6d807330f9c9"{[entity="Commits"]}[Data]
+				in
+				    Commits1
+

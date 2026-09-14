@@ -1,0 +1,46 @@
+table 'Reporting Month'
+	lineageTag: 10800f41-cfa1-4ca8-869c-7047072a54e0
+
+	measure 'Executive Selected Reporting Month End' =
+			VAR SelectedMonth = SELECTEDVALUE ( 'Reporting Month'[Month End] )
+			RETURN
+				IF ( ISBLANK ( SelectedMonth ), EOMONTH ( TODAY (), -1 ), SelectedMonth )
+		formatString: General Date
+		lineageTag: 3eb9b69f-4e70-439e-85dc-36287cb85004
+
+	measure 'Executive Selected Reporting Month Start' = EOMONTH ( [Executive Selected Reporting Month End], -1 ) + 1
+		formatString: General Date
+		lineageTag: d6b6054a-7b8f-4f32-a9c7-e1e5b85ca0cd
+
+	measure 'Executive Previous Reporting Month Start' = EOMONTH ( [Executive Selected Reporting Month End], -2 ) + 1
+		formatString: General Date
+		lineageTag: 903bee82-0da9-4f42-b285-f72b3e72deef
+
+	measure 'Executive Selected Reporting Month Label' = FORMAT ( [Executive Selected Reporting Month End], "MMMM yyyy" )
+		lineageTag: aedee4f6-90fe-4fa8-87b5-3dc9d21a99c3
+
+	column 'Month End'
+		dataType: dateTime
+		formatString: MMMM yyyy
+		lineageTag: a531d32e-96a0-41c6-b47d-d3126804fc6f
+		summarizeBy: none
+		sourceColumn: [Month End]
+
+		variation Variation
+			isDefault
+			relationship: 0a0ab692-6cdf-47c8-b6bd-05b08d90d62d
+			defaultHierarchy: LocalDateTable_511d550a-8e8a-4de3-bd60-db262a3d74d1.'Date Hierarchy'
+
+		annotation SummarizationSetBy = User
+
+	partition 'Reporting Month' = calculated
+		mode: import
+		source =
+				SELECTCOLUMNS (
+					FILTER (
+						CALENDAR ( DATE ( 2020, 1, 1 ), EOMONTH ( TODAY (), -1 ) ),
+						DAY ( [Date] ) = 1
+					),
+					"Month End", EOMONTH ( [Date], 0 )
+				)
+

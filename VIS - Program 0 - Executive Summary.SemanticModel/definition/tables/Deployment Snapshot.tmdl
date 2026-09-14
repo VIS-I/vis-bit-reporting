@@ -1,0 +1,404 @@
+table 'Deployment Snapshot'
+	lineageTag: 6f0056fc-a751-4184-90a0-a662a3813780
+
+	measure 'Executive Services Above Deployment Target' =
+			VAR SnapshotDate = [Executive Deployment Snapshot Date (Display)]
+			RETURN
+				CALCULATE (
+					DISTINCTCOUNT ( 'Deployment Snapshot'[serviceName] ),
+					'Deployment Snapshot'[snapshotDate] = SnapshotDate,
+					FILTER ( 'Deployment Snapshot', 'Deployment Snapshot'[daysDeployedAgo] > 90 )
+				)
+		formatString: #,0
+		lineageTag: f3b6ebce-7045-4af4-9707-c575a1e4facd
+
+	measure 'Executive Deployment Instances In Scope' =
+			VAR SnapshotDate = [Executive Deployment Snapshot Date (Display)]
+			RETURN
+				CALCULATE (
+					COUNTROWS ( 'Deployment Snapshot' ),
+					'Deployment Snapshot'[snapshotDate] = SnapshotDate,
+					FILTER (
+						'Deployment Snapshot',
+						NOT ISBLANK ( 'Deployment Snapshot'[daysDeployedAgo] )
+					)
+				)
+		formatString: #,0
+		lineageTag: 3f66f333-e3ae-4e97-9de0-e37c7a1d3745
+
+	measure 'Executive Deployment Instances Above Target' =
+			VAR SnapshotDate = [Executive Deployment Snapshot Date (Display)]
+			RETURN
+				CALCULATE (
+					COUNTROWS ( 'Deployment Snapshot' ),
+					'Deployment Snapshot'[snapshotDate] = SnapshotDate,
+					FILTER ( 'Deployment Snapshot', 'Deployment Snapshot'[daysDeployedAgo] > 90 )
+				)
+		formatString: #,0
+		lineageTag: 75a173bf-248c-4c72-93bd-34460179893d
+
+	measure 'Executive Service Currency %' =
+			DIVIDE (
+			    [Executive Deployment Instances In Scope] - [Executive Deployment Instances Above Target],
+			    [Executive Deployment Instances In Scope]
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 5c8b9ae7-3887-41a8-a7d9-f6213750060b
+
+	measure 'Executive Service Currency Color' =
+			VAR ServiceCurrency = [Executive Service Currency %]
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        ISBLANK ( ServiceCurrency ), "#6B6B6B",
+			        ServiceCurrency = 1, "#107C10",
+			        ServiceCurrency >= 0.9, "#CA5010",
+			        "#D13438"
+			    )
+		lineageTag: e235413f-0d62-4fcc-87e9-072bc5dd549f
+
+	measure 'Executive Deployment Snapshot Date (Selected Month)' =
+			VAR SelectedMonthStart = 'Reporting Month'[Executive Selected Reporting Month Start]
+			VAR SelectedMonthEnd = 'Reporting Month'[Executive Selected Reporting Month End]
+			RETURN
+				CALCULATE (
+					MAX ( 'Deployment Snapshot'[snapshotDate] ),
+					REMOVEFILTERS ( 'Deployment Snapshot'[snapshotDate] ),
+					'Deployment Snapshot'[snapshotDate] >= SelectedMonthStart,
+					'Deployment Snapshot'[snapshotDate] < SelectedMonthEnd + 1
+				)
+		formatString: General Date
+		lineageTag: c15e50f6-6417-46f2-8e93-2e70f66a61db
+
+	measure 'Executive Deployment Snapshot Date (Latest Available)' =
+			CALCULATE (
+				MAX ( 'Deployment Snapshot'[snapshotDate] ),
+				REMOVEFILTERS ( 'Deployment Snapshot'[snapshotDate] )
+			)
+		formatString: General Date
+		lineageTag: 17b89404-f89e-48c1-b08b-a473c616546c
+
+	measure 'Executive Deployment Snapshot Date (Display)' =
+			COALESCE (
+				[Executive Deployment Snapshot Date (Selected Month)],
+				[Executive Deployment Snapshot Date (Latest Available)]
+			)
+		formatString: General Date
+		lineageTag: 927222b5-364d-4ae3-905f-cb57c218091c
+
+	measure 'Executive Service Currency % (Previous Month)' =
+			VAR PreviousMonthStart = 'Reporting Month'[Executive Previous Reporting Month Start]
+			VAR PreviousMonthEnd = 'Reporting Month'[Executive Selected Reporting Month Start] - 1
+			VAR SnapshotDate =
+				CALCULATE (
+					MAX ( 'Deployment Snapshot'[snapshotDate] ),
+					REMOVEFILTERS ( 'Deployment Snapshot'[snapshotDate] ),
+					'Deployment Snapshot'[snapshotDate] >= PreviousMonthStart,
+					'Deployment Snapshot'[snapshotDate] < PreviousMonthEnd + 1
+				)
+			VAR InstancesInScope =
+				CALCULATE (
+					COUNTROWS ( 'Deployment Snapshot' ),
+					'Deployment Snapshot'[snapshotDate] = SnapshotDate,
+					FILTER (
+						'Deployment Snapshot',
+						NOT ISBLANK ( 'Deployment Snapshot'[daysDeployedAgo] )
+					)
+				)
+			VAR InstancesAboveTarget =
+				CALCULATE (
+					COUNTROWS ( 'Deployment Snapshot' ),
+					'Deployment Snapshot'[snapshotDate] = SnapshotDate,
+					FILTER ( 'Deployment Snapshot', 'Deployment Snapshot'[daysDeployedAgo] > 90 )
+				)
+			RETURN
+				DIVIDE ( InstancesInScope - InstancesAboveTarget, InstancesInScope )
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: cd621ce1-913c-441b-9c72-5c4e2fd0de68
+
+	measure 'Executive Service Currency MoM Change' =
+			VAR SelectedSnapshotDate = [Executive Deployment Snapshot Date (Selected Month)]
+			RETURN
+				IF (
+					ISBLANK ( SelectedSnapshotDate ),
+					BLANK (),
+					[Executive Service Currency %] -
+						[Executive Service Currency % (Previous Month)]
+				)
+		formatString: +0.0;-0.0;0.0 "pp"
+		lineageTag: 8f46b4dc-7a0c-4251-ae23-edcf3b297fff
+
+	measure 'Executive Service Currency with Change (Selected Month)' =
+			VAR CurrentValue = [Executive Service Currency %]
+			VAR Change = [Executive Service Currency MoM Change]
+			VAR SelectedSnapshotDate = [Executive Deployment Snapshot Date (Selected Month)]
+			RETURN
+				IF (
+					ISBLANK ( CurrentValue ),
+					BLANK (),
+					FORMAT ( CurrentValue, "0.0%" ) &
+						IF (
+							ISBLANK ( SelectedSnapshotDate ) || ISBLANK ( Change ),
+							BLANK (),
+							" (" & FORMAT ( Change * 100, "+0.0;-0.0;0.0" ) & "pp)"
+						)
+				)
+		lineageTag: c92a849a-3e7a-4e52-9fef-b10e63f62316
+
+	column environment
+		dataType: string
+		lineageTag: bab47af3-d509-46ac-8150-4c000c6eec3f
+		summarizeBy: none
+		sourceColumn: environment
+
+		annotation SummarizationSetBy = Automatic
+
+	column locationCode
+		dataType: string
+		lineageTag: 92e5ae3b-53ba-4586-a7f8-99ea86843b0f
+		summarizeBy: none
+		sourceColumn: locationCode
+
+		annotation SummarizationSetBy = Automatic
+
+	column snapshotModifiedAt
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 5b1e20eb-9c7a-4a48-acdf-3d616c518706
+		summarizeBy: none
+		sourceColumn: snapshotModifiedAt
+
+		variation Variation
+			isDefault
+			relationship: 4e4df3ca-973d-4c1e-a833-cf9ca090912d
+			defaultHierarchy: LocalDateTable_5876adf9-9780-4e56-a611-51de7d439463.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column serviceName
+		dataType: string
+		lineageTag: 1c6c1daa-4f28-41a0-9ce4-0b45f7da3857
+		summarizeBy: none
+		sourceColumn: serviceName
+
+		annotation SummarizationSetBy = Automatic
+
+	column serviceVersion
+		dataType: string
+		lineageTag: 7964eca4-aaba-49cf-a8b7-cbee46f1cad4
+		summarizeBy: none
+		sourceColumn: serviceVersion
+
+		annotation SummarizationSetBy = Automatic
+
+	column deploymentDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 3a69ba1b-0cb1-4f5c-989e-92ec50db2bf1
+		summarizeBy: none
+		sourceColumn: deploymentDate
+
+		variation Variation
+			isDefault
+			relationship: 9976ebf6-63be-4867-bad3-5f3aa367127c
+			defaultHierarchy: LocalDateTable_d6b954b8-bb83-43f5-8f7c-c286e90658bf.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column status
+		dataType: string
+		lineageTag: 9911c1b5-32e1-430d-ba32-40bda827eb5f
+		summarizeBy: none
+		sourceColumn: status
+
+		annotation SummarizationSetBy = Automatic
+
+	column platform
+		dataType: string
+		lineageTag: aa54f33d-1630-4c43-a021-ccd8b8d960bf
+		summarizeBy: none
+		sourceColumn: platform
+
+		annotation SummarizationSetBy = Automatic
+
+	column workloadName
+		dataType: string
+		lineageTag: 05308e74-5216-4811-bdce-57a5bdcc4dd8
+		summarizeBy: none
+		sourceColumn: workloadName
+
+		annotation SummarizationSetBy = Automatic
+
+	column runtimeContext
+		dataType: string
+		lineageTag: 89a0a261-eaac-4272-b987-638530e4fb49
+		summarizeBy: none
+		sourceColumn: runtimeContext
+
+		annotation SummarizationSetBy = Automatic
+
+	column image
+		dataType: string
+		lineageTag: 616ff4f4-e027-42b3-ba26-7c5135869594
+		summarizeBy: none
+		sourceColumn: image
+
+		annotation SummarizationSetBy = Automatic
+
+	column revisionName
+		dataType: string
+		lineageTag: ce89681a-e260-408b-9b61-e9c25dbba395
+		summarizeBy: none
+		sourceColumn: revisionName
+
+		annotation SummarizationSetBy = Automatic
+
+	column buildId
+		dataType: string
+		lineageTag: 240031ab-081a-4c17-b19a-bc0bc390070f
+		summarizeBy: none
+		sourceColumn: buildId
+
+		annotation SummarizationSetBy = Automatic
+
+	column buildNumber
+		dataType: string
+		lineageTag: dc3d1e9d-8097-4ad6-b69f-6db679301ae8
+		summarizeBy: none
+		sourceColumn: buildNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column pipelineName
+		dataType: string
+		lineageTag: b45d4c25-c6ba-42c2-98cb-47e684fad617
+		summarizeBy: none
+		sourceColumn: pipelineName
+
+		annotation SummarizationSetBy = Automatic
+
+	column repositoryName
+		dataType: string
+		lineageTag: ef47f475-b629-4a9b-93a1-5b20a61fe567
+		summarizeBy: none
+		sourceColumn: repositoryName
+
+		annotation SummarizationSetBy = Automatic
+
+	column sourceBranch
+		dataType: string
+		lineageTag: de137c1d-0aff-4453-9dbb-b1d4a42733ef
+		summarizeBy: none
+		sourceColumn: sourceBranch
+
+		annotation SummarizationSetBy = Automatic
+
+	column deployedTag
+		dataType: string
+		lineageTag: d6d1ad1d-1468-4f52-874f-58fd6c75db89
+		summarizeBy: none
+		sourceColumn: deployedTag
+
+		annotation SummarizationSetBy = Automatic
+
+	column sourceVersion
+		dataType: string
+		lineageTag: 7ab381d8-da99-4e86-90fe-7d9ec5b4b70d
+		summarizeBy: none
+		sourceColumn: sourceVersion
+
+		annotation SummarizationSetBy = Automatic
+
+	column pipelineRunUrl
+		dataType: string
+		lineageTag: a05bc94c-9c78-4e22-8c85-1ff9c6b3e5ff
+		summarizeBy: none
+		sourceColumn: pipelineRunUrl
+
+		annotation SummarizationSetBy = Automatic
+
+	column repoTagUrl
+		dataType: string
+		lineageTag: f2affb7e-526b-4130-99a5-b741ce8a98fc
+		summarizeBy: none
+		sourceColumn: repoTagUrl
+
+		annotation SummarizationSetBy = Automatic
+
+	column instance
+		dataType: string
+		lineageTag: d5e02492-8ed6-4f08-a763-a22da5fa26ca
+		summarizeBy: none
+		sourceColumn: instance
+
+		annotation SummarizationSetBy = Automatic
+
+	column source
+		dataType: string
+		lineageTag: bc110b30-fa78-4b9d-954e-402b1b59ef3c
+		summarizeBy: none
+		sourceColumn: source
+
+		annotation SummarizationSetBy = Automatic
+
+	column area
+		dataType: string
+		lineageTag: 186b7534-e19c-4c0c-a721-0760bb5217a7
+		summarizeBy: none
+		sourceColumn: area
+
+		annotation SummarizationSetBy = Automatic
+
+	column environmentSortOrder
+		dataType: int64
+		formatString: 0
+		lineageTag: 2e95a4ee-688e-4121-9a8d-a604978f520a
+		summarizeBy: sum
+		sourceColumn: environmentSortOrder
+
+		annotation SummarizationSetBy = Automatic
+
+	column environmentDisplayName
+		dataType: string
+		lineageTag: 0a468054-f68c-4e0b-b2e5-b5cfc8d751c0
+		summarizeBy: none
+		sourceColumn: environmentDisplayName
+
+		annotation SummarizationSetBy = Automatic
+
+	column daysDeployedAgo
+		dataType: int64
+		formatString: 0
+		lineageTag: 6007a40b-0d5b-456a-90e1-9b8ca86f79aa
+		summarizeBy: sum
+		sourceColumn: daysDeployedAgo
+
+		annotation SummarizationSetBy = Automatic
+
+	column snapshotDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 7a77aae4-d361-48d2-9a3c-e42c031f61d1
+		summarizeBy: none
+		sourceColumn: snapshotDate
+
+		variation Variation
+			isDefault
+			relationship: b2ec624c-5b39-44ea-acaa-f136bd5112d5
+			defaultHierarchy: LocalDateTable_b93945fc-bf14-42ca-941d-04f6d0d73855.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition 'Deployment Snapshot' = m
+		mode: import
+		source =
+				let
+				    Source = PowerBI.Dataflows(null),
+				    #"1d7f83bd-9b20-42de-9fc3-0f113e2024b2" = Source{[workspaceId="1d7f83bd-9b20-42de-9fc3-0f113e2024b2"]}[Data],
+				    #"b4231eab-5517-456d-8f37-6d807330f9c9" = #"1d7f83bd-9b20-42de-9fc3-0f113e2024b2"{[dataflowId="b4231eab-5517-456d-8f37-6d807330f9c9"]}[Data],
+				    #"Deployment Snapshot1" = #"b4231eab-5517-456d-8f37-6d807330f9c9"{[entity="Deployment Snapshot"]}[Data]
+				in
+				    #"Deployment Snapshot1"
+

@@ -1,0 +1,55 @@
+table 'Pipeline Jobs Failures'
+	lineageTag: 31db5f2d-a752-449f-ad3a-e3eb50480256
+
+	column PipelineName
+		dataType: string
+		lineageTag: 754146cc-ffbf-46cd-b096-2b369a727c59
+		summarizeBy: none
+		sourceColumn: PipelineName
+
+		annotation SummarizationSetBy = Automatic
+
+	column JobName
+		dataType: string
+		lineageTag: 91e42687-01d7-4deb-8acb-26af2cfb8806
+		summarizeBy: none
+		sourceColumn: JobName
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'PipelineRunCompletedOn.Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 95eba4d8-7b94-49e0-9ac7-f46efc814f6a
+		summarizeBy: none
+		sourceColumn: PipelineRunCompletedOn.Date
+
+		variation Variation
+			isDefault
+			relationship: b5969d59-15ad-402e-b2ac-67b63435a27f
+			defaultHierarchy: LocalDateTable_602bd721-294a-4235-8489-95cc19238748.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column FailedJobCount
+		dataType: int64
+		formatString: 0
+		lineageTag: 04f522f5-3d40-43c0-81f8-b702bc26124f
+		summarizeBy: sum
+		sourceColumn: FailedJobCount
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Pipeline Jobs Failures' = m
+		mode: import
+		source =
+				let
+				    Source = PowerBI.Dataflows(null),
+				    #"1d7f83bd-9b20-42de-9fc3-0f113e2024b2" = Source{[workspaceId="1d7f83bd-9b20-42de-9fc3-0f113e2024b2"]}[Data],
+				    #"bbfa2960-daa8-4704-8d12-81d3c53fb0eb" = #"1d7f83bd-9b20-42de-9fc3-0f113e2024b2"{[dataflowId="bbfa2960-daa8-4704-8d12-81d3c53fb0eb"]}[Data],
+				    #"Pipeline Jobs Failures1" = #"bbfa2960-daa8-4704-8d12-81d3c53fb0eb"{[entity="Pipeline Jobs Failures"]}[Data]
+				in
+				    #"Pipeline Jobs Failures1"
+

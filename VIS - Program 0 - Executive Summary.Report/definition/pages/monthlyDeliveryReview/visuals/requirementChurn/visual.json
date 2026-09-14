@@ -1,0 +1,90 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "requirementChurn",
+  "position": {
+    "x": 674.04255319148945,
+    "y": 323.89057750759878,
+    "z": 11000,
+    "height": 107.96352583586626,
+    "width": 275.258358662614,
+    "tabOrder": 11000
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Requirement Churn"
+                    }
+                  },
+                  "Property": "Executive Requirement Rework Rate with Change (Selected Month)"
+                }
+              },
+              "queryRef": "Requirement Churn.Executive Requirement Rework Rate with Change (Selected Month)",
+              "nativeQueryRef": "Requirements changed",
+              "displayName": "Requirements changed"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "labels": [
+        {
+          "properties": {
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Requirement Churn"
+                        }
+                      },
+                      "Property": "Executive Requirement Rework Rate Color"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "categoryLabels": [
+        {
+          "properties": {}
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'REQUIREMENT REWORK RATE'"
+                }
+              }
+            },
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,48 @@
+table 'Pipeline Duration Trend'
+	lineageTag: f6362fec-bc97-4ef4-b7c4-55e6ecfeca7b
+
+	column PipelineName
+		dataType: string
+		lineageTag: 27832f0e-7837-4184-bed3-e33a125c65d8
+		summarizeBy: none
+		sourceColumn: PipelineName
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'CompletedOn.Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 4193ff64-13b8-479e-a568-e4dd14c1af24
+		summarizeBy: none
+		sourceColumn: CompletedOn.Date
+
+		variation Variation
+			isDefault
+			relationship: a590b93d-fc69-416e-9eb5-ac21c0c74f1d
+			defaultHierarchy: LocalDateTable_0b1fb3c4-4f75-48e1-96f2-3a906fb074f7.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Duration80thPercentileInSeconds
+		dataType: double
+		lineageTag: 8a91ece5-0808-401a-8286-ba934fb88abe
+		summarizeBy: sum
+		sourceColumn: Duration80thPercentileInSeconds
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'Pipeline Duration Trend' = m
+		mode: import
+		source =
+				let
+				    Source = PowerBI.Dataflows(null),
+				    #"1d7f83bd-9b20-42de-9fc3-0f113e2024b2" = Source{[workspaceId="1d7f83bd-9b20-42de-9fc3-0f113e2024b2"]}[Data],
+				    #"bbfa2960-daa8-4704-8d12-81d3c53fb0eb" = #"1d7f83bd-9b20-42de-9fc3-0f113e2024b2"{[dataflowId="bbfa2960-daa8-4704-8d12-81d3c53fb0eb"]}[Data],
+				    #"Pipeline Duration Trend1" = #"bbfa2960-daa8-4704-8d12-81d3c53fb0eb"{[entity="Pipeline Duration Trend"]}[Data]
+				in
+				    #"Pipeline Duration Trend1"
+

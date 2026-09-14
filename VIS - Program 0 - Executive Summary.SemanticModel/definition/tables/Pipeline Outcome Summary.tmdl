@@ -1,0 +1,88 @@
+table 'Pipeline Outcome Summary'
+	lineageTag: 8957445a-4681-4521-bff3-5d30d1bc8f4c
+
+	measure 'Executive Pipeline Success Rate' =
+			DIVIDE (
+			    SUM ( 'Pipeline Outcome Summary'[SucceededCount] ) +
+			    SUM ( 'Pipeline Outcome Summary'[PartiallySucceededCount] ),
+			    SUM ( 'Pipeline Outcome Summary'[TotalCount] )
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: b3f4b108-29a4-4c5b-b9d5-214fe65ae42f
+
+	measure 'Executive Release Reliability Color' =
+			VAR SuccessRate = [Executive Pipeline Success Rate]
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        ISBLANK ( SuccessRate ), "#6B6B6B",
+			        SuccessRate >= 0.95, "#107C10",
+			        SuccessRate >= 0.9, "#CA5010",
+			        "#D13438"
+			    )
+		lineageTag: ea6ea1a8-8cc2-4520-80ee-c64efe0417c8
+
+	column SucceededCount
+		dataType: int64
+		formatString: 0
+		lineageTag: dba87f6e-23e9-4c06-856c-bf6bf0531044
+		summarizeBy: sum
+		sourceColumn: SucceededCount
+
+		annotation SummarizationSetBy = Automatic
+
+	column PartiallySucceededCount
+		dataType: int64
+		formatString: 0
+		lineageTag: 2ae4d204-4c7c-4ecb-8294-c75ee922b403
+		summarizeBy: sum
+		sourceColumn: PartiallySucceededCount
+
+		annotation SummarizationSetBy = Automatic
+
+	column FailedCount
+		dataType: int64
+		formatString: 0
+		lineageTag: 3fc4fd00-b488-42a1-a72a-b889f9869021
+		summarizeBy: sum
+		sourceColumn: FailedCount
+
+		annotation SummarizationSetBy = Automatic
+
+	column CanceledCount
+		dataType: int64
+		formatString: 0
+		lineageTag: 3a10128a-7956-4d26-aed2-a6efde0a7661
+		summarizeBy: sum
+		sourceColumn: CanceledCount
+
+		annotation SummarizationSetBy = Automatic
+
+	column PipelineName
+		dataType: string
+		lineageTag: 21801e93-c168-42cd-8d81-f7acf8ff521f
+		summarizeBy: none
+		sourceColumn: PipelineName
+
+		annotation SummarizationSetBy = Automatic
+
+	column TotalCount
+		dataType: int64
+		formatString: 0
+		lineageTag: 5712a32e-977e-424f-98f6-f0fc25d2aaf0
+		summarizeBy: sum
+		sourceColumn: TotalCount
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Pipeline Outcome Summary' = m
+		mode: import
+		source =
+				let
+				    Source = PowerBI.Dataflows(null),
+				    #"1d7f83bd-9b20-42de-9fc3-0f113e2024b2" = Source{[workspaceId="1d7f83bd-9b20-42de-9fc3-0f113e2024b2"]}[Data],
+				    #"bbfa2960-daa8-4704-8d12-81d3c53fb0eb" = #"1d7f83bd-9b20-42de-9fc3-0f113e2024b2"{[dataflowId="bbfa2960-daa8-4704-8d12-81d3c53fb0eb"]}[Data],
+				    #"Pipeline Outcome Summary1" = #"bbfa2960-daa8-4704-8d12-81d3c53fb0eb"{[entity="Pipeline Outcome Summary"]}[Data]
+				in
+				    #"Pipeline Outcome Summary1"
+

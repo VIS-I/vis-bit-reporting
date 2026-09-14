@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "VIS - Program 0 - Executive Summary"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "5205eaf8-3a82-94ce-4171-0b7f51862af4"
+  }
+}

@@ -1,0 +1,439 @@
+table Backlog
+	lineageTag: 4d3161d7-b9de-4c6d-bf88-58ac083947e8
+
+	measure 'Executive Active Delivery Backlog' =
+			CALCULATE (
+			    DISTINCTCOUNT ( Backlog[WorkItemId] ),
+			    FILTER ( Backlog, NOT ( Backlog[State] IN { "In Concept", "On Hold" } ) )
+			)
+		formatString: #,0
+		lineageTag: 3ed3f420-ca66-46d5-98e4-175dccd1fb8d
+
+	measure 'Executive Backlog Planned End Date Coverage %' =
+			DIVIDE (
+			    CALCULATE (
+			        DISTINCTCOUNT ( Backlog[WorkItemId] ),
+			        FILTER (
+			            Backlog,
+			            NOT ( Backlog[State] IN { "In Concept", "On Hold" } ) &&
+			            NOT ISBLANK ( Backlog[Planned End Date] )
+			        )
+			    ),
+			    [Executive Active Delivery Backlog]
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 75c8084a-3adc-4372-86da-9f0c3282b028
+
+	measure 'Executive Backlog Planning Coverage Color' =
+			VAR PlanningCoverage = [Executive Backlog Planned End Date Coverage %]
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        ISBLANK ( PlanningCoverage ), "#6B6B6B",
+			        PlanningCoverage >= 0.9, "#107C10",
+			        PlanningCoverage >= 0.75, "#CA5010",
+			        "#D13438"
+			    )
+		lineageTag: 90a0652d-f390-4214-b788-e443cd4d2df1
+
+	measure 'Executive Backlog Estimation Coverage %' =
+			DIVIDE (
+			    CALCULATE (
+			        DISTINCTCOUNT ( Backlog[WorkItemId] ),
+			        FILTER (
+			            Backlog,
+			            NOT ( Backlog[State] IN { "In Concept", "On Hold" } ) &&
+			            NOT ISBLANK ( Backlog[Estimated Effort Dev] )
+			        )
+			    ),
+			    [Executive Active Delivery Backlog]
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 758072b8-8b7a-4d3c-a730-410b90ed42aa
+
+	measure 'Executive Backlog Estimation Coverage Color' =
+			VAR EstimationCoverage = [Executive Backlog Estimation Coverage %]
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        ISBLANK ( EstimationCoverage ), "#6B6B6B",
+			        EstimationCoverage >= 0.9, "#107C10",
+			        EstimationCoverage >= 0.75, "#CA5010",
+			        "#D13438"
+			    )
+		lineageTag: 9b60c2a3-aa4d-420c-bf26-b1e1c310033d
+
+	measure 'Executive Active Defect Load %' =
+			DIVIDE (
+			    CALCULATE (
+			        DISTINCTCOUNT ( Backlog[WorkItemId] ),
+			        FILTER (
+			            Backlog,
+			            Backlog[WorkItemType] = "Bug" &&
+			            NOT ( Backlog[State] IN { "In Concept", "On Hold" } )
+			        )
+			    ),
+			    [Executive Active Delivery Backlog]
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 098c1088-088c-4e19-8152-4332f6ebae2f
+
+	measure 'Executive Active Defect Load Color' =
+			VAR DefectLoad = [Executive Active Defect Load %]
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        ISBLANK ( DefectLoad ), "#6B6B6B",
+			        DefectLoad <= 0.1, "#107C10",
+			        DefectLoad <= 0.2, "#CA5010",
+			        "#D13438"
+			    )
+		lineageTag: 4d12e4cb-7e00-40eb-8ff5-68420f95116a
+
+	measure 'Executive In Concept Backlog %' =
+			DIVIDE (
+			    CALCULATE ( DISTINCTCOUNT ( Backlog[WorkItemId] ), Backlog[State] = "In Concept" ),
+			    DISTINCTCOUNT ( Backlog[WorkItemId] )
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 6f3c148f-4bfe-4e38-bfcb-2b9d39a9c381
+
+	measure 'Executive On Hold Backlog %' =
+			DIVIDE (
+			    CALCULATE ( DISTINCTCOUNT ( Backlog[WorkItemId] ), Backlog[State] = "On Hold" ),
+			    DISTINCTCOUNT ( Backlog[WorkItemId] )
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: a986b450-18d2-45bd-a21f-0eee68904423
+
+	column WorkItemId
+		dataType: int64
+		formatString: 0
+		lineageTag: de795c78-730d-4e1f-adaf-fa6e6bf83d82
+		summarizeBy: none
+		sourceColumn: WorkItemId
+
+		annotation SummarizationSetBy = Automatic
+
+	column Title
+		dataType: string
+		lineageTag: ae08a086-a297-4c52-b880-7227f814fd49
+		summarizeBy: none
+		sourceColumn: Title
+
+		annotation SummarizationSetBy = Automatic
+
+	column WorkItemType
+		dataType: string
+		lineageTag: 0afda207-df7b-4b88-af07-e05e9b41038d
+		summarizeBy: none
+		sourceColumn: WorkItemType
+
+		annotation SummarizationSetBy = Automatic
+
+	column ChangedDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 01491783-9503-4ee2-bafb-823600db5b2e
+		summarizeBy: none
+		sourceColumn: ChangedDate
+
+		variation Variation
+			isDefault
+			relationship: d0bf9de1-60cc-44ce-863e-e8f20a7e8fca
+			defaultHierarchy: LocalDateTable_752ba12f-1f68-41f6-a21c-79f48f7c860b.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column CreatedDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: d77c5e0c-b019-4e94-8997-5aa4ace67291
+		summarizeBy: none
+		sourceColumn: CreatedDate
+
+		variation Variation
+			isDefault
+			relationship: fe7c88bc-a40f-453f-95ba-ee9bbc2ed529
+			defaultHierarchy: LocalDateTable_43149137-aaf4-44af-b140-00b226dbfcc5.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column State
+		dataType: string
+		lineageTag: 05ab81d8-633c-4b12-b502-4343b5ea466c
+		summarizeBy: none
+		sourceColumn: State
+
+		annotation SummarizationSetBy = Automatic
+
+	column ActivatedDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 74e8d523-adeb-423c-a53b-99d2a951919d
+		summarizeBy: none
+		sourceColumn: ActivatedDate
+
+		variation Variation
+			isDefault
+			relationship: 18e2cc72-cb0c-4d7c-8d85-b11fb0ad613c
+			defaultHierarchy: LocalDateTable_78eb5ed2-a092-4db3-bc5d-234e9c47fe4a.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column ClosedDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 0b86008d-91ed-4d58-b0dd-c0055a7512be
+		summarizeBy: none
+		sourceColumn: ClosedDate
+
+		variation Variation
+			isDefault
+			relationship: 8c835ca4-2327-42c9-b56e-f89c2c4f6afe
+			defaultHierarchy: LocalDateTable_95c11fbf-a66d-4261-b105-4d3f75173d96.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Priority
+		dataType: int64
+		formatString: 0
+		lineageTag: 4bb3b985-ad39-4cc6-82c0-8a2f07267065
+		summarizeBy: sum
+		sourceColumn: Priority
+
+		annotation SummarizationSetBy = Automatic
+
+	column Severity
+		dataType: string
+		lineageTag: a536d782-39f6-43e6-b442-2ed5c8205493
+		summarizeBy: none
+		sourceColumn: Severity
+
+		annotation SummarizationSetBy = Automatic
+
+	column ValueArea
+		dataType: string
+		lineageTag: 0866d98f-b9b7-4af2-97be-e7b4c0616583
+		summarizeBy: none
+		sourceColumn: ValueArea
+
+		annotation SummarizationSetBy = Automatic
+
+	column StateChangeDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 58637439-fac3-4ae0-81ed-d90aee4d9151
+		summarizeBy: none
+		sourceColumn: StateChangeDate
+
+		variation Variation
+			isDefault
+			relationship: a3657200-1ac2-418b-a3be-fe9e2dd81280
+			defaultHierarchy: LocalDateTable_3ee2f8d6-db85-4aba-8ad7-0332d745fdd7.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Actual Effort Dev'
+		dataType: int64
+		formatString: 0
+		lineageTag: 6fea28a2-f8c7-4090-9492-4121144e48eb
+		summarizeBy: sum
+		sourceColumn: Actual Effort Dev
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Estimated Effort Dev'
+		dataType: int64
+		formatString: 0
+		lineageTag: f95e7da4-f037-4b5e-8156-7c38f1ca9919
+		summarizeBy: sum
+		sourceColumn: Estimated Effort Dev
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'P0 Release Tag'
+		dataType: string
+		lineageTag: cf631f3f-5ff1-446e-b3c2-aff965233955
+		summarizeBy: none
+		sourceColumn: P0 Release Tag
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Planned End Date'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 9cefa9e4-6523-4ff6-86d2-402309cab9bd
+		summarizeBy: none
+		sourceColumn: Planned End Date
+
+		variation Variation
+			isDefault
+			relationship: bd3691bc-5ea5-4ca8-a659-2af8d0d4ba47
+			defaultHierarchy: LocalDateTable_c5de01e3-f47b-4d8c-a3bd-1aa8ffcc77e4.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column LinkTypeName
+		dataType: string
+		lineageTag: de992982-bf70-4886-a3b5-4a799affe070
+		summarizeBy: none
+		sourceColumn: LinkTypeName
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Linked.LinkedWorkItemId'
+		dataType: string
+		lineageTag: 6a5abfec-a337-439e-836f-6d56c9bb9341
+		summarizeBy: none
+		sourceColumn: Linked.LinkedWorkItemId
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Linked.Title'
+		dataType: string
+		lineageTag: 6027f42e-95a3-4e28-9160-e29cad64bb05
+		summarizeBy: none
+		sourceColumn: Linked.Title
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Linked.WorkItemType'
+		dataType: string
+		lineageTag: 4e02e68e-41a5-40fc-a468-dbc234d46403
+		summarizeBy: none
+		sourceColumn: Linked.WorkItemType
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Linked.LinkedWorkItemState'
+		dataType: string
+		lineageTag: 9fc704d0-9c6a-44e3-9c5f-5f1144af5896
+		summarizeBy: none
+		sourceColumn: Linked.LinkedWorkItemState
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Linked.Planned End Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: e1d2634c-9c79-4578-acfe-e281ec6d23fd
+		summarizeBy: none
+		sourceColumn: Linked.Planned End Date
+
+		variation Variation
+			isDefault
+			relationship: 045c3018-901d-477c-9ec6-9953cb3db0c1
+			defaultHierarchy: LocalDateTable_9a95d0eb-4fe1-4ebe-b997-8208310bca38.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Linked.P0 Release Tag'
+		dataType: string
+		lineageTag: 63073bc9-eb94-42fd-babf-0ac1560cdb7c
+		summarizeBy: none
+		sourceColumn: Linked.P0 Release Tag
+
+		annotation SummarizationSetBy = Automatic
+
+	column AreaPath
+		dataType: string
+		lineageTag: d2473c4f-84d0-4da6-9c9a-67ac4ce4b501
+		summarizeBy: none
+		sourceColumn: AreaPath
+
+		annotation SummarizationSetBy = Automatic
+
+	column IterationName
+		dataType: string
+		lineageTag: 8d5f1892-62cb-454e-9314-bb69de690291
+		summarizeBy: none
+		sourceColumn: IterationName
+
+		annotation SummarizationSetBy = Automatic
+
+	column UserEmail
+		dataType: string
+		lineageTag: fd119c49-1e41-48a8-976f-c9a37d29713c
+		summarizeBy: none
+		sourceColumn: UserEmail
+
+		annotation SummarizationSetBy = Automatic
+
+	column UserRealName
+		dataType: string
+		lineageTag: 59ed9908-b590-4012-8f44-75b0d034b08a
+		summarizeBy: none
+		sourceColumn: UserRealName
+
+		annotation SummarizationSetBy = Automatic
+
+	column ChangedBy
+		dataType: string
+		lineageTag: 619c3a7f-137e-4561-832a-2f0561e04021
+		summarizeBy: none
+		sourceColumn: ChangedBy
+
+		annotation SummarizationSetBy = Automatic
+
+	column CreatedBy
+		dataType: string
+		lineageTag: f83154c6-439d-4369-a49b-fd20187912ee
+		summarizeBy: none
+		sourceColumn: CreatedBy
+
+		annotation SummarizationSetBy = Automatic
+
+	column Tags
+		dataType: string
+		lineageTag: ff18fdee-b28d-4c9f-991b-2e465fd13013
+		summarizeBy: none
+		sourceColumn: Tags
+
+		annotation SummarizationSetBy = Automatic
+
+	column ReviewedBy
+		dataType: string
+		lineageTag: b10cd794-48f2-48bf-8e80-ee4121cd53f2
+		summarizeBy: none
+		sourceColumn: ReviewedBy
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Missing Estimate'
+		dataType: string
+		lineageTag: e14b6dee-b310-4a1d-8126-c53eccf48ce6
+		summarizeBy: none
+		sourceColumn: Missing Estimate
+
+		annotation SummarizationSetBy = Automatic
+
+	column ResolvedBy
+		dataType: string
+		lineageTag: c7ff528a-5325-4a4f-b7aa-6d3e755f3acd
+		summarizeBy: none
+		sourceColumn: ResolvedBy
+
+		annotation SummarizationSetBy = Automatic
+
+	column Link
+		dataType: string
+		lineageTag: a806f705-aab9-4f7a-8624-df4a3573132d
+		summarizeBy: none
+		sourceColumn: Link
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Backlog = m
+		mode: import
+		source =
+				let
+				    Source = PowerBI.Dataflows(null),
+				    #"1d7f83bd-9b20-42de-9fc3-0f113e2024b2" = Source{[workspaceId="1d7f83bd-9b20-42de-9fc3-0f113e2024b2"]}[Data],
+				    #"1d72647c-62cb-46ba-91f9-0eb5c71bb512" = #"1d7f83bd-9b20-42de-9fc3-0f113e2024b2"{[dataflowId="1d72647c-62cb-46ba-91f9-0eb5c71bb512"]}[Data],
+				    Backlog1 = #"1d72647c-62cb-46ba-91f9-0eb5c71bb512"{[entity="Backlog"]}[Data]
+				in
+				    Backlog1
+

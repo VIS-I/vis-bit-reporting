@@ -1,0 +1,405 @@
+table 'Executive Costs'
+	lineageTag: d9e505e4-c70c-4f60-8e11-4e7b4a699dc5
+
+	measure 'Executive Effective Cost (Latest Completed Month)' =
+			VAR LatestCompletedMonthStart = 'Reporting Month'[Executive Selected Reporting Month Start]
+			VAR LatestCompletedMonthEnd = 'Reporting Month'[Executive Selected Reporting Month End]
+			VAR CurrencyCount =
+			    CALCULATE (
+			        DISTINCTCOUNT ( 'Executive Costs'[BillingCurrency] ),
+			        FILTER (
+			            ALL ( 'Executive Costs'[ChargePeriodStart] ),
+			            'Executive Costs'[ChargePeriodStart] >= LatestCompletedMonthStart &&
+			            'Executive Costs'[ChargePeriodStart] < LatestCompletedMonthEnd + 1
+			        )
+			    )
+			RETURN
+			    IF (
+			        CurrencyCount = 1,
+			        CALCULATE (
+			            SUM ( 'Executive Costs'[EffectiveCost] ),
+			            FILTER (
+			                ALL ( 'Executive Costs'[ChargePeriodStart] ),
+			                'Executive Costs'[ChargePeriodStart] >= LatestCompletedMonthStart &&
+			                'Executive Costs'[ChargePeriodStart] < LatestCompletedMonthEnd + 1
+			            )
+			        )
+			    )
+		formatString: #,0.00
+		lineageTag: 4ea3142e-72c1-48bf-a7ca-6f339e4f6253
+
+	measure 'Executive Cost Currency (Latest Completed Month)' =
+			VAR LatestCompletedMonthStart = 'Reporting Month'[Executive Selected Reporting Month Start]
+			VAR LatestCompletedMonthEnd = 'Reporting Month'[Executive Selected Reporting Month End]
+			VAR CurrencyCount =
+			    CALCULATE (
+			        DISTINCTCOUNT ( 'Executive Costs'[BillingCurrency] ),
+			        FILTER (
+			            ALL ( 'Executive Costs'[ChargePeriodStart] ),
+			            'Executive Costs'[ChargePeriodStart] >= LatestCompletedMonthStart &&
+			            'Executive Costs'[ChargePeriodStart] < LatestCompletedMonthEnd + 1
+			        )
+			    )
+			RETURN
+			    SWITCH (
+			        CurrencyCount,
+			        0, "NOT AVAILABLE",
+			        1,
+			            CALCULATE (
+			                SELECTEDVALUE ( 'Executive Costs'[BillingCurrency] ),
+			                FILTER (
+			                    ALL ( 'Executive Costs'[ChargePeriodStart] ),
+			                    'Executive Costs'[ChargePeriodStart] >= LatestCompletedMonthStart &&
+			                    'Executive Costs'[ChargePeriodStart] < LatestCompletedMonthEnd + 1
+			                )
+			            ),
+			        "MULTIPLE CURRENCIES"
+			    )
+		lineageTag: 11b1b749-f80e-499e-9bf9-e3f73d7901c9
+
+	measure 'Executive Effective Cost MoM Change %' =
+			VAR LatestCompletedMonthStart = 'Reporting Month'[Executive Selected Reporting Month Start]
+			VAR PreviousCompletedMonthStart = 'Reporting Month'[Executive Previous Reporting Month Start]
+			VAR LatestCompletedMonthEnd = 'Reporting Month'[Executive Selected Reporting Month End]
+			VAR LatestCurrency =
+			    CALCULATE (
+			        SELECTEDVALUE ( 'Executive Costs'[BillingCurrency] ),
+			        FILTER (
+			            ALL ( 'Executive Costs'[ChargePeriodStart] ),
+			            'Executive Costs'[ChargePeriodStart] >= LatestCompletedMonthStart &&
+			            'Executive Costs'[ChargePeriodStart] < LatestCompletedMonthEnd + 1
+			        )
+			    )
+			VAR PreviousCurrency =
+			    CALCULATE (
+			        SELECTEDVALUE ( 'Executive Costs'[BillingCurrency] ),
+			        FILTER (
+			            ALL ( 'Executive Costs'[ChargePeriodStart] ),
+			            'Executive Costs'[ChargePeriodStart] >= PreviousCompletedMonthStart &&
+			            'Executive Costs'[ChargePeriodStart] < LatestCompletedMonthStart
+			        )
+			    )
+			VAR LatestCost = [Executive Effective Cost (Latest Completed Month)]
+			VAR PreviousCost =
+			    CALCULATE (
+			        SUM ( 'Executive Costs'[EffectiveCost] ),
+			        FILTER (
+			            ALL ( 'Executive Costs'[ChargePeriodStart] ),
+			            'Executive Costs'[ChargePeriodStart] >= PreviousCompletedMonthStart &&
+			            'Executive Costs'[ChargePeriodStart] < LatestCompletedMonthStart
+			        )
+			    )
+			RETURN
+			    IF (
+			        NOT ISBLANK ( LatestCurrency ) && LatestCurrency = PreviousCurrency,
+			        DIVIDE ( LatestCost - PreviousCost, PreviousCost )
+			    )
+		formatString: +0.0%;-0.0%;0.0%
+		lineageTag: b2dee62f-9bf7-46e1-b328-00bece00fadb
+
+	measure 'Executive AI Investments (Latest Completed Month)' =
+			VAR LatestCompletedMonthStart = 'Reporting Month'[Executive Selected Reporting Month Start]
+			VAR LatestCompletedMonthEnd = 'Reporting Month'[Executive Selected Reporting Month End]
+			VAR CurrencyCount =
+			    CALCULATE (
+			        DISTINCTCOUNT ( 'Executive Costs'[BillingCurrency] ),
+			        FILTER (
+			            ALL ( 'Executive Costs'[ChargePeriodStart] ),
+			            'Executive Costs'[ChargePeriodStart] >= LatestCompletedMonthStart &&
+			            'Executive Costs'[ChargePeriodStart] < LatestCompletedMonthEnd + 1
+			        ),
+			        'Executive Costs'[Executive Cost Category] = "AI Investments"
+			    )
+			RETURN
+			    IF (
+			        CurrencyCount = 1,
+			        CALCULATE (
+			            SUM ( 'Executive Costs'[EffectiveCost] ),
+			            FILTER (
+			                ALL ( 'Executive Costs'[ChargePeriodStart] ),
+			                'Executive Costs'[ChargePeriodStart] >= LatestCompletedMonthStart &&
+			                'Executive Costs'[ChargePeriodStart] < LatestCompletedMonthEnd + 1
+			            ),
+			            'Executive Costs'[Executive Cost Category] = "AI Investments"
+			        )
+			    )
+		formatString: #,0.00
+		lineageTag: 6859e182-7e9b-4a25-b02d-4ce7c9790197
+
+	measure 'Executive AI Investments MoM Change %' =
+			VAR LatestCompletedMonthStart = 'Reporting Month'[Executive Selected Reporting Month Start]
+			VAR PreviousCompletedMonthStart = 'Reporting Month'[Executive Previous Reporting Month Start]
+			VAR LatestCurrency = [Executive Cost Currency (Latest Completed Month)]
+			VAR PreviousCurrency =
+			    CALCULATE (
+			        SELECTEDVALUE ( 'Executive Costs'[BillingCurrency] ),
+			        FILTER (
+			            ALL ( 'Executive Costs'[ChargePeriodStart] ),
+			            'Executive Costs'[ChargePeriodStart] >= PreviousCompletedMonthStart &&
+			            'Executive Costs'[ChargePeriodStart] < LatestCompletedMonthStart
+			        )
+			    )
+			VAR LatestAIInvestment = [Executive AI Investments (Latest Completed Month)]
+			VAR PreviousAIInvestment =
+			    CALCULATE (
+			        SUM ( 'Executive Costs'[EffectiveCost] ),
+			        FILTER (
+			            ALL ( 'Executive Costs'[ChargePeriodStart] ),
+			            'Executive Costs'[ChargePeriodStart] >= PreviousCompletedMonthStart &&
+			            'Executive Costs'[ChargePeriodStart] < LatestCompletedMonthStart
+			        ),
+			        'Executive Costs'[Executive Cost Category] = "AI Investments"
+			    )
+			RETURN
+			    IF (
+			        LatestCurrency = PreviousCurrency,
+			        DIVIDE ( LatestAIInvestment - PreviousAIInvestment, PreviousAIInvestment )
+			    )
+		formatString: +0.0%;-0.0%;0.0%
+		lineageTag: c48d7d51-3b2e-4a9b-8127-efc993b7805f
+
+	measure 'Executive AI Investment Share of Effective Cost %' =
+			DIVIDE (
+			    [Executive AI Investments (Latest Completed Month)],
+			    [Executive Effective Cost (Latest Completed Month)]
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 0d2e8fc6-b763-47db-8c1f-bd05b6538070
+
+	measure 'Executive Effective Cost with Change (Selected Month)' =
+			VAR CurrentValue = [Executive Effective Cost (Latest Completed Month)]
+			VAR Change = [Executive Effective Cost MoM Change %]
+			RETURN
+				IF (
+					ISBLANK ( CurrentValue ),
+					BLANK (),
+					FORMAT ( CurrentValue, "#,0.00" ) &
+						IF (
+							ISBLANK ( Change ),
+							BLANK (),
+							" (" & FORMAT ( Change, "+0.0%;-0.0%;0.0%" ) & ")"
+						)
+				)
+		lineageTag: 756edddc-2d3f-4a9a-84d3-8d446f8c4054
+
+	measure 'Executive AI Investments with Change (Selected Month)' =
+			VAR CurrentValue = [Executive AI Investments (Latest Completed Month)]
+			VAR Change = [Executive AI Investments MoM Change %]
+			RETURN
+				IF (
+					ISBLANK ( CurrentValue ),
+					BLANK (),
+					FORMAT ( CurrentValue, "#,0.00" ) &
+						IF (
+							ISBLANK ( Change ),
+							BLANK (),
+							" (" & FORMAT ( Change, "+0.0%;-0.0%;0.0%" ) & ")"
+						)
+				)
+		lineageTag: 6e65c75f-e602-4faa-9f3e-185b7da4d12e
+
+	column ChargePeriodStart
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 16e7be39-c508-494f-88b2-bac851d0665a
+		summarizeBy: none
+		sourceColumn: ChargePeriodStart
+
+		variation Variation
+			isDefault
+			relationship: 7084aa8d-797b-46a9-8cf5-4833be42e898
+			defaultHierarchy: LocalDateTable_4fd07d01-f74b-4288-9939-b567e08f7036.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column EffectiveCost
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 76d9c0fa-d62c-4c0d-9725-3e3ac17f4d9d
+		summarizeBy: sum
+		sourceColumn: EffectiveCost
+
+		annotation SummarizationSetBy = Automatic
+
+	column BillingCurrency
+		dataType: string
+		lineageTag: 5506b178-f5b3-4b2c-8de7-09bb33c13f87
+		summarizeBy: none
+		sourceColumn: BillingCurrency
+
+		annotation SummarizationSetBy = Automatic
+
+	column SubAccountName
+		dataType: string
+		lineageTag: 8a9f9425-e860-4497-918d-58b671d0c55f
+		summarizeBy: none
+		sourceColumn: SubAccountName
+
+		annotation SummarizationSetBy = Automatic
+
+	column ServiceCategory
+		dataType: string
+		lineageTag: 7368fc6f-4d3c-41ea-9f58-0d2074ab9311
+		summarizeBy: none
+		sourceColumn: ServiceCategory
+
+		annotation SummarizationSetBy = Automatic
+
+	column ServiceName
+		dataType: string
+		lineageTag: aa02df74-d990-4a45-b67f-f4b9d4f22266
+		summarizeBy: none
+		sourceColumn: ServiceName
+
+		annotation SummarizationSetBy = Automatic
+
+	column ResourceName
+		dataType: string
+		lineageTag: 25029701-07f1-4692-b986-7d12b53f7e88
+		summarizeBy: none
+		sourceColumn: ResourceName
+
+		annotation SummarizationSetBy = Automatic
+
+	column ResourceId
+		dataType: string
+		lineageTag: f40aa8cf-5a51-47fa-bb2e-264ac1e58b3b
+		summarizeBy: none
+		sourceColumn: ResourceId
+
+		annotation SummarizationSetBy = Automatic
+
+	column x_SkuTier
+		dataType: string
+		lineageTag: 89b7c245-4f06-44e5-bd66-e96692e41781
+		summarizeBy: none
+		sourceColumn: x_SkuTier
+
+		annotation SummarizationSetBy = Automatic
+
+	column x_SkuMeterCategory
+		dataType: string
+		lineageTag: 9aa96d22-aa3e-4a4d-bd1a-a27ffcc647d4
+		summarizeBy: none
+		sourceColumn: x_SkuMeterCategory
+
+		annotation SummarizationSetBy = Automatic
+
+	column x_SkuMeterSubcategory
+		dataType: string
+		lineageTag: 9ed4ee0e-0600-4c7e-97f6-6a8f432fc0d2
+		summarizeBy: none
+		sourceColumn: x_SkuMeterSubcategory
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Executive Service Tier' =
+			SWITCH (
+			    TRUE (),
+			    NOT ISBLANK ( 'Executive Costs'[x_SkuTier] ) && 'Executive Costs'[x_SkuTier] <> "", 'Executive Costs'[x_SkuTier],
+			    NOT ISBLANK ( 'Executive Costs'[x_SkuMeterCategory] ) && 'Executive Costs'[x_SkuMeterCategory] <> "", 'Executive Costs'[x_SkuMeterCategory],
+			    NOT ISBLANK ( 'Executive Costs'[ServiceCategory] ) && 'Executive Costs'[ServiceCategory] <> "", 'Executive Costs'[ServiceCategory],
+			    "Unclassified"
+			)
+		dataType: string
+		lineageTag: ee704b3f-8902-42f3-8914-9c8ab5776235
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Executive Cost Category' =
+			VAR ServiceName = LOWER ( COALESCE ( 'Executive Costs'[ServiceName], "" ) )
+			VAR ServiceCategory = LOWER ( COALESCE ( 'Executive Costs'[ServiceCategory], "" ) )
+			VAR MeterCategory = LOWER ( COALESCE ( 'Executive Costs'[x_SkuMeterCategory], "" ) )
+			VAR MeterSubcategory = LOWER ( COALESCE ( 'Executive Costs'[x_SkuMeterSubcategory], "" ) )
+			RETURN
+			    IF (
+			        CONTAINSSTRING ( ServiceName, "openai" ) ||
+			        CONTAINSSTRING ( ServiceName, "cognitive" ) ||
+			        CONTAINSSTRING ( ServiceName, "machine learning" ) ||
+			        CONTAINSSTRING ( ServiceName, "ai search" ) ||
+			        CONTAINSSTRING ( ServiceName, "content safety" ) ||
+			        CONTAINSSTRING ( ServiceName, "bot service" ) ||
+			        CONTAINSSTRING ( ServiceCategory, "artificial intelligence" ) ||
+			        CONTAINSSTRING ( ServiceCategory, "ai + machine learning" ) ||
+			        CONTAINSSTRING ( MeterCategory, "artificial intelligence" ) ||
+			        CONTAINSSTRING ( MeterSubcategory, "openai" ),
+			        "AI Investments",
+			        "Other Cloud Services"
+			    )
+		dataType: string
+		lineageTag: ccb06149-b5bd-4f2e-b1fc-47469dc5ae7f
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Executive Costs' = m
+		mode: import
+		source =
+				let
+					    StorageUrl = "https://finopshubrqoo5nfwqm4kk.dfs.core.windows.net/ingestion",
+					    FirstIncludedMonth = Date.StartOfMonth ( Date.AddMonths ( Date.From ( DateTime.LocalNow () ), -3 ) ),
+					    GetCostFileMonth = (folderPath as text) as nullable date =>
+					        let
+					            Segments = Text.Split ( Text.TrimEnd ( folderPath, "/" ), "/" ),
+					            CostsIndex = List.PositionOf ( Segments, "Costs", Occurrence.Last ),
+					            CurrentLayoutMonth =
+					                if CostsIndex >= 0 and List.Count ( Segments ) > CostsIndex + 2 then
+					                    try Date.FromText ( Segments{CostsIndex + 1} & "-" & Segments{CostsIndex + 2} & "-01" ) otherwise null
+					                else
+					                    null,
+					            LegacyMonthSegment =
+					                if CostsIndex > 0 then Segments{CostsIndex - 1} else null,
+					            LegacyLayoutMonth =
+					                if CurrentLayoutMonth = null and LegacyMonthSegment <> null and Text.Length ( LegacyMonthSegment ) = 6 then
+					                    try Date.FromText ( Text.Start ( LegacyMonthSegment, 4 ) & "-" & Text.End ( LegacyMonthSegment, 2 ) & "-01" ) otherwise null
+					                else
+					                    null
+					        in
+					            if CurrentLayoutMonth <> null then CurrentLayoutMonth else LegacyLayoutMonth,
+					    Source = AzureStorage.DataLake ( StorageUrl ),
+					    CostFiles =
+					        Table.SelectRows (
+					            Source,
+					            each [Attributes]?[Hidden]? <> true and
+					                [Extension] = ".parquet" and
+					                List.Contains ( Text.Split ( [Folder Path], "/" ), "Costs" )
+					        ),
+					    CostFilesWithMonth = Table.AddColumn ( CostFiles, "FileMonth", each GetCostFileMonth ( [Folder Path] ), type date ),
+					    RecentCostFiles = Table.SelectRows ( CostFilesWithMonth, each [FileMonth] = null or [FileMonth] >= FirstIncludedMonth ),
+					    RawCosts =
+					        if Table.IsEmpty ( RecentCostFiles ) then
+					            #table ( { "ChargePeriodStart", "EffectiveCost", "BillingCurrency", "SubAccountName", "ServiceCategory", "ServiceName", "ResourceName", "ResourceId", "x_SkuTier", "x_SkuMeterCategory", "x_SkuMeterSubcategory" }, {} )
+					        else
+					            Table.Combine ( List.Transform ( RecentCostFiles[Content], each Parquet.Document ( _ ) ) ),
+					    SelectedColumns =
+					        Table.SelectColumns (
+					            RawCosts,
+					            { "ChargePeriodStart", "EffectiveCost", "BillingCurrency", "SubAccountName", "ServiceCategory", "ServiceName", "ResourceName", "ResourceId", "x_SkuTier", "x_SkuMeterCategory", "x_SkuMeterSubcategory" },
+					            MissingField.UseNull
+					        ),
+					    TypedColumns =
+					        Table.TransformColumnTypes (
+					            SelectedColumns,
+					            {
+					                { "ChargePeriodStart", type datetime },
+					                { "EffectiveCost", type number },
+					                { "BillingCurrency", type text },
+					                { "SubAccountName", type text },
+					                { "ServiceCategory", type text },
+					                { "ServiceName", type text },
+					                { "ResourceName", type text },
+					                { "ResourceId", type text },
+					                { "x_SkuTier", type text },
+					                { "x_SkuMeterCategory", type text },
+					                { "x_SkuMeterSubcategory", type text }
+					            }
+					        ),
+					    RecentCosts =
+					        Table.SelectRows (
+					            TypedColumns,
+					            each [ChargePeriodStart] <> null and Date.From ( [ChargePeriodStart] ) >= FirstIncludedMonth
+					        )
+					in
+					    RecentCosts
+

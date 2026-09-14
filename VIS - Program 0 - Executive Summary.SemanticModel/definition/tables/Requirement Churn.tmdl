@@ -1,0 +1,356 @@
+table 'Requirement Churn'
+	lineageTag: 3c1be708-cb7f-4b50-aa70-ae55cc5b4fd2
+
+	measure 'Executive Requirement Rework Items (Selected Month)' =
+			VAR SelectedMonthStart = 'Reporting Month'[Executive Selected Reporting Month Start]
+			VAR SelectedMonthEnd = 'Reporting Month'[Executive Selected Reporting Month End]
+			RETURN
+				COALESCE (
+					CALCULATE (
+						DISTINCTCOUNT ( 'Requirement Churn'[WorkItemId] ),
+						'Requirement Churn'[Requirement Rework Flag Parsed] = TRUE (),
+						FILTER (
+							ALL ( 'Requirement Churn'[Snapshot Date] ),
+							'Requirement Churn'[Snapshot Date] >= SelectedMonthStart &&
+							'Requirement Churn'[Snapshot Date] < SelectedMonthEnd + 1
+						)
+					),
+					0
+				)
+		formatString: #,0
+		lineageTag: 19427dfc-1165-4261-9c79-32861e0824bd
+
+	measure 'Executive Committed Work Items (Selected Month)' =
+			VAR SelectedMonthStart = 'Reporting Month'[Executive Selected Reporting Month Start]
+			VAR SelectedMonthEnd = 'Reporting Month'[Executive Selected Reporting Month End]
+			VAR WorkItemsThroughMonthEnd =
+				CALCULATETABLE (
+					VALUES ( 'Requirement Churn'[WorkItemId] ),
+					FILTER (
+						ALL ( 'Requirement Churn'[Snapshot Date] ),
+						'Requirement Churn'[Snapshot Date] < SelectedMonthEnd + 1
+					)
+				)
+			RETURN
+				COUNTROWS (
+					FILTER (
+						WorkItemsThroughMonthEnd,
+						VAR LatestRevisionBeforeMonth =
+							CALCULATE (
+								MAX ( 'Requirement Churn'[Snapshot Date] ),
+								FILTER (
+									ALL ( 'Requirement Churn'[Snapshot Date] ),
+									'Requirement Churn'[Snapshot Date] < SelectedMonthStart
+								)
+							)
+						VAR CommittedAtMonthStart =
+							NOT ISBLANK ( LatestRevisionBeforeMonth ) &&
+								CALCULATE (
+									COUNTROWS ( 'Requirement Churn' ),
+									'Requirement Churn'[Is Committed Parsed] = TRUE (),
+									FILTER (
+										ALL ( 'Requirement Churn'[Snapshot Date] ),
+										'Requirement Churn'[Snapshot Date] = LatestRevisionBeforeMonth
+									)
+								) > 0
+						VAR CommittedDuringMonth =
+							CALCULATE (
+								COUNTROWS ( 'Requirement Churn' ),
+								'Requirement Churn'[Is Committed Parsed] = TRUE (),
+								FILTER (
+									ALL ( 'Requirement Churn'[Snapshot Date] ),
+									'Requirement Churn'[Snapshot Date] >= SelectedMonthStart &&
+									'Requirement Churn'[Snapshot Date] < SelectedMonthEnd + 1
+								)
+							) > 0
+						RETURN
+							CommittedAtMonthStart || CommittedDuringMonth
+					)
+				)
+		formatString: #,0
+		lineageTag: 321bef59-1a64-4a21-96ce-89d9c354944a
+
+	measure 'Executive Requirement Rework Rate (Selected Month)' =
+			DIVIDE (
+				[Executive Requirement Rework Items (Selected Month)],
+				[Executive Committed Work Items (Selected Month)]
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: aed7e25d-da48-4581-83cc-5f00db2ecd7c
+
+	measure 'Executive Requirement Rework Rate (Previous Month)' =
+			VAR PreviousMonthStart = 'Reporting Month'[Executive Previous Reporting Month Start]
+			VAR SelectedMonthStart = 'Reporting Month'[Executive Selected Reporting Month Start]
+			VAR ReworkedItems =
+				CALCULATE (
+					DISTINCTCOUNT ( 'Requirement Churn'[WorkItemId] ),
+					'Requirement Churn'[Requirement Rework Flag Parsed] = TRUE (),
+					FILTER (
+						ALL ( 'Requirement Churn'[Snapshot Date] ),
+						'Requirement Churn'[Snapshot Date] >= PreviousMonthStart &&
+						'Requirement Churn'[Snapshot Date] < SelectedMonthStart
+					)
+				)
+			VAR WorkItemsThroughPreviousMonthEnd =
+				CALCULATETABLE (
+					VALUES ( 'Requirement Churn'[WorkItemId] ),
+					FILTER (
+						ALL ( 'Requirement Churn'[Snapshot Date] ),
+						'Requirement Churn'[Snapshot Date] < SelectedMonthStart
+					)
+				)
+			VAR CommittedItems =
+				COUNTROWS (
+					FILTER (
+						WorkItemsThroughPreviousMonthEnd,
+						VAR LatestRevisionBeforeMonth =
+							CALCULATE (
+								MAX ( 'Requirement Churn'[Snapshot Date] ),
+								FILTER (
+									ALL ( 'Requirement Churn'[Snapshot Date] ),
+									'Requirement Churn'[Snapshot Date] < PreviousMonthStart
+								)
+							)
+						VAR CommittedAtMonthStart =
+							NOT ISBLANK ( LatestRevisionBeforeMonth ) &&
+								CALCULATE (
+									COUNTROWS ( 'Requirement Churn' ),
+									'Requirement Churn'[Is Committed Parsed] = TRUE (),
+									FILTER (
+										ALL ( 'Requirement Churn'[Snapshot Date] ),
+										'Requirement Churn'[Snapshot Date] = LatestRevisionBeforeMonth
+									)
+								) > 0
+						VAR CommittedDuringMonth =
+							CALCULATE (
+								COUNTROWS ( 'Requirement Churn' ),
+								'Requirement Churn'[Is Committed Parsed] = TRUE (),
+								FILTER (
+									ALL ( 'Requirement Churn'[Snapshot Date] ),
+									'Requirement Churn'[Snapshot Date] >= PreviousMonthStart &&
+									'Requirement Churn'[Snapshot Date] < SelectedMonthStart
+								)
+							) > 0
+						RETURN
+							CommittedAtMonthStart || CommittedDuringMonth
+					)
+				)
+			RETURN
+				DIVIDE ( ReworkedItems, CommittedItems )
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: c6f6bc5c-e7a1-4928-ae39-02ca7800da07
+
+	measure 'Executive Requirement Rework Rate MoM Change' =
+			[Executive Requirement Rework Rate (Selected Month)] -
+				[Executive Requirement Rework Rate (Previous Month)]
+		formatString: +0.0%;-0.0%;0.0%
+		lineageTag: 5f77fbf2-0f01-47bd-b5c1-f8766a8bd771
+
+	measure 'Executive Requirement Rework Rate with Change (Selected Month)' =
+			VAR CurrentValue = [Executive Requirement Rework Rate (Selected Month)]
+			VAR Change = [Executive Requirement Rework Rate MoM Change]
+			RETURN
+				IF (
+					ISBLANK ( CurrentValue ),
+					BLANK (),
+					FORMAT ( CurrentValue, "0.0%" ) &
+						IF (
+							ISBLANK ( Change ),
+							BLANK (),
+							" (" & FORMAT ( Change * 100, "+0.0;-0.0;0.0" ) & "pp)"
+						)
+				)
+		lineageTag: 937804da-cb30-4c11-82b1-93dd7f42f0fd
+
+	measure 'Executive Requirement Rework Rate Color' =
+			VAR ReworkRate = [Executive Requirement Rework Rate (Selected Month)]
+			RETURN
+				SWITCH (
+					TRUE (),
+					ISBLANK ( ReworkRate ), "#6B6B6B",
+					ReworkRate <= 0.1, "#107C10",
+					ReworkRate <= 0.2, "#CA5010",
+					"#D13438"
+				)
+		lineageTag: 9e4ea4d4-b446-4748-a40b-c53b6d2db7c8
+
+	measure 'Executive Requirement Rework Events (Selected Month)' =
+			VAR SelectedMonthStart = 'Reporting Month'[Executive Selected Reporting Month Start]
+			VAR SelectedMonthEnd = 'Reporting Month'[Executive Selected Reporting Month End]
+			RETURN
+				COALESCE (
+					CALCULATE (
+						SUM ( 'Requirement Churn'[Requirement Rework Event Count Parsed] ),
+						FILTER (
+							ALL ( 'Requirement Churn'[Snapshot Date] ),
+							'Requirement Churn'[Snapshot Date] >= SelectedMonthStart &&
+							'Requirement Churn'[Snapshot Date] < SelectedMonthEnd + 1
+						)
+					),
+					0
+				)
+		formatString: #,0
+		lineageTag: efd3b9e3-0d5d-4489-917a-a1d261c62ebc
+
+	measure 'Executive On-Hold Disruptions (Selected Month)' =
+			VAR SelectedMonthStart = 'Reporting Month'[Executive Selected Reporting Month Start]
+			VAR SelectedMonthEnd = 'Reporting Month'[Executive Selected Reporting Month End]
+			RETURN
+				COALESCE (
+					CALCULATE (
+						DISTINCTCOUNT ( 'Requirement Churn'[WorkItemId] ),
+						'Requirement Churn'[Entered On Hold After Commitment Parsed] = TRUE (),
+						FILTER (
+							ALL ( 'Requirement Churn'[Snapshot Date] ),
+							'Requirement Churn'[Snapshot Date] >= SelectedMonthStart &&
+							'Requirement Churn'[Snapshot Date] < SelectedMonthEnd + 1
+						)
+					),
+					0
+				)
+		formatString: #,0
+		lineageTag: 6e9d3b30-0db8-46c1-b0a8-6615e87e2515
+
+	column WorkItemId
+		dataType: int64
+		formatString: 0
+		lineageTag: d97ac479-8645-4342-9ce9-5fbc664d985d
+		summarizeBy: count
+		sourceColumn: WorkItemId
+
+		annotation SummarizationSetBy = Automatic
+
+	column WorkItemType
+		dataType: string
+		lineageTag: 1ac4feee-0871-4189-9c11-a578bfba3b49
+		summarizeBy: none
+		sourceColumn: WorkItemType
+
+		annotation SummarizationSetBy = Automatic
+
+	column State
+		dataType: string
+		lineageTag: 233852fa-8f5e-4795-90c9-a68338d71e9b
+		summarizeBy: none
+		sourceColumn: State
+
+		annotation SummarizationSetBy = Automatic
+
+	column isCommitted
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: ef1a7e92-3a12-423a-a3fc-ca8ff92e6a51
+		summarizeBy: none
+		sourceColumn: isCommitted
+
+		annotation SummarizationSetBy = Automatic
+
+	column movedBackToPlanning
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 301d97af-4ae3-43a7-ab8d-84b2b4dc0059
+		summarizeBy: none
+		sourceColumn: movedBackToPlanning
+
+		annotation SummarizationSetBy = Automatic
+
+	column enteredOnHoldAfterCommitment
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 44b9b069-04a5-4502-9f0c-e31b50e62f22
+		summarizeBy: none
+		sourceColumn: enteredOnHoldAfterCommitment
+
+		annotation SummarizationSetBy = Automatic
+
+	column reopenedAfterClosed
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 52ef3a58-21cb-4a21-aa18-c4bd79b4bb8f
+		summarizeBy: none
+		sourceColumn: reopenedAfterClosed
+
+		annotation SummarizationSetBy = Automatic
+
+	column removedAfterCommitment
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: d21a8e5c-8fdd-4b5e-af3b-17b8e62ed757
+		summarizeBy: none
+		sourceColumn: removedAfterCommitment
+
+		annotation SummarizationSetBy = Automatic
+
+	column requirementReworkFlag
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 45c24fbc-9cbe-4410-ac36-5f4c5a2b90cf
+		summarizeBy: none
+		sourceColumn: requirementReworkFlag
+
+		annotation SummarizationSetBy = Automatic
+
+	column requirementReworkEventCount
+		dataType: int64
+		formatString: 0
+		lineageTag: e8a43167-5c56-485d-99c3-eb8b7807d2f7
+		summarizeBy: sum
+		sourceColumn: requirementReworkEventCount
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Snapshot Date'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 8b015fac-1ff2-4fea-9650-cfcb2bf458cf
+		summarizeBy: none
+		sourceColumn: SnapshotDate
+
+		variation Variation
+			isDefault
+			relationship: c51fa245-d90d-4f8c-be15-5ad4b1ff0621
+			defaultHierarchy: LocalDateTable_333c4484-faaa-4358-8a16-e327274438bc.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Is Committed Parsed' = LOWER ( TRIM ( 'Requirement Churn'[isCommitted] ) ) IN { "true", "1" }
+		dataType: boolean
+		lineageTag: 63d95fbb-55d3-4cc0-b4e5-9a343ea7067c
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Requirement Rework Flag Parsed' = LOWER ( TRIM ( 'Requirement Churn'[requirementReworkFlag] ) ) IN { "true", "1" }
+		dataType: boolean
+		lineageTag: 02c5eae4-368b-43a3-8628-dab847da1537
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Entered On Hold After Commitment Parsed' = LOWER ( TRIM ( 'Requirement Churn'[enteredOnHoldAfterCommitment] ) ) IN { "true", "1" }
+		dataType: boolean
+		lineageTag: 6c770832-1255-4eb8-88e8-4eb453ac10b4
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Requirement Rework Event Count Parsed' = IFERROR ( VALUE ( TRIM ( 'Requirement Churn'[requirementReworkEventCount] ) ), 0 )
+		dataType: int64
+		formatString: 0
+		lineageTag: 95f0e313-66b0-4182-9b5f-bd94f4fb0bc2
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Requirement Churn' = m
+		mode: import
+		source =
+				let
+				    Source = PowerBI.Dataflows(null),
+				    #"1d7f83bd-9b20-42de-9fc3-0f113e2024b2" = Source{[workspaceId="1d7f83bd-9b20-42de-9fc3-0f113e2024b2"]}[Data],
+				    #"1d72647c-62cb-46ba-91f9-0eb5c71bb512" = #"1d7f83bd-9b20-42de-9fc3-0f113e2024b2"{[dataflowId="1d72647c-62cb-46ba-91f9-0eb5c71bb512"]}[Data],
+				    #"Requirement Churn1" = #"1d72647c-62cb-46ba-91f9-0eb5c71bb512"{[entity="Requirement Churn"]}[Data],
+				    #"Selected Columns" = Table.SelectColumns(#"Requirement Churn1", {"SnapshotDate", "WorkItemId", "WorkItemType", "State", "isCommitted", "movedBackToPlanning", "enteredOnHoldAfterCommitment", "reopenedAfterClosed", "removedAfterCommitment", "requirementReworkFlag", "requirementReworkEventCount"})
+				in
+				    #"Selected Columns"
+

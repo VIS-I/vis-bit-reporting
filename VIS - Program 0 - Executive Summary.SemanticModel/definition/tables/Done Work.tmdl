@@ -1,0 +1,901 @@
+table 'Done Work'
+	lineageTag: ad8d5c4e-d3c1-43d0-9bc8-48d6aa71607d
+
+	measure 'Executive Median Cycle Time (Latest Completed Month)' =
+			VAR LatestCompletedMonthStart = 'Reporting Month'[Executive Selected Reporting Month Start]
+			VAR LatestCompletedMonthEnd = 'Reporting Month'[Executive Selected Reporting Month End]
+			RETURN
+			    CALCULATE (
+			        MEDIAN ( 'Done Work'[Cycle Time Days] ),
+			        'Done Work'[WorkItemType] = "User Story",
+			        FILTER (
+			            ALL ( 'Done Work'[ClosedDate] ),
+			            'Done Work'[ClosedDate] >= LatestCompletedMonthStart &&
+			            'Done Work'[ClosedDate] < LatestCompletedMonthEnd + 1
+			        )
+			    )
+		formatString: #,0.0 " days"
+		lineageTag: 19b30f79-6d36-4a01-94e2-c69135a139f8
+
+	measure 'Executive Median Lead Time (Latest Completed Month)' =
+			VAR LatestCompletedMonthStart = 'Reporting Month'[Executive Selected Reporting Month Start]
+			VAR LatestCompletedMonthEnd = 'Reporting Month'[Executive Selected Reporting Month End]
+			RETURN
+			    CALCULATE (
+			        MEDIAN ( 'Done Work'[Lead Time Days] ),
+			        'Done Work'[WorkItemType] = "User Story",
+			        FILTER (
+			            ALL ( 'Done Work'[ClosedDate] ),
+			            'Done Work'[ClosedDate] >= LatestCompletedMonthStart &&
+			            'Done Work'[ClosedDate] < LatestCompletedMonthEnd + 1
+			        )
+			    )
+		formatString: #,0.0 " days"
+		lineageTag: 11e58597-80c9-4317-8d39-b15d0f61c688
+
+	measure 'Executive Lead Time MoM Change' =
+			VAR LatestCompletedMonthStart = 'Reporting Month'[Executive Selected Reporting Month Start]
+			VAR PreviousCompletedMonthStart = 'Reporting Month'[Executive Previous Reporting Month Start]
+			VAR CurrentValue = [Executive Median Lead Time (Latest Completed Month)]
+			VAR PreviousValue =
+			    CALCULATE (
+			        MEDIAN ( 'Done Work'[Lead Time Days] ),
+			        'Done Work'[WorkItemType] = "User Story",
+			        FILTER (
+			            ALL ( 'Done Work'[ClosedDate] ),
+			            'Done Work'[ClosedDate] >= PreviousCompletedMonthStart &&
+			            'Done Work'[ClosedDate] < LatestCompletedMonthStart
+			        )
+			    )
+			RETURN
+			    CurrentValue - PreviousValue
+		formatString: +0.0;-0.0;0.0 " days"
+		lineageTag: 98ff27ae-086c-4a6b-b3a7-8c0d64d6a142
+
+	measure 'Executive Cycle Time MoM Change' =
+			VAR LatestCompletedMonthStart = 'Reporting Month'[Executive Selected Reporting Month Start]
+			VAR PreviousCompletedMonthStart = 'Reporting Month'[Executive Previous Reporting Month Start]
+			VAR CurrentValue = [Executive Median Cycle Time (Latest Completed Month)]
+			VAR PreviousValue =
+			    CALCULATE (
+			        MEDIAN ( 'Done Work'[Cycle Time Days] ),
+			        'Done Work'[WorkItemType] = "User Story",
+			        FILTER (
+			            ALL ( 'Done Work'[ClosedDate] ),
+			            'Done Work'[ClosedDate] >= PreviousCompletedMonthStart &&
+			            'Done Work'[ClosedDate] < LatestCompletedMonthStart
+			        )
+			    )
+			RETURN
+			    CurrentValue - PreviousValue
+		formatString: +0.0;-0.0;0.0 " days"
+		lineageTag: 5d53ba6b-5b7e-4e79-85e0-f145d0a16791
+
+	measure 'Executive Delivery Defect Rate (Latest Completed Month)' =
+			VAR LatestCompletedMonthStart = 'Reporting Month'[Executive Selected Reporting Month Start]
+			VAR LatestCompletedMonthEnd = 'Reporting Month'[Executive Selected Reporting Month End]
+			VAR CompletedBugs =
+			    CALCULATE (
+			        DISTINCTCOUNT ( 'Done Work'[WorkItemId] ),
+			        'Done Work'[WorkItemType] = "Bug",
+			        FILTER (
+			            ALL ( 'Done Work'[ClosedDate] ),
+			            'Done Work'[ClosedDate] >= LatestCompletedMonthStart &&
+			            'Done Work'[ClosedDate] < LatestCompletedMonthEnd + 1
+			        )
+			    )
+			VAR CompletedStories =
+			    CALCULATE (
+			        DISTINCTCOUNT ( 'Done Work'[WorkItemId] ),
+			        'Done Work'[WorkItemType] = "User Story",
+			        FILTER (
+			            ALL ( 'Done Work'[ClosedDate] ),
+			            'Done Work'[ClosedDate] >= LatestCompletedMonthStart &&
+			            'Done Work'[ClosedDate] < LatestCompletedMonthEnd + 1
+			        )
+			    )
+			RETURN
+			    DIVIDE ( CompletedBugs, CompletedBugs + CompletedStories )
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 40a5b5be-c4c7-4112-88e9-b0e87e49043c
+
+	measure 'Executive Delivered Estimated Effort (Latest Completed Month)' =
+			VAR LatestCompletedMonthStart = 'Reporting Month'[Executive Selected Reporting Month Start]
+			VAR LatestCompletedMonthEnd = 'Reporting Month'[Executive Selected Reporting Month End]
+			RETURN
+			    CALCULATE (
+			        SUMX (
+			            VALUES ( 'Done Work'[WorkItemId] ),
+			            CALCULATE ( MAX ( 'Done Work'[Estimated Effort Dev] ) )
+			        ),
+			        'Done Work'[WorkItemType] IN { "User Story", "Bug" },
+			        FILTER (
+			            ALL ( 'Done Work'[ClosedDate] ),
+			            'Done Work'[ClosedDate] >= LatestCompletedMonthStart &&
+			            'Done Work'[ClosedDate] < LatestCompletedMonthEnd + 1
+			        )
+			    )
+		formatString: #,0.0 " person days"
+		lineageTag: 6767b23e-e3e7-4322-89a7-137db1040745
+
+	measure 'Executive Capacity Load (Proxy) %' =
+			DIVIDE (
+			    [Executive Delivered Estimated Effort (Latest Completed Month)],
+			    'Cumulative Flow Diagram'[Executive Monthly Capacity (Person Days)]
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 5c827c38-b8b6-405e-8112-0631e9db4535
+
+	measure 'Executive Capacity Load Color' =
+			VAR CapacityLoad = [Executive Capacity Load (Proxy) %]
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        ISBLANK ( CapacityLoad ), "#6B6B6B",
+			        CapacityLoad >= 0.7 && CapacityLoad <= 1, "#107C10",
+			        CapacityLoad >= 0.5 && CapacityLoad <= 1.2, "#CA5010",
+			        "#D13438"
+			    )
+		lineageTag: b45debe5-3909-4ebc-995c-f53e91fe3f97
+
+	measure 'Executive Lead Time Health Color' =
+			VAR LeadTime = [Executive Median Lead Time (Latest Completed Month)]
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        ISBLANK ( LeadTime ), "#6B6B6B",
+			        LeadTime < 30, "#107C10",
+			        LeadTime < 35, "#CA5010",
+			        "#D13438"
+			    )
+		lineageTag: c1213645-5954-4b0d-b762-e51f43247f40
+
+	measure 'Executive Lead Time Change Color' =
+			VAR CurrentValue = [Executive Median Lead Time (Latest Completed Month)]
+			VAR ChangeRatio = DIVIDE ( [Executive Lead Time MoM Change], CurrentValue - [Executive Lead Time MoM Change] )
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        ISBLANK ( CurrentValue ) || ISBLANK ( ChangeRatio ), "#6B6B6B",
+			        ChangeRatio <= -0.1, "#107C10",
+			        ChangeRatio <= 0.1, "#CA5010",
+			        "#D13438"
+			    )
+		lineageTag: b99f12b1-1aa3-45f5-a0b0-9f130c9495ba
+
+	measure 'Executive Cycle Time Change Color' =
+			VAR CurrentValue = [Executive Median Cycle Time (Latest Completed Month)]
+			VAR ChangeRatio = DIVIDE ( [Executive Cycle Time MoM Change], CurrentValue - [Executive Cycle Time MoM Change] )
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        ISBLANK ( CurrentValue ) || ISBLANK ( ChangeRatio ), "#6B6B6B",
+			        ChangeRatio <= -0.1, "#107C10",
+			        ChangeRatio <= 0.1, "#CA5010",
+			        "#D13438"
+			    )
+		lineageTag: 31ee0dc8-6509-462b-a662-33954ff12b4d
+
+	measure 'Executive Delivery Defect Rate Color' =
+			VAR DefectRate = [Executive Delivery Defect Rate (Latest Completed Month)]
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        ISBLANK ( DefectRate ), "#6B6B6B",
+			        DefectRate <= 0.1, "#107C10",
+			        DefectRate <= 0.2, "#CA5010",
+			        "#D13438"
+			    )
+		lineageTag: 58a78a4d-3b5a-408c-a750-5bc3144660dc
+
+	measure 'Executive Flow Health Color' =
+			VAR CycleTime = [Executive Median Cycle Time (Latest Completed Month)]
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        ISBLANK ( CycleTime ), "#6B6B6B",
+			        CycleTime < 15, "#107C10",
+			        CycleTime < 20, "#CA5010",
+			        "#D13438"
+			    )
+		lineageTag: 445c707b-bb16-4e4a-b810-2813b667c1b8
+
+	measure 'Executive Monthly Delivery Health Severity' =
+			VAR LeadTime = [Executive Median Lead Time (Latest Completed Month)]
+			VAR LeadTimeSeverity =
+			    SWITCH (
+			        TRUE (),
+			        ISBLANK ( LeadTime ), BLANK (),
+			        LeadTime < 30, 1,
+			        LeadTime < 35, 2,
+			        3
+			    )
+			VAR CycleTime = [Executive Median Cycle Time (Latest Completed Month)]
+			VAR CycleTimeSeverity =
+			    SWITCH (
+			        TRUE (),
+			        ISBLANK ( CycleTime ), BLANK (),
+			        CycleTime < 15, 1,
+			        CycleTime < 20, 2,
+			        3
+			    )
+			VAR CapacityLoad = [Executive Capacity Load (Proxy) %]
+			VAR CapacityLoadSeverity =
+			    SWITCH (
+			        TRUE (),
+			        ISBLANK ( CapacityLoad ), BLANK (),
+			        CapacityLoad >= 0.7 && CapacityLoad <= 1, 1,
+			        CapacityLoad >= 0.5 && CapacityLoad <= 1.2, 2,
+			        3
+			    )
+			VAR DefectRate = [Executive Delivery Defect Rate (Latest Completed Month)]
+			VAR DefectRateSeverity =
+			    SWITCH (
+			        TRUE (),
+			        ISBLANK ( DefectRate ), BLANK (),
+			        DefectRate <= 0.1, 1,
+			        DefectRate <= 0.2, 2,
+			        3
+			    )
+			RETURN
+			    MAXX (
+			        { LeadTimeSeverity, CycleTimeSeverity, CapacityLoadSeverity, DefectRateSeverity },
+			        [Value]
+			    )
+		lineageTag: 344c0f93-5b4a-4bd9-a3f4-8bda3fd76e42
+
+	measure 'Executive Monthly Delivery Status' =
+			VAR Severity = [Executive Monthly Delivery Health Severity]
+			RETURN
+			    SWITCH (
+			        Severity,
+			        BLANK (), "NO DATA",
+			        1, "ON TRACK",
+			        2, "WATCH",
+			        "AT RISK"
+			    )
+		lineageTag: f1eb2523-4e2b-4d0e-bb01-a99de403d897
+
+	measure 'Executive Monthly Delivery Status Color' =
+			VAR Severity = [Executive Monthly Delivery Health Severity]
+			RETURN
+			    SWITCH (
+			        Severity,
+			        BLANK (), "#6B6B6B",
+			        1, "#107C10",
+			        2, "#CA5010",
+			        "#D13438"
+			    )
+		lineageTag: 8691f2f3-aa08-4c44-a2b2-e1f9b1223bb3
+
+	measure 'Executive Report Month Label' = 'Reporting Month'[Executive Selected Reporting Month Label]
+		lineageTag: f8033427-a06c-4f28-b9d4-7b6433bb6f8c
+
+	measure 'Executive Closed Work Items (Latest Completed Month)' =
+			VAR LatestCompletedMonthStart = 'Reporting Month'[Executive Selected Reporting Month Start]
+			VAR LatestCompletedMonthEnd = 'Reporting Month'[Executive Selected Reporting Month End]
+			RETURN
+			    CALCULATE (
+			        DISTINCTCOUNT ( 'Done Work'[WorkItemId] ),
+			        'Done Work'[WorkItemType] IN { "User Story", "Bug" },
+			        FILTER (
+			            ALL ( 'Done Work'[ClosedDate] ),
+			            'Done Work'[ClosedDate] >= LatestCompletedMonthStart &&
+			            'Done Work'[ClosedDate] < LatestCompletedMonthEnd + 1
+			        )
+			    )
+		formatString: #,0
+		lineageTag: 46b8562d-c4a1-40c2-a4cc-4a8821183648
+
+	measure 'Executive Lead Time with Change (Latest Completed Month)' =
+			VAR CurrentValue = [Executive Median Lead Time (Latest Completed Month)]
+			VAR Change = [Executive Lead Time MoM Change]
+			RETURN
+				IF (
+					ISBLANK ( CurrentValue ),
+					BLANK (),
+					FORMAT ( CurrentValue, "0.0" ) &
+						" days" &
+						IF (
+							ISBLANK ( Change ),
+							BLANK (),
+							" (" & FORMAT ( Change, "+0.0;-0.0;0.0" ) & "d)"
+						)
+				)
+		lineageTag: a1e7f249-2d84-4a7e-8a67-0a4e85b52672
+
+	measure 'Executive Cycle Time with Change (Latest Completed Month)' =
+			VAR CurrentValue = [Executive Median Cycle Time (Latest Completed Month)]
+			VAR Change = [Executive Cycle Time MoM Change]
+			RETURN
+				IF (
+					ISBLANK ( CurrentValue ),
+					BLANK (),
+					FORMAT ( CurrentValue, "0.0" ) &
+						" days" &
+						IF (
+							ISBLANK ( Change ),
+							BLANK (),
+							" (" & FORMAT ( Change, "+0.0;-0.0;0.0" ) & "d)"
+						)
+				)
+		lineageTag: b83c396b-f68c-4cd1-9cfa-06a05e8c818a
+
+	measure 'Executive Delivery Defect Rate MoM Change' =
+			VAR LatestCompletedMonthStart = 'Reporting Month'[Executive Selected Reporting Month Start]
+			VAR PreviousCompletedMonthStart = 'Reporting Month'[Executive Previous Reporting Month Start]
+			VAR PreviousCompletedBugs =
+			    CALCULATE (
+			        DISTINCTCOUNT ( 'Done Work'[WorkItemId] ),
+			        'Done Work'[WorkItemType] = "Bug",
+			        FILTER (
+			            ALL ( 'Done Work'[ClosedDate] ),
+			            'Done Work'[ClosedDate] >= PreviousCompletedMonthStart &&
+			            'Done Work'[ClosedDate] < LatestCompletedMonthStart
+			        )
+			    )
+			VAR PreviousCompletedStories =
+			    CALCULATE (
+			        DISTINCTCOUNT ( 'Done Work'[WorkItemId] ),
+			        'Done Work'[WorkItemType] = "User Story",
+			        FILTER (
+			            ALL ( 'Done Work'[ClosedDate] ),
+			            'Done Work'[ClosedDate] >= PreviousCompletedMonthStart &&
+			            'Done Work'[ClosedDate] < LatestCompletedMonthStart
+			        )
+			    )
+			VAR PreviousValue = DIVIDE ( PreviousCompletedBugs, PreviousCompletedBugs + PreviousCompletedStories )
+			RETURN
+			    [Executive Delivery Defect Rate (Latest Completed Month)] - PreviousValue
+		formatString: +0.0%;-0.0%;0.0%
+		lineageTag: 48556b17-ea5f-42cb-90c9-44319c31760b
+
+	measure 'Executive Capacity Load (Proxy) MoM Change' =
+			VAR LatestCompletedMonthStart = 'Reporting Month'[Executive Selected Reporting Month Start]
+			VAR PreviousCompletedMonthStart = 'Reporting Month'[Executive Previous Reporting Month Start]
+			VAR PreviousDeliveredEstimatedEffort =
+			    CALCULATE (
+			        SUMX (
+			            VALUES ( 'Done Work'[WorkItemId] ),
+			            CALCULATE ( MAX ( 'Done Work'[Estimated Effort Dev] ) )
+			        ),
+			        'Done Work'[WorkItemType] IN { "User Story", "Bug" },
+			        FILTER (
+			            ALL ( 'Done Work'[ClosedDate] ),
+			            'Done Work'[ClosedDate] >= PreviousCompletedMonthStart &&
+			            'Done Work'[ClosedDate] < LatestCompletedMonthStart
+			        )
+			    )
+			VAR PreviousValue =
+			    DIVIDE (
+			        PreviousDeliveredEstimatedEffort,
+			        'Cumulative Flow Diagram'[Executive Monthly Capacity (Previous Completed Month)]
+			    )
+			RETURN
+			    [Executive Capacity Load (Proxy) %] - PreviousValue
+		formatString: +0.0%;-0.0%;0.0%
+		lineageTag: 0732d677-126c-408a-a4ab-42343537683c
+
+	measure 'Executive Capacity Load with Change (Latest Completed Month)' =
+			VAR CurrentValue = [Executive Capacity Load (Proxy) %]
+			VAR Change = [Executive Capacity Load (Proxy) MoM Change]
+			RETURN
+				IF (
+					ISBLANK ( CurrentValue ),
+					BLANK (),
+					FORMAT ( CurrentValue, "0.0%" ) &
+						IF (
+							ISBLANK ( Change ),
+							BLANK (),
+							" (" & FORMAT ( Change * 100, "+0.0;-0.0;0.0" ) & "pp)"
+						)
+				)
+		lineageTag: 73ad4521-bf13-460e-9980-1a9611d5c759
+
+	measure 'Executive Delivery Defect Rate with Change (Latest Completed Month)' =
+			VAR CurrentValue = [Executive Delivery Defect Rate (Latest Completed Month)]
+			VAR Change = [Executive Delivery Defect Rate MoM Change]
+			RETURN
+				IF (
+					ISBLANK ( CurrentValue ),
+					BLANK (),
+					FORMAT ( CurrentValue, "0.0%" ) &
+						IF (
+							ISBLANK ( Change ),
+							BLANK (),
+							" (" & FORMAT ( Change * 100, "+0.0;-0.0;0.0" ) & "pp)"
+						)
+				)
+		lineageTag: 923c707f-2c6a-4ff6-9f97-e79d064e7a2a
+
+	measure 'Executive Closed Work Items (Previous Completed Month)' =
+			VAR PreviousCompletedMonthStart = 'Reporting Month'[Executive Previous Reporting Month Start]
+			VAR SelectedMonthStart = 'Reporting Month'[Executive Selected Reporting Month Start]
+			RETURN
+				CALCULATE (
+					DISTINCTCOUNT ( 'Done Work'[WorkItemId] ),
+					'Done Work'[WorkItemType] IN { "User Story", "Bug" },
+					FILTER (
+						ALL ( 'Done Work'[ClosedDate] ),
+						'Done Work'[ClosedDate] >= PreviousCompletedMonthStart &&
+						'Done Work'[ClosedDate] < SelectedMonthStart
+					)
+				)
+		formatString: #,0
+		lineageTag: f474c5e9-459d-4f2e-9f9b-03448be4cdf5
+
+	measure 'Executive Closed Work Items MoM Change' =
+			[Executive Closed Work Items (Latest Completed Month)] -
+				[Executive Closed Work Items (Previous Completed Month)]
+		formatString: +0;-0;0
+		lineageTag: 1280e161-0b51-4602-835f-b6bc2f1ec3a7
+
+	measure 'Executive Closed Work Items with Change (Selected Month)' =
+			VAR CurrentValue = [Executive Closed Work Items (Latest Completed Month)]
+			VAR Change = [Executive Closed Work Items MoM Change]
+			RETURN
+				IF (
+					ISBLANK ( CurrentValue ),
+					BLANK (),
+					FORMAT ( CurrentValue, "0" ) &
+						IF ( ISBLANK ( Change ), BLANK (), " (" & FORMAT ( Change, "+0;-0;0" ) & ")" )
+				)
+		lineageTag: 6986b365-8728-4fc3-bc8c-a5fa07d98615
+
+	measure 'Executive Actual-to-Estimated Effort Ratio (Selected Month)' =
+			VAR SelectedMonthStart = 'Reporting Month'[Executive Selected Reporting Month Start]
+			VAR SelectedMonthEnd = 'Reporting Month'[Executive Selected Reporting Month End]
+			VAR EligibleWorkItems =
+				FILTER (
+					CALCULATETABLE (
+						SUMMARIZE (
+							'Done Work',
+							'Done Work'[WorkItemId],
+							"EstimatedEffort", MAX ( 'Done Work'[Estimated Effort Dev] ),
+							"ActualEffort", MAX ( 'Done Work'[Actual Effort Dev] )
+						),
+						'Done Work'[WorkItemType] IN { "User Story", "Bug" },
+						FILTER (
+							ALL ( 'Done Work'[ClosedDate] ),
+							'Done Work'[ClosedDate] >= SelectedMonthStart &&
+							'Done Work'[ClosedDate] < SelectedMonthEnd + 1
+						)
+					),
+					[EstimatedEffort] > 0 && [ActualEffort] > 0
+				)
+			VAR EstimatedEffort =
+				SUMX (
+					EligibleWorkItems,
+					[EstimatedEffort]
+				)
+			VAR ActualEffort =
+				SUMX (
+					EligibleWorkItems,
+					[ActualEffort]
+				)
+			RETURN
+				DIVIDE ( ActualEffort, EstimatedEffort )
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: e6894842-e1d0-4053-953f-687256c56465
+
+	measure 'Executive Actual-to-Estimated Effort Ratio (Previous Month)' =
+			VAR PreviousMonthStart = 'Reporting Month'[Executive Previous Reporting Month Start]
+			VAR SelectedMonthStart = 'Reporting Month'[Executive Selected Reporting Month Start]
+			VAR EligibleWorkItems =
+				FILTER (
+					CALCULATETABLE (
+						SUMMARIZE (
+							'Done Work',
+							'Done Work'[WorkItemId],
+							"EstimatedEffort", MAX ( 'Done Work'[Estimated Effort Dev] ),
+							"ActualEffort", MAX ( 'Done Work'[Actual Effort Dev] )
+						),
+						'Done Work'[WorkItemType] IN { "User Story", "Bug" },
+						FILTER (
+							ALL ( 'Done Work'[ClosedDate] ),
+							'Done Work'[ClosedDate] >= PreviousMonthStart &&
+							'Done Work'[ClosedDate] < SelectedMonthStart
+						)
+					),
+					[EstimatedEffort] > 0 && [ActualEffort] > 0
+				)
+			VAR EstimatedEffort =
+				SUMX (
+					EligibleWorkItems,
+					[EstimatedEffort]
+				)
+			VAR ActualEffort =
+				SUMX (
+					EligibleWorkItems,
+					[ActualEffort]
+				)
+			RETURN
+				DIVIDE ( ActualEffort, EstimatedEffort )
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 5493c2ce-336a-4380-88d1-4f2c01f31923
+
+	measure 'Executive Estimation Drift (Selected Month)' = [Executive Actual-to-Estimated Effort Ratio (Selected Month)] - 1
+		formatString: +0.0%;-0.0%;0.0%
+		lineageTag: fb54affc-cae2-493e-92ed-19fb6ce7d2a3
+
+	measure 'Executive Estimation Drift MoM Change' =
+			[Executive Actual-to-Estimated Effort Ratio (Selected Month)] -
+				[Executive Actual-to-Estimated Effort Ratio (Previous Month)]
+		formatString: +0.0%;-0.0%;0.0%
+		lineageTag: 0ca9e06f-91e0-4bf7-8c51-17a46b7d1021
+
+	measure 'Executive Estimation Drift with Change (Selected Month)' =
+			VAR CurrentValue = [Executive Estimation Drift (Selected Month)]
+			VAR Change = [Executive Estimation Drift MoM Change]
+			RETURN
+				IF (
+					ISBLANK ( CurrentValue ),
+					BLANK (),
+					FORMAT ( CurrentValue, "+0.0%;-0.0%;0.0%" ) &
+						IF (
+							ISBLANK ( Change ),
+							BLANK (),
+							" (" & FORMAT ( Change * 100, "+0.0;-0.0;0.0" ) & "pp)"
+						)
+				)
+		lineageTag: 2e1c3db8-03c9-4f21-a7e3-448e5d0f7442
+
+	measure 'Executive Estimation Drift Color' =
+			VAR Drift = [Executive Estimation Drift (Selected Month)]
+			RETURN
+				SWITCH (
+					TRUE (),
+					ISBLANK ( Drift ), "#6B6B6B",
+					ABS ( Drift ) <= 0.1, "#107C10",
+					ABS ( Drift ) <= 0.25, "#CA5010",
+					"#D13438"
+				)
+		lineageTag: a1a77d82-0e1d-44fa-b8bb-315a48b3fbe9
+
+	column WorkItemId
+		dataType: int64
+		formatString: 0
+		lineageTag: dec99997-b048-496b-b6db-44cf83c577ec
+		summarizeBy: none
+		sourceColumn: WorkItemId
+
+		annotation SummarizationSetBy = Automatic
+
+	column Title
+		dataType: string
+		lineageTag: eafa33aa-3498-48be-9f98-068175837ae2
+		summarizeBy: none
+		sourceColumn: Title
+
+		annotation SummarizationSetBy = Automatic
+
+	column WorkItemType
+		dataType: string
+		lineageTag: 0c56798f-6e65-426a-8329-094c9fd817e5
+		summarizeBy: none
+		sourceColumn: WorkItemType
+
+		annotation SummarizationSetBy = Automatic
+
+	column ChangedDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: a1a64ec4-eb1e-48d6-b53d-31b59a46cadc
+		summarizeBy: none
+		sourceColumn: ChangedDate
+
+		variation Variation
+			isDefault
+			relationship: ff751325-5cf0-4e4b-8e4a-79e970fea642
+			defaultHierarchy: LocalDateTable_c44f4d53-eff8-4d64-9b1f-02ef1a50c3bd.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column CreatedDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: c81e59e4-0ac5-4064-9e0a-2924a7111862
+		summarizeBy: none
+		sourceColumn: CreatedDate
+
+		variation Variation
+			isDefault
+			relationship: cc49c92f-0356-443f-be56-fb1a1ef86260
+			defaultHierarchy: LocalDateTable_0d1b254d-98d2-41d9-bb43-ac9cf6aa00e0.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column State
+		dataType: string
+		lineageTag: 6a6c5c5d-549e-460b-a3a0-7f725a62c90d
+		summarizeBy: none
+		sourceColumn: State
+
+		annotation SummarizationSetBy = Automatic
+
+	column ActivatedDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 4921344c-ce66-4c1e-b913-1f1fa07c579c
+		summarizeBy: none
+		sourceColumn: ActivatedDate
+
+		variation Variation
+			isDefault
+			relationship: 0d0bb9b8-32ee-43a5-acc4-15004f52fb1b
+			defaultHierarchy: LocalDateTable_2d682a53-35ec-4f59-ad70-2421468dd299.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column ClosedDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: a14604b7-9209-451d-94fb-9b7d06d740df
+		summarizeBy: none
+		sourceColumn: ClosedDate
+
+		variation Variation
+			isDefault
+			relationship: a641a8ce-4aa0-46b6-9fc1-fde438b85d4d
+			defaultHierarchy: LocalDateTable_15be34b9-315a-4dbd-abfe-507c3dd0625c.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Priority
+		dataType: int64
+		formatString: 0
+		lineageTag: 9dd88748-5b8c-4b2e-9238-a4da21a80501
+		summarizeBy: sum
+		sourceColumn: Priority
+
+		annotation SummarizationSetBy = Automatic
+
+	column Severity
+		dataType: string
+		lineageTag: fff3a2ed-4199-4027-bc18-9dffb1598ad9
+		summarizeBy: none
+		sourceColumn: Severity
+
+		annotation SummarizationSetBy = Automatic
+
+	column ValueArea
+		dataType: string
+		lineageTag: c66ac604-eba4-4013-91cc-ac69a51dc342
+		summarizeBy: none
+		sourceColumn: ValueArea
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Actual Feature Effort'
+		dataType: double
+		lineageTag: 17bf1d3f-acaf-4744-88d5-18c23340de29
+		summarizeBy: sum
+		sourceColumn: Actual Feature Effort
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column StartDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: fcb732cd-3d6c-4208-a0c7-09092d76e0e1
+		summarizeBy: none
+		sourceColumn: StartDate
+
+		variation Variation
+			isDefault
+			relationship: d08a6f8c-1433-4d90-a9f5-6836a95104bc
+			defaultHierarchy: LocalDateTable_0f38168e-af74-485b-9bbf-9bfc5cbfcb35.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column StoryPoints
+		dataType: double
+		lineageTag: f97ffa3b-6897-40ab-b02a-17938f66f33e
+		summarizeBy: sum
+		sourceColumn: StoryPoints
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column StateChangeDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 3152c1af-91c1-4510-9127-b56cf85975c7
+		summarizeBy: none
+		sourceColumn: StateChangeDate
+
+		variation Variation
+			isDefault
+			relationship: 6966152d-3e06-416a-a346-d2c34d366db9
+			defaultHierarchy: LocalDateTable_8854e170-61d9-46ad-b5ac-1ecec039e00c.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Actual Effort Dev'
+		dataType: int64
+		formatString: 0
+		lineageTag: 38a255ea-75df-4bb0-9c85-22148ea2a448
+		summarizeBy: sum
+		sourceColumn: Actual Effort Dev
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Estimated Effort Dev'
+		dataType: int64
+		formatString: 0
+		lineageTag: 1d186da2-aec6-488e-b8b5-24f293be12cc
+		summarizeBy: sum
+		sourceColumn: Estimated Effort Dev
+
+		annotation SummarizationSetBy = Automatic
+
+	column LinkTypeName
+		dataType: string
+		lineageTag: 5f385b11-651a-4e78-9ef9-f6a3005f7528
+		summarizeBy: none
+		sourceColumn: LinkTypeName
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Linked.LinkedWorkItemId'
+		dataType: string
+		lineageTag: de555720-1a4f-4091-a535-adbfb2a3954e
+		summarizeBy: none
+		sourceColumn: Linked.LinkedWorkItemId
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Linked.LinkedWorkItemState'
+		dataType: string
+		lineageTag: 736cc5a3-2f37-4490-bc09-46a5a0ac915d
+		summarizeBy: none
+		sourceColumn: Linked.LinkedWorkItemState
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Linked.Actual Feature Effort'
+		dataType: string
+		lineageTag: 507c6563-1c5c-45d4-868a-7e62e03e9e09
+		summarizeBy: none
+		sourceColumn: Linked.Actual Feature Effort
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Linked.Actual Effort Dev'
+		dataType: string
+		lineageTag: 793e8b7c-eaa1-41f6-bee8-cc0d62689029
+		summarizeBy: none
+		sourceColumn: Linked.Actual Effort Dev
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Linked.Estimated Effort Dev'
+		dataType: string
+		lineageTag: e6bc467e-7d33-4457-b5f4-93f48c2cd393
+		summarizeBy: none
+		sourceColumn: Linked.Estimated Effort Dev
+
+		annotation SummarizationSetBy = Automatic
+
+	column AreaPath
+		dataType: string
+		lineageTag: 4a92d301-1f87-4140-ab40-d5ce5c4899aa
+		summarizeBy: none
+		sourceColumn: AreaPath
+
+		annotation SummarizationSetBy = Automatic
+
+	column IterationName
+		dataType: string
+		lineageTag: 15c22a1a-1c83-4239-9452-68672ff210a2
+		summarizeBy: none
+		sourceColumn: IterationName
+
+		annotation SummarizationSetBy = Automatic
+
+	column UserName
+		dataType: string
+		lineageTag: 7fd90092-8f4f-4857-867c-2c8f9851b337
+		summarizeBy: none
+		sourceColumn: UserName
+
+		annotation SummarizationSetBy = Automatic
+
+	column UserRealName
+		dataType: string
+		lineageTag: 25d3c395-35df-4daf-872d-e685eea8166f
+		summarizeBy: none
+		sourceColumn: UserRealName
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ChangedBy.UserName'
+		dataType: string
+		lineageTag: a9f7e8bc-18f8-44d8-9836-c7014e51e260
+		summarizeBy: none
+		sourceColumn: ChangedBy.UserName
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'CreatedBy.UserName'
+		dataType: string
+		lineageTag: 4eebb813-d10a-44c4-a707-545c6f95f650
+		summarizeBy: none
+		sourceColumn: CreatedBy.UserName
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ResolvedBy.UserName'
+		dataType: string
+		lineageTag: 8c27836f-3355-4ffd-b701-8553189590b2
+		summarizeBy: none
+		sourceColumn: ResolvedBy.UserName
+
+		annotation SummarizationSetBy = Automatic
+
+	column Tags
+		dataType: string
+		lineageTag: d3d1339d-1623-4443-ae3f-835dae084bbe
+		summarizeBy: none
+		sourceColumn: Tags
+
+		annotation SummarizationSetBy = Automatic
+
+	column ReviewedBy
+		dataType: string
+		lineageTag: 52f8991b-af2a-4019-9c1d-44a8dc90fc59
+		summarizeBy: none
+		sourceColumn: ReviewedBy
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Missing Estimate'
+		dataType: string
+		lineageTag: 4d59c61a-66ec-4004-a598-601748360cc7
+		summarizeBy: none
+		sourceColumn: Missing Estimate
+
+		annotation SummarizationSetBy = Automatic
+
+	column Link
+		dataType: string
+		lineageTag: 3b664898-1324-435d-bae5-8432aeb162f2
+		summarizeBy: none
+		sourceColumn: Link
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Lead Time Days'
+		dataType: double
+		lineageTag: b13584f6-3d9d-49dd-a4c8-b14203d62a6a
+		summarizeBy: sum
+		sourceColumn: Lead Time Days
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Cycle Time Days'
+		dataType: double
+		lineageTag: a7a68aed-12b6-4708-9c96-75a76ee9eba2
+		summarizeBy: sum
+		sourceColumn: Cycle Time Days
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'Done Work' = m
+		mode: import
+		source =
+				let
+				    Source = PowerBI.Dataflows(null),
+				    #"1d7f83bd-9b20-42de-9fc3-0f113e2024b2" = Source{[workspaceId="1d7f83bd-9b20-42de-9fc3-0f113e2024b2"]}[Data],
+				    #"1d72647c-62cb-46ba-91f9-0eb5c71bb512" = #"1d7f83bd-9b20-42de-9fc3-0f113e2024b2"{[dataflowId="1d72647c-62cb-46ba-91f9-0eb5c71bb512"]}[Data],
+				    #"Done Work1" = #"1d72647c-62cb-46ba-91f9-0eb5c71bb512"{[entity="Done Work"]}[Data]
+				in
+				    #"Done Work1"
+
