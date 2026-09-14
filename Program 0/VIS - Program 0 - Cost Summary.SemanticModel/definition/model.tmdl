@@ -1,0 +1,41 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		fastCombine
+		legacyRedirects
+		returnErrorValuesAsNull
+
+queryGroup '🛠️ Setup'
+
+	annotation PBI_QueryGroupOrder = 0
+
+queryGroup Storage
+
+	annotation PBI_QueryGroupOrder = 2
+
+queryGroup Functions
+
+	annotation PBI_QueryGroupOrder = 1
+
+queryGroup 'Resource Graph'
+
+	annotation PBI_QueryGroupOrder = 3
+
+queryGroup 'Open data'
+
+	annotation PBI_QueryGroupOrder = 4
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_QueryOrder = ["Costs","Prices","PricingUnits","Storage URL","RangeStart","RangeEnd","▶️  START HERE","Number of Months","ftk_Storage","ftk_ParseResourceId","ftk_ParseResourceName","ftk_ParseResourceType","ftk_DatetimeToJulianDate","ftk_ImpalaToJulianDate","ftk_Metadata","Experimental: Add Missing Prices","Deprecated: Perform Extra Query Optimizations","Default Granularity"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table Costs
+ref table Prices
+ref table PricingUnits
+
+ref cultureInfo en-US
+
