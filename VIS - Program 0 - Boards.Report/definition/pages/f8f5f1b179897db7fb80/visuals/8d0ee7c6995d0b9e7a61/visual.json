@@ -1,0 +1,82 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "8d0ee7c6995d0b9e7a61",
+  "position": {
+    "x": 15,
+    "y": 82,
+    "z": 11000,
+    "height": 100,
+    "width": 241,
+    "tabOrder": 11000
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Done Work"
+                        }
+                      },
+                      "Property": "Cycle Time Days"
+                    }
+                  },
+                  "Function": 6
+                }
+              },
+              "queryRef": "Sum(Done Work.Cycle Time Days)",
+              "nativeQueryRef": "Median Cycle Time",
+              "displayName": "Median Cycle Time"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Aggregation": {
+                "Expression": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "Done Work"
+                      }
+                    },
+                    "Property": "Cycle Time Days"
+                  }
+                },
+                "Function": 6
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "objects": {
+      "labels": [
+        {
+          "properties": {
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1L"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

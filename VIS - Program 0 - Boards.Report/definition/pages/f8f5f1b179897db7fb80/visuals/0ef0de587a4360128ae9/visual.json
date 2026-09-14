@@ -1,0 +1,308 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "0ef0de587a4360128ae9",
+  "position": {
+    "x": 15,
+    "y": 457,
+    "z": 0,
+    "height": 247,
+    "width": 1249,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Done Work"
+                    }
+                  },
+                  "Property": "WorkItemId"
+                }
+              },
+              "queryRef": "Done Work.WorkItemId",
+              "nativeQueryRef": "WorkItemId"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Done Work"
+                    }
+                  },
+                  "Property": "Title"
+                }
+              },
+              "queryRef": "Done Work.Title",
+              "nativeQueryRef": "Title"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Done Work"
+                    }
+                  },
+                  "Property": "AreaPath"
+                }
+              },
+              "queryRef": "Done Work.AreaPath",
+              "nativeQueryRef": "AreaPath"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Done Work"
+                    }
+                  },
+                  "Property": "Estimated Effort Dev"
+                }
+              },
+              "queryRef": "Sum(Done Work.Estimated Effort Dev)",
+              "nativeQueryRef": "Estimated Effort Dev"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Done Work"
+                    }
+                  },
+                  "Property": "Actual Effort Dev"
+                }
+              },
+              "queryRef": "Sum(Done Work.Actual Effort Dev)",
+              "nativeQueryRef": "Actual Effort Dev"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Done Work"
+                    }
+                  },
+                  "Property": "Cycle Time Days"
+                }
+              },
+              "queryRef": "Sum(Done Work.Cycle Time Days)",
+              "nativeQueryRef": "Cycle Time Days"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Done Work"
+                    }
+                  },
+                  "Property": "Lead Time Days"
+                }
+              },
+              "queryRef": "Sum(Done Work.Lead Time Days)",
+              "nativeQueryRef": "Lead Time Days"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Done Work"
+                    }
+                  },
+                  "Property": "Link"
+                }
+              },
+              "queryRef": "Done Work.Link",
+              "nativeQueryRef": "Link"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Done Work"
+                  }
+                },
+                "Property": "Estimated Effort Dev"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "444.31945148557867D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Done Work.Title"
+          }
+        }
+      ],
+      "values": [
+        {
+          "properties": {
+            "urlIcon": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Done Work.Link"
+          }
+        }
+      ],
+      "columnHeaders": [
+        {
+          "properties": {}
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "16d9ca3470d02de9412b",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Done Work"
+              }
+            },
+            "Property": "WorkItemId"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "3a96679e9072315137d7",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Done Work"
+              }
+            },
+            "Property": "Title"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "a5a386605ba5d841920d",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Done Work"
+              }
+            },
+            "Property": "AreaPath"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "6a020503195645026152",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Done Work"
+              }
+            },
+            "Property": "Estimated Effort Dev"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "626bda5a5b0ec8dd7444",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Done Work"
+              }
+            },
+            "Property": "Actual Effort Dev"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "8f446b4cb028025da619",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Done Work"
+              }
+            },
+            "Property": "Cycle Time Days"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "5b1ec46772cb071a2ba0",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Done Work"
+              }
+            },
+            "Property": "Lead Time Days"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "077f43b323d7055e9b58",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Done Work"
+              }
+            },
+            "Property": "Link"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
+  }
+}

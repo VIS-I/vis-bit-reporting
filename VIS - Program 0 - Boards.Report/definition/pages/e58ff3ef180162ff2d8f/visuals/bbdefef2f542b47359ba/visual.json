@@ -1,0 +1,403 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "bbdefef2f542b47359ba",
+  "position": {
+    "x": 15,
+    "y": 457,
+    "z": 1000,
+    "height": 247,
+    "width": 1249,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Backlog"
+                    }
+                  },
+                  "Property": "WorkItemId"
+                }
+              },
+              "queryRef": "CountNonNull(Backlog.WorkItemId)",
+              "nativeQueryRef": "WorkItemId"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Backlog"
+                    }
+                  },
+                  "Property": "WorkItemType"
+                }
+              },
+              "queryRef": "Backlog.WorkItemType",
+              "nativeQueryRef": "WorkItemType"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Backlog"
+                    }
+                  },
+                  "Property": "Title"
+                }
+              },
+              "queryRef": "Backlog.Title",
+              "nativeQueryRef": "Title"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Backlog"
+                    }
+                  },
+                  "Property": "UserRealName"
+                }
+              },
+              "queryRef": "Backlog.UserRealName",
+              "nativeQueryRef": "UserRealName"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Backlog"
+                    }
+                  },
+                  "Property": "State"
+                }
+              },
+              "queryRef": "Backlog.State",
+              "nativeQueryRef": "State"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Backlog"
+                    }
+                  },
+                  "Property": "Estimated Effort Dev"
+                }
+              },
+              "queryRef": "Sum(Backlog.Estimated Effort Dev)",
+              "nativeQueryRef": "Estimated Effort Dev"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Backlog"
+                    }
+                  },
+                  "Property": "DaysOpen"
+                }
+              },
+              "queryRef": "Sum(Backlog.DaysOpen)",
+              "nativeQueryRef": "DaysOpen"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Backlog"
+                    }
+                  },
+                  "Property": "DaysActive"
+                }
+              },
+              "queryRef": "Sum(Backlog.DaysActive)",
+              "nativeQueryRef": "DaysActive"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Backlog"
+                    }
+                  },
+                  "Property": "Link"
+                }
+              },
+              "queryRef": "Backlog.Link",
+              "nativeQueryRef": "Link"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Backlog"
+                  }
+                },
+                "Property": "DaysActive"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "451.4952614505458D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Backlog.Title"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "154.42860589019074D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Backlog.State"
+          }
+        }
+      ],
+      "values": [
+        {
+          "properties": {
+            "urlIcon": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Backlog.Link"
+          }
+        }
+      ],
+      "columnHeaders": [
+        {
+          "properties": {}
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "86f6c5a0899126d2b0ab",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Backlog"
+              }
+            },
+            "Property": "WorkItemType"
+          }
+        },
+        "type": "Categorical",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "b",
+              "Entity": "Backlog",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "In": {
+                  "Expressions": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "b"
+                          }
+                        },
+                        "Property": "WorkItemType"
+                      }
+                    }
+                  ],
+                  "Values": [
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'Task'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'User Story'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'Bug'"
+                        }
+                      }
+                    ]
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "5964a786d536da96a08e",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Backlog"
+              }
+            },
+            "Property": "WorkItemId"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "5d2d7797cc309a8e5396",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Backlog"
+              }
+            },
+            "Property": "Title"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "896744e19777283a9d89",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Backlog"
+              }
+            },
+            "Property": "UserRealName"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "be81b9e16002abe1a390",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Backlog"
+              }
+            },
+            "Property": "State"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "8e477a232ca218738ad9",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Backlog"
+              }
+            },
+            "Property": "Estimated Effort Dev"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "3b32b86c8c60b117c8b1",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Backlog"
+              }
+            },
+            "Property": "DaysOpen"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "5f374c3d762c4b31913d",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Backlog"
+              }
+            },
+            "Property": "DaysActive"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "c205d7d01b5d9d86a12a",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Backlog"
+              }
+            },
+            "Property": "Link"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
+  }
+}

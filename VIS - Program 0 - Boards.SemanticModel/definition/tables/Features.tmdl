@@ -1,0 +1,552 @@
+table Features
+	lineageTag: 92f33947-6d7a-4a82-ad29-ecd27c43a227
+
+	measure 'Feature Completion %' =
+			DIVIDE (
+			    SUM ( Features[Completed Story Count] ),
+			    SUM ( Features[Completed Story Count] ) + SUM ( Features[Open Story Count] )
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 8b794d6a-d6c4-41df-8f8f-6762a3e35ae2
+
+	measure 'Overdue Features Count' =
+			CALCULATE (
+			    COUNTROWS ( Features ),
+			    FILTER ( Features, Features[Overdue] = TRUE () )
+			)
+		formatString: #,0
+		lineageTag: 1a3b4cd6-9960-40ef-8416-9d31618495ee
+
+	measure 'Overdue Features %' = DIVIDE ( [Overdue Features Count], COUNTROWS ( Features ) )
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 35025a9a-5c57-4b9b-a2a0-6e7d83eaa98c
+
+	measure 'Estimated Effort Progress KPI %' =
+			DIVIDE (
+			    SUM ( Features[Completed Estimated Effort Dev] ),
+			    SUM ( Features[Completed Estimated Effort Dev] ) + SUM ( Features[Open Estimated Effort Dev] )
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 11e6a14e-0552-412b-86ca-2a7f38f22a35
+
+	measure 'Actual vs Estimated Effort KPI %' =
+			DIVIDE (
+			    SUM ( Features[Completed Actual Effort Dev] ),
+			    SUM ( Features[Completed Estimated Effort Dev] )
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 19633e9e-c955-4a1c-a2db-7db977fd9b66
+
+	measure 'Feature Link' =
+			IF (
+			    ISINSCOPE ( 'Feature User Stories'[User Story] ),
+			    SELECTEDVALUE ( 'Feature User Stories'[Link] ),
+			    SELECTEDVALUE ( Features[Link] )
+			)
+		lineageTag: 5747fa54-a5d7-4b06-8051-23e657af867a
+		dataCategory: WebUrl
+
+	measure 'Feature Matrix Story Count' =
+			IF (
+			    ISINSCOPE ( 'Feature User Stories'[User Story] ),
+			    COUNTROWS ( 'Feature User Stories' ),
+			    SUM ( Features[Descendant Count] )
+			)
+		formatString: #,0
+		lineageTag: 6a9a6d50-8657-4ef6-baf5-7e4a8b6f013f
+
+	measure 'Feature Matrix Open Story Count' =
+			IF (
+			    ISINSCOPE ( 'Feature User Stories'[User Story] ),
+			    IF ( SELECTEDVALUE ( 'Feature User Stories'[State Category] ) = "Completed", 0, 1 ),
+			    SUM ( Features[Open Story Count] )
+			)
+		formatString: #,0
+		lineageTag: e72186df-0688-4ea5-a608-c3c47b343aa7
+
+	measure 'Feature Matrix Completed Story Count' =
+			IF (
+			    ISINSCOPE ( 'Feature User Stories'[User Story] ),
+			    IF ( SELECTEDVALUE ( 'Feature User Stories'[State Category] ) = "Completed", 1, 0 ),
+			    SUM ( Features[Completed Story Count] )
+			)
+		formatString: #,0
+		lineageTag: ce43f94b-645a-44e8-8ec0-4a563d5ed6aa
+
+	measure 'Feature Matrix Completed Estimated Effort' =
+			IF (
+			    ISINSCOPE ( 'Feature User Stories'[User Story] ),
+			    IF ( SELECTEDVALUE ( 'Feature User Stories'[State Category] ) = "Completed", SELECTEDVALUE ( 'Feature User Stories'[Estimated Effort Dev] ), 0 ),
+			    SUM ( Features[Completed Estimated Effort Dev] )
+			)
+		formatString: #,0.0
+		lineageTag: 566df3dc-b9b3-4c8f-81ec-f3e4d3f1ffd3
+
+	measure 'Feature Matrix Open Estimated Effort' =
+			IF (
+			    ISINSCOPE ( 'Feature User Stories'[User Story] ),
+			    IF ( SELECTEDVALUE ( 'Feature User Stories'[State Category] ) = "Completed", 0, SELECTEDVALUE ( 'Feature User Stories'[Estimated Effort Dev] ) ),
+			    SUM ( Features[Open Estimated Effort Dev] )
+			)
+		formatString: #,0.0
+		lineageTag: b5e8f22d-c71b-4923-a0a5-974927f8ad57
+
+	measure 'Feature Matrix Total Estimated Effort' =
+			IF (
+			    ISINSCOPE ( 'Feature User Stories'[User Story] ),
+			    SELECTEDVALUE ( 'Feature User Stories'[Estimated Effort Dev] ),
+			    SUM ( Features[Descendant Estimated Effort Dev] )
+			)
+		formatString: #,0.0
+		lineageTag: 4d208c1f-8d47-476e-960b-5b955c9be640
+
+	measure 'Feature Matrix Completed Actual Effort' =
+			IF (
+			    ISINSCOPE ( 'Feature User Stories'[User Story] ),
+			    IF ( SELECTEDVALUE ( 'Feature User Stories'[State Category] ) = "Completed", SELECTEDVALUE ( 'Feature User Stories'[Actual Effort Dev] ), 0 ),
+			    SUM ( Features[Completed Actual Effort Dev] )
+			)
+		formatString: #,0.0
+		lineageTag: fdc31b47-cf5d-42c8-948c-48bb66045b6d
+
+	measure 'Feature Matrix Estimated Effort Progress %' =
+			IF (
+			    ISINSCOPE ( 'Feature User Stories'[User Story] ),
+			    IF ( SELECTEDVALUE ( 'Feature User Stories'[State Category] ) = "Completed", 1, 0 ),
+			    DIVIDE ( SUM ( Features[Completed Estimated Effort Dev] ), SUM ( Features[Descendant Estimated Effort Dev] ) )
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 0edff0e4-3b52-4e13-a249-aea8e17e9c6d
+
+	measure 'Feature Matrix Actual vs Estimated Effort %' =
+			IF (
+			    ISINSCOPE ( 'Feature User Stories'[User Story] ),
+			    DIVIDE ( SELECTEDVALUE ( 'Feature User Stories'[Actual Effort Dev] ), SELECTEDVALUE ( 'Feature User Stories'[Estimated Effort Dev] ) ),
+			    DIVIDE ( SUM ( Features[Descendant Actual Effort Dev] ), SUM ( Features[Descendant Estimated Effort Dev] ) )
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 52603080-606e-425f-9fa8-eb23c5dc29a7
+
+	column WorkItemId
+		dataType: int64
+		formatString: 0
+		lineageTag: db138898-d737-4fec-b226-f5498b5c4774
+		summarizeBy: none
+		sourceColumn: WorkItemId
+
+		annotation SummarizationSetBy = Automatic
+
+	column Title
+		dataType: string
+		lineageTag: 052ffec1-379c-470e-8566-d97dd750179e
+		summarizeBy: none
+		sourceColumn: Title
+
+		annotation SummarizationSetBy = Automatic
+
+	column WorkItemType
+		dataType: string
+		lineageTag: 30715229-61f6-4dd4-820b-b4fe9c706417
+		summarizeBy: none
+		sourceColumn: WorkItemType
+
+		annotation SummarizationSetBy = Automatic
+
+	column State
+		dataType: string
+		lineageTag: 2dfc05b9-598c-4bbe-ac9c-fe1ac7972484
+		summarizeBy: none
+		sourceColumn: State
+
+		annotation SummarizationSetBy = Automatic
+
+	column StateCategory
+		dataType: string
+		lineageTag: e78af166-7b88-4052-ab1e-d0f8985afac2
+		summarizeBy: none
+		sourceColumn: StateCategory
+
+		annotation SummarizationSetBy = Automatic
+
+	column Priority
+		dataType: int64
+		formatString: 0
+		lineageTag: 3df201f9-4a81-49e1-8777-5ca80a2f9210
+		summarizeBy: sum
+		sourceColumn: Priority
+
+		annotation SummarizationSetBy = Automatic
+
+	column Severity
+		dataType: string
+		lineageTag: 870587d5-27c5-46f8-a237-a8e0418f7e2b
+		summarizeBy: none
+		sourceColumn: Severity
+
+		annotation SummarizationSetBy = Automatic
+
+	column ClosedDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 3091133a-d48f-4da3-a968-7f1008d8cf87
+		summarizeBy: none
+		sourceColumn: ClosedDate
+
+		variation Variation
+			isDefault
+			relationship: b4e03feb-76e8-40a8-b223-a0149262882f
+			defaultHierarchy: LocalDateTable_dd17dd59-6796-4a0e-9209-7f438a6fc893.Datumshierarchie
+
+		annotation SummarizationSetBy = Automatic
+
+	column CreatedDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 137484a1-79a8-4926-9d92-0c6238ff60cc
+		summarizeBy: none
+		sourceColumn: CreatedDate
+
+		variation Variation
+			isDefault
+			relationship: bb4b9314-60a4-4705-a2ba-372edf4cca72
+			defaultHierarchy: LocalDateTable_74c919f9-857f-46b4-8668-1ac7c7fd6cf4.Datumshierarchie
+
+		annotation SummarizationSetBy = Automatic
+
+	column ChangedDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 9f952e94-ca46-4ca1-a300-e67bfa8cbf22
+		summarizeBy: none
+		sourceColumn: ChangedDate
+
+		variation Variation
+			isDefault
+			relationship: 1e26deec-3783-4eb4-81fd-72dc0210a043
+			defaultHierarchy: LocalDateTable_8d89190b-8f32-4820-9736-556e5e77de20.Datumshierarchie
+
+		annotation SummarizationSetBy = Automatic
+
+	column ActivatedDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 880917cf-eb17-4959-b6c9-0a7f324a905b
+		summarizeBy: none
+		sourceColumn: ActivatedDate
+
+		variation Variation
+			isDefault
+			relationship: 881fa548-c907-4bc5-bd04-a4cbea6246f8
+			defaultHierarchy: LocalDateTable_264d5e46-d760-4c62-a6c2-9348b2b6265d.Datumshierarchie
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Actual Effort Dev'
+		dataType: double
+		lineageTag: e09e8ee1-21c1-4f0f-9c44-01b782a83608
+		summarizeBy: sum
+		sourceColumn: Actual Effort Dev
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Estimated Effort Dev'
+		dataType: double
+		lineageTag: 69be2d58-1989-4cfd-bd4f-39499caa0b11
+		summarizeBy: sum
+		sourceColumn: Estimated Effort Dev
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column StateChangeDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 85cc2d8e-a6a7-49ba-9a9b-f6b6f2241c4e
+		summarizeBy: none
+		sourceColumn: StateChangeDate
+
+		variation Variation
+			isDefault
+			relationship: ed7b5d40-bc29-48b6-bae2-1ee925946bde
+			defaultHierarchy: LocalDateTable_927c8775-f73c-4682-99f5-1949bf26970d.Datumshierarchie
+
+		annotation SummarizationSetBy = Automatic
+
+	column ValueArea
+		dataType: string
+		lineageTag: 56d9bc39-cf17-4bc9-876c-41cf2fbad3d7
+		summarizeBy: none
+		sourceColumn: ValueArea
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Planned End Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 90b0cb76-68a0-4821-a96c-53d3d4cdc2ef
+		summarizeBy: none
+		sourceColumn: Planned End Date
+
+		variation Variation
+			isDefault
+			relationship: 9feaee25-d0f7-44c1-a41e-30afa4630925
+			defaultHierarchy: LocalDateTable_48dde4b2-9325-46b1-831c-eda0ce9491c3.Datumshierarchie
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'P0 Release Tag'
+		dataType: string
+		lineageTag: b62101e0-6144-404c-b3f8-c17270ae9afa
+		summarizeBy: none
+		sourceColumn: P0 Release Tag
+
+		annotation SummarizationSetBy = Automatic
+
+	column ReviewedBy
+		dataType: string
+		lineageTag: 59e8f3a0-4b1d-4a3b-9f30-11aa90918b7b
+		summarizeBy: none
+		sourceColumn: ReviewedBy
+
+		annotation SummarizationSetBy = Automatic
+
+	column UserEmail
+		dataType: string
+		lineageTag: 6f335fc5-9d72-43ce-a809-8a34ef363461
+		summarizeBy: none
+		sourceColumn: UserEmail
+
+		annotation SummarizationSetBy = Automatic
+
+	column UserRealName
+		dataType: string
+		lineageTag: c4c3ed90-39eb-4c00-9a5c-0ed5d14c25ad
+		summarizeBy: none
+		sourceColumn: UserRealName
+
+		annotation SummarizationSetBy = Automatic
+
+	column Tags
+		dataType: string
+		lineageTag: 323b00fc-df8b-4968-942a-79b74cec70fc
+		summarizeBy: none
+		sourceColumn: Tags
+
+		annotation SummarizationSetBy = Automatic
+
+	column AreaPath
+		dataType: string
+		lineageTag: 027cdf78-6b44-47cb-bf38-5fed751835f9
+		summarizeBy: none
+		sourceColumn: AreaPath
+
+		annotation SummarizationSetBy = Automatic
+
+	column ResolvedBy
+		dataType: string
+		lineageTag: f6cc52b0-3724-4d54-95a9-743b2154febc
+		summarizeBy: none
+		sourceColumn: ResolvedBy
+
+		annotation SummarizationSetBy = Automatic
+
+	column ChangedBy
+		dataType: string
+		lineageTag: 21ba91b3-b2c5-4f8b-ab5d-ff322a3a502b
+		summarizeBy: none
+		sourceColumn: ChangedBy
+
+		annotation SummarizationSetBy = Automatic
+
+	column CreatedBy
+		dataType: string
+		lineageTag: 31a5da5b-b58d-4abb-a7b3-37a87217cad5
+		summarizeBy: none
+		sourceColumn: CreatedBy
+
+		annotation SummarizationSetBy = Automatic
+
+	column IterationName
+		dataType: string
+		lineageTag: dd8bdd08-75d8-424b-8cd1-fe29468fed6f
+		summarizeBy: none
+		sourceColumn: IterationName
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Descendant States'
+		dataType: string
+		lineageTag: 3a51ff40-6b0a-4494-b0fe-d75d1d1eb4e5
+		summarizeBy: none
+		sourceColumn: Descendant States
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Descendant State Categories'
+		dataType: string
+		lineageTag: 9d65b7cd-fa65-409a-a0f1-6a5249c88ab8
+		summarizeBy: none
+		sourceColumn: Descendant State Categories
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Descendant Count'
+		dataType: int64
+		formatString: 0
+		lineageTag: 64cdff8e-8508-4195-9e4c-bf9429454a51
+		summarizeBy: sum
+		sourceColumn: Descendant Count
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Completed Story Count'
+		dataType: int64
+		formatString: 0
+		lineageTag: 186079b0-78b6-4ac7-9086-17d24e7b6f06
+		summarizeBy: sum
+		sourceColumn: Completed Story Count
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Open Story Count'
+		dataType: int64
+		formatString: 0
+		lineageTag: 9d3fc2ed-a05f-4f0d-8c32-b997db65bfaa
+		summarizeBy: sum
+		sourceColumn: Open Story Count
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Descendant Actual Effort Dev'
+		dataType: double
+		lineageTag: ea7f5a3e-6884-4adf-be25-0c587866675f
+		summarizeBy: sum
+		sourceColumn: Descendant Actual Effort Dev
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Completed Actual Effort Dev'
+		dataType: double
+		lineageTag: 8d642daf-fdc0-4777-b9b0-48be8f160533
+		summarizeBy: sum
+		sourceColumn: Completed Actual Effort Dev
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Open Actual Effort Dev'
+		dataType: double
+		lineageTag: dc6da5c0-47e2-4934-9654-459ab426cc05
+		summarizeBy: sum
+		sourceColumn: Open Actual Effort Dev
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Descendant Estimated Effort Dev'
+		dataType: double
+		lineageTag: 2e9d03c3-b64f-4c71-b1e5-00718d31885a
+		summarizeBy: sum
+		sourceColumn: Descendant Estimated Effort Dev
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Completed Estimated Effort Dev'
+		dataType: double
+		lineageTag: 8e7b8dd5-2b6f-4f4f-9509-a073222076b6
+		summarizeBy: sum
+		sourceColumn: Completed Estimated Effort Dev
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Open Estimated Effort Dev'
+		dataType: double
+		lineageTag: 8c12c73c-c868-4b55-81b3-29732d297131
+		summarizeBy: sum
+		sourceColumn: Open Estimated Effort Dev
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Story Progress %'
+		dataType: double
+		lineageTag: edcc45d1-2221-409c-8a43-a186e9182002
+		summarizeBy: sum
+		sourceColumn: Story Progress %
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Estimated Effort Progress %'
+		dataType: double
+		lineageTag: 5e8f3a25-834c-49ea-ac15-c1ee70140c8f
+		summarizeBy: sum
+		sourceColumn: Estimated Effort Progress %
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Actual vs Estimated Effort %'
+		dataType: double
+		lineageTag: ad6e461f-457b-461b-a5f0-fd52a9edf2b9
+		summarizeBy: sum
+		sourceColumn: Actual vs Estimated Effort %
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Overdue
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: a52d5d06-aa35-47dc-9e7f-aa1c0be677f3
+		summarizeBy: none
+		sourceColumn: Overdue
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Days Overdue'
+		dataType: int64
+		formatString: 0
+		lineageTag: 84ac51c9-ed88-4445-998b-6581be3ea497
+		summarizeBy: sum
+		sourceColumn: Days Overdue
+
+		annotation SummarizationSetBy = Automatic
+
+	column Link
+		dataType: string
+		lineageTag: 522d5162-e88f-4e2b-97ad-7c3ca5a46e4a
+		dataCategory: WebUrl
+		summarizeBy: none
+		sourceColumn: Link
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Features = m
+		mode: import
+		source =
+				let
+				    Source = PowerBI.Dataflows(null),
+				    #"1d7f83bd-9b20-42de-9fc3-0f113e2024b2" = Source{[workspaceId="1d7f83bd-9b20-42de-9fc3-0f113e2024b2"]}[Data],
+				    #"1d72647c-62cb-46ba-91f9-0eb5c71bb512" = #"1d7f83bd-9b20-42de-9fc3-0f113e2024b2"{[dataflowId="1d72647c-62cb-46ba-91f9-0eb5c71bb512"]}[Data],
+				    Features1 = #"1d72647c-62cb-46ba-91f9-0eb5c71bb512"{[entity="Features"]}[Data]
+				in
+				    Features1
+

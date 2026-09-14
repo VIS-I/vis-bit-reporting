@@ -1,0 +1,163 @@
+table 'Executive KPI'
+	lineageTag: 6b5b9a40-8226-4d71-b5ba-220188976401
+
+	measure MoM =
+			VAR DataAsOf =
+			    CALCULATE ( MAX ( 'Work Item Snapshot'[DateValue] ), REMOVEFILTERS ( 'Work Item Snapshot' ) )
+			VAR CurrentMonthStart = EOMONTH ( DataAsOf, -2 ) + 1
+			VAR PreviousMonthStart = EOMONTH ( DataAsOf, -3 ) + 1
+			VAR CurrentSnapshot =
+			    CALCULATE ( MAX ( 'Work Item Snapshot'[DateValue] ), FILTER ( ALL ( 'Work Item Snapshot'[DateValue] ), 'Work Item Snapshot'[DateValue] >= CurrentMonthStart && 'Work Item Snapshot'[DateValue] < EOMONTH ( DataAsOf, -1 ) + 1 ) )
+			VAR PreviousSnapshot =
+			    CALCULATE ( MAX ( 'Work Item Snapshot'[DateValue] ), FILTER ( ALL ( 'Work Item Snapshot'[DateValue] ), 'Work Item Snapshot'[DateValue] >= PreviousMonthStart && 'Work Item Snapshot'[DateValue] < CurrentMonthStart ) )
+			VAR SelectedAreas = VALUES ( 'Team / Area'[AreaPath] )
+			VAR SnapshotAreaFilter = FILTER ( VALUES ( 'Work Item Snapshot'[AreaPath] ), NOT ISFILTERED ( 'Team / Area'[Team] ) || 'Work Item Snapshot'[AreaPath] IN SelectedAreas )
+			VAR SelectedKpi = SELECTEDVALUE ( 'Executive KPI'[KPI] )
+			VAR CurrentValue =
+			    SWITCH (
+			        SelectedKpi,
+			        "Median Lead Time (Active to Done)", CALCULATE ( [Median Lead Time], FILTER ( ALL ( 'Done Work'[ClosedDate] ), 'Done Work'[ClosedDate] >= CurrentMonthStart && 'Done Work'[ClosedDate] < EOMONTH ( DataAsOf, -1 ) + 1 ) ),
+			        "Median Cycle Time (Active to Done)", CALCULATE ( [Median Cycle Time], FILTER ( ALL ( 'Done Work'[ClosedDate] ), 'Done Work'[ClosedDate] >= CurrentMonthStart && 'Done Work'[ClosedDate] < EOMONTH ( DataAsOf, -1 ) + 1 ) ),
+			        "Defect Rate (Bugs vs Stories)", CALCULATE ( [Defect Rate], FILTER ( ALL ( 'Done Work'[ClosedDate] ), 'Done Work'[ClosedDate] >= CurrentMonthStart && 'Done Work'[ClosedDate] < EOMONTH ( DataAsOf, -1 ) + 1 ) ),
+			        "Story Throughput", CALCULATE ( [Story Throughput], FILTER ( ALL ( 'Done Work'[ClosedDate] ), 'Done Work'[ClosedDate] >= CurrentMonthStart && 'Done Work'[ClosedDate] < EOMONTH ( DataAsOf, -1 ) + 1 ) ),
+			        "Slow Mover Percentage",
+			            COALESCE (
+			                CALCULATE ( [Snapshot Slow Movers %], 'Work Item Snapshot'[DateValue] = CurrentSnapshot, SnapshotAreaFilter ),
+			                [Slow Movers %]
+			            )
+			    )
+			VAR PreviousValue =
+			    SWITCH (
+			        SelectedKpi,
+			        "Median Lead Time (Active to Done)", CALCULATE ( [Median Lead Time], FILTER ( ALL ( 'Done Work'[ClosedDate] ), 'Done Work'[ClosedDate] >= PreviousMonthStart && 'Done Work'[ClosedDate] < CurrentMonthStart ) ),
+			        "Median Cycle Time (Active to Done)", CALCULATE ( [Median Cycle Time], FILTER ( ALL ( 'Done Work'[ClosedDate] ), 'Done Work'[ClosedDate] >= PreviousMonthStart && 'Done Work'[ClosedDate] < CurrentMonthStart ) ),
+			        "Defect Rate (Bugs vs Stories)", CALCULATE ( [Defect Rate], FILTER ( ALL ( 'Done Work'[ClosedDate] ), 'Done Work'[ClosedDate] >= PreviousMonthStart && 'Done Work'[ClosedDate] < CurrentMonthStart ) ),
+			        "Story Throughput", CALCULATE ( [Story Throughput], FILTER ( ALL ( 'Done Work'[ClosedDate] ), 'Done Work'[ClosedDate] >= PreviousMonthStart && 'Done Work'[ClosedDate] < CurrentMonthStart ) ),
+			        "Slow Mover Percentage", CALCULATE ( [Snapshot Slow Movers %], 'Work Item Snapshot'[DateValue] = PreviousSnapshot, SnapshotAreaFilter )
+			    )
+			RETURN
+			    DIVIDE ( CurrentValue - PreviousValue, PreviousValue )
+		formatString: +0.0%;-0.0%;0.0%
+		lineageTag: 245d7104-ee6d-4490-9682-d8f83436cf1b
+
+	measure 'Scorecard Value' =
+			VAR PeriodKind = SELECTEDVALUE ( 'Executive Period'[Kind] )
+			VAR MonthOffset = SELECTEDVALUE ( 'Executive Period'[Offset] )
+			VAR DataAsOf =
+			    CALCULATE (
+			        MAX ( 'Work Item Snapshot'[DateValue] ),
+			        REMOVEFILTERS ( 'Work Item Snapshot' )
+			    )
+			VAR MonthStart = EOMONTH ( DataAsOf, MonthOffset - 1 ) + 1
+			VAR MonthEnd = EOMONTH ( DataAsOf, MonthOffset )
+			VAR SnapshotDate =
+			    CALCULATE (
+			        MAX ( 'Work Item Snapshot'[DateValue] ),
+			        FILTER (
+			            ALL ( 'Work Item Snapshot'[DateValue] ),
+			            'Work Item Snapshot'[DateValue] >= MonthStart &&
+			            'Work Item Snapshot'[DateValue] <= MonthEnd
+			        )
+			    )
+			VAR SelectedAreas = VALUES ( 'Team / Area'[AreaPath] )
+			VAR SnapshotAreaFilter =
+			    FILTER (
+			        VALUES ( 'Work Item Snapshot'[AreaPath] ),
+			        NOT ISFILTERED ( 'Team / Area'[Team] ) ||
+			        'Work Item Snapshot'[AreaPath] IN SelectedAreas
+			    )
+			VAR SelectedKpi = SELECTEDVALUE ( 'Executive KPI'[KPI] )
+			VAR EvaluatedValue =
+			    SWITCH (
+			        SelectedKpi,
+			        "Median Lead Time (Active to Done)", CALCULATE ( [Median Lead Time], FILTER ( ALL ( 'Done Work'[ClosedDate] ), 'Done Work'[ClosedDate] >= MonthStart && 'Done Work'[ClosedDate] < MonthEnd + 1 ) ),
+			        "Median Cycle Time (Active to Done)", CALCULATE ( [Median Cycle Time], FILTER ( ALL ( 'Done Work'[ClosedDate] ), 'Done Work'[ClosedDate] >= MonthStart && 'Done Work'[ClosedDate] < MonthEnd + 1 ) ),
+			        "Defect Rate (Bugs vs Stories)", CALCULATE ( [Defect Rate], FILTER ( ALL ( 'Done Work'[ClosedDate] ), 'Done Work'[ClosedDate] >= MonthStart && 'Done Work'[ClosedDate] < MonthEnd + 1 ) ),
+			        "Story Throughput", CALCULATE ( [Story Throughput], FILTER ( ALL ( 'Done Work'[ClosedDate] ), 'Done Work'[ClosedDate] >= MonthStart && 'Done Work'[ClosedDate] < MonthEnd + 1 ) ),
+			        "Slow Mover Percentage",
+			            VAR SnapshotValue =
+			                CALCULATE (
+			                    [Snapshot Slow Movers %],
+			                    'Work Item Snapshot'[DateValue] = SnapshotDate,
+			                    SnapshotAreaFilter
+			                )
+			            RETURN
+			                SnapshotValue
+			    )
+			VAR CurrentBacklogValue =
+			    IF ( SelectedKpi = "Slow Mover Percentage", [Slow Movers %] )
+			VAR FormattedValue =
+			    IF (
+			        ISBLANK ( EvaluatedValue ),
+			        BLANK (),
+			        IF (
+			            SelectedKpi IN { "Defect Rate (Bugs vs Stories)", "Slow Mover Percentage" },
+			            FORMAT ( EvaluatedValue, "0.0%" ),
+			            FORMAT ( EvaluatedValue, IF ( SelectedKpi = "Story Throughput", "#,0", "0.0" ) )
+			        )
+			    )
+			VAR FormattedCurrentBacklogValue =
+			    IF ( ISBLANK ( CurrentBacklogValue ), BLANK (), FORMAT ( CurrentBacklogValue, "0.0%" ) )
+			VAR ChangeIndicator =
+			    IF (
+			        ISBLANK ( [KPI Health Change] ),
+			        BLANK (),
+			        IF ( [KPI Health Change] > 0, UNICHAR ( 128994 ), IF ( [KPI Health Change] < 0, UNICHAR ( 128308 ), UNICHAR ( 9898 ) ) )
+			    )
+			RETURN
+			    SWITCH (
+			        PeriodKind,
+			        "Month", FormattedValue,
+			        "Current Backlog", FormattedCurrentBacklogValue,
+			        "Change", ChangeIndicator & " " & FORMAT ( [MoM], "+0.0%;-0.0%;0.0%" ),
+			        "Status", ChangeIndicator
+			    )
+		lineageTag: 8ae41bdd-6688-491e-9f83-cb204596218b
+
+	measure 'KPI Health Change' =
+			VAR SelectedKpi = SELECTEDVALUE ( 'Executive KPI'[KPI] )
+			RETURN
+			    IF (
+			        SelectedKpi IN { "Median Lead Time (Active to Done)", "Median Cycle Time (Active to Done)", "Defect Rate (Bugs vs Stories)", "Slow Mover Percentage" },
+			        -[MoM],
+			        [MoM]
+			    )
+		formatString: +0.0%;-0.0%;0.0%
+		lineageTag: 8e85bd79-00dc-46a2-9354-ce0693a9b193
+
+	column KPI
+		dataType: string
+		lineageTag: fc5e7092-0fd0-4708-a48f-f57d59a229b4
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Sort Order'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sort Order'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: d6b0a17b-0c59-4247-9f69-1d0d5a16d1dc
+		summarizeBy: none
+		sourceColumn: [Value2]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Executive KPI' = calculated
+		mode: import
+		source =
+				DATATABLE (
+				    "Value1", STRING,
+				    "Value2", INTEGER,
+				    {
+				        { "Median Lead Time (Active to Done)", 1 },
+				        { "Median Cycle Time (Active to Done)", 2 },
+				        { "Defect Rate (Bugs vs Stories)", 3 },
+				        { "Story Throughput", 4 },
+				        { "Slow Mover Percentage", 5 }
+				    }
+				)
+
+	annotation PBI_Id = 598b0a41dfd34ee38aeecbfe3e743739
+

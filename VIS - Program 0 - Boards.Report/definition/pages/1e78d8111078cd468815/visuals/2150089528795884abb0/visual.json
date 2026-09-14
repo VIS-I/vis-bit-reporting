@@ -1,0 +1,292 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "2150089528795884abb0",
+  "position": {
+    "x": 15,
+    "y": 457,
+    "z": 9000,
+    "height": 247,
+    "width": 1249,
+    "tabOrder": 9000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Backlog"
+                    }
+                  },
+                  "Property": "Title"
+                }
+              },
+              "queryRef": "Backlog.Title",
+              "nativeQueryRef": "Title"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Backlog"
+                    }
+                  },
+                  "Property": "AreaPath"
+                }
+              },
+              "queryRef": "Backlog.AreaPath",
+              "nativeQueryRef": "AreaPath"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Backlog"
+                    }
+                  },
+                  "Property": "State"
+                }
+              },
+              "queryRef": "Backlog.State",
+              "nativeQueryRef": "State"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Backlog"
+                        }
+                      },
+                      "Property": "Estimated Effort Dev"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(Backlog.Estimated Effort Dev)",
+              "nativeQueryRef": "Sum of Estimated Effort Dev"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Backlog"
+                    }
+                  },
+                  "Property": "ActivatedDate"
+                }
+              },
+              "queryRef": "Backlog.ActivatedDate",
+              "nativeQueryRef": "ActivatedDate"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Aggregation": {
+                "Expression": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "Backlog"
+                      }
+                    },
+                    "Property": "Estimated Effort Dev"
+                  }
+                },
+                "Function": 0
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "235.42249450090742D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Backlog.AreaPath"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "562.6893260830273D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Backlog.Title"
+          }
+        }
+      ],
+      "columnHeaders": [
+        {
+          "properties": {}
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "583f6f626319e6036cc6",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Tags"
+              }
+            },
+            "Property": "Tag"
+          }
+        },
+        "type": "Categorical",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "t",
+              "Entity": "Tags",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "In": {
+                  "Expressions": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "t"
+                          }
+                        },
+                        "Property": "Tag"
+                      }
+                    }
+                  ],
+                  "Values": [
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'BRAIN'"
+                        }
+                      }
+                    ]
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "howCreated": "User",
+        "isLockedInViewMode": true
+      },
+      {
+        "name": "0ed3a3953a2b9204a997",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Backlog"
+              }
+            },
+            "Property": "Title"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "1c2695046079ba08b267",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Backlog"
+              }
+            },
+            "Property": "AreaPath"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "04bf2771c640cc285898",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Backlog"
+              }
+            },
+            "Property": "State"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "0e91cc400ee81d9e768a",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Backlog"
+                  }
+                },
+                "Property": "Estimated Effort Dev"
+              }
+            },
+            "Function": 0
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "0c8a5b95a9561b05d443",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Backlog"
+              }
+            },
+            "Property": "ActivatedDate"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
+  }
+}

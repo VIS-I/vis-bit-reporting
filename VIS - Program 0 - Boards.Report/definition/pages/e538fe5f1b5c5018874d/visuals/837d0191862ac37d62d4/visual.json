@@ -1,0 +1,184 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "837d0191862ac37d62d4",
+  "position": {
+    "x": 827,
+    "y": 195,
+    "z": 7000,
+    "height": 250,
+    "width": 437,
+    "tabOrder": 7000
+  },
+  "visual": {
+    "visualType": "scatterChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Features"
+                    }
+                  },
+                  "Property": "ClosedDate"
+                }
+              },
+              "queryRef": "Features.ClosedDate.Variation.Datumshierarchie.Jahr",
+              "nativeQueryRef": "ClosedDate Jahr",
+              "active": true
+            }
+          ]
+        },
+        "Size": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Features"
+                        }
+                      },
+                      "Property": "Actual vs Estimated Effort %"
+                    }
+                  },
+                  "Function": 1
+                }
+              },
+              "queryRef": "Avg(Features.Actual vs Estimated Effort %)",
+              "nativeQueryRef": "Average of Actual vs Estimated Effort %"
+            }
+          ]
+        },
+        "X": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Features"
+                        }
+                      },
+                      "Property": "Completed Estimated Effort Dev"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(Features.Completed Estimated Effort Dev)",
+              "nativeQueryRef": "Sum of Completed Estimated Effort Dev",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Features"
+                        }
+                      },
+                      "Property": "Completed Actual Effort Dev"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(Features.Completed Actual Effort Dev)",
+              "nativeQueryRef": "Sum of Completed Actual Effort Dev"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "9409ba2008c02556d3aa",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Features"
+              }
+            },
+            "Property": "ClosedDate"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "9fbaff751b01d007cc12",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Features"
+                  }
+                },
+                "Property": "Actual vs Estimated Effort %"
+              }
+            },
+            "Function": 1
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "34eeb65cb790d26b8c50",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Features"
+                  }
+                },
+                "Property": "Completed Estimated Effort Dev"
+              }
+            },
+            "Function": 0
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "a680dcf0cd39d62de6d1",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Features"
+                  }
+                },
+                "Property": "Completed Actual Effort Dev"
+              }
+            },
+            "Function": 0
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

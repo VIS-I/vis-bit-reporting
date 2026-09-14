@@ -1,0 +1,56 @@
+model Model
+	culture: de-DE
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: de-DE
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["Work Item Snapshot","Features","Feature User Stories","Done Work","Cumulative Flow Diagram","Backlog"]
+
+annotation PBI_ProTooling = ["DevMode","TMDL-Extension"]
+
+ref table Tags
+ref table 'Work Item Snapshot'
+ref table DateTableTemplate_3c572661-4297-44b9-90b5-dad6d7eb5b7b
+ref table LocalDateTable_fe780380-69b5-4850-9290-757ee29275bc
+ref table LocalDateTable_12702f0c-c764-4808-91e9-d3bad3b6f2bd
+ref table LocalDateTable_e6244b1b-0ca8-44cd-8a83-687075953447
+ref table LocalDateTable_1be9919c-8699-44db-8d0f-101e364ce44b
+ref table LocalDateTable_76ac6125-b03b-440b-b6e1-5ad7fbf6b4c3
+ref table LocalDateTable_d67f2a5c-6bad-425c-a2d0-cc537b8af774
+ref table LocalDateTable_e5da3616-204c-4f16-bc1a-a00979047896
+ref table Features
+ref table LocalDateTable_dd17dd59-6796-4a0e-9209-7f438a6fc893
+ref table LocalDateTable_74c919f9-857f-46b4-8668-1ac7c7fd6cf4
+ref table LocalDateTable_8d89190b-8f32-4820-9736-556e5e77de20
+ref table LocalDateTable_264d5e46-d760-4c62-a6c2-9348b2b6265d
+ref table LocalDateTable_927c8775-f73c-4682-99f5-1949bf26970d
+ref table LocalDateTable_48dde4b2-9325-46b1-831c-eda0ce9491c3
+ref table 'Done Work'
+ref table LocalDateTable_932855f3-b438-4f97-a276-1a06a93a27a3
+ref table LocalDateTable_d0d45679-acd1-47e7-90b7-4f4164580d52
+ref table LocalDateTable_483d5e66-7192-4b15-aea1-5b89a68cd665
+ref table LocalDateTable_2e708b22-6658-43e6-ab70-335d5a9b0422
+ref table LocalDateTable_4be33718-506c-44df-b25c-4fd3693fefb7
+ref table LocalDateTable_52a7b7d9-7906-450f-a699-fbe4e125fc1c
+ref table 'Cumulative Flow Diagram'
+ref table LocalDateTable_6f9a0a1d-6d1d-45c8-9f60-f2671ee3e248
+ref table Backlog
+ref table LocalDateTable_ca877e76-75b7-49d3-bec0-a4cc02c3135c
+ref table LocalDateTable_0dd612e3-20e4-4319-98af-a9af191f35c9
+ref table LocalDateTable_5d9c8dce-dcfc-4289-b994-1593991d5a42
+ref table LocalDateTable_8e95e0c7-27e3-41fc-9727-55135d164ee8
+ref table LocalDateTable_b1f5e5d7-8e9b-48ed-a2bf-b5b20a97e0b9
+ref table LocalDateTable_618c71b0-ee49-46e8-9ac1-0d3aadcf1023
+ref table LocalDateTable_ac86a76a-4f90-4f95-9787-57b56aebe261
+ref table 'Team / Area'
+ref table 'Executive KPI'
+ref table 'Executive Period'
+ref table 'Executive Age Band'
+ref table 'Feature User Stories'
+
+ref cultureInfo de-DE
+

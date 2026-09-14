@@ -1,0 +1,276 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "5703b49d311e1f0f6ea3",
+  "position": {
+    "x": 15,
+    "y": 195,
+    "z": 6000,
+    "height": 250,
+    "width": 720,
+    "tabOrder": 6000
+  },
+  "visual": {
+    "visualType": "waterfallChart",
+    "query": {
+      "queryState": {
+        "Breakdown": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Done Work"
+                    }
+                  },
+                  "Property": "AreaPath"
+                }
+              },
+              "queryRef": "Done Work.AreaPath",
+              "nativeQueryRef": "AreaPath"
+            }
+          ]
+        },
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "HierarchyLevel": {
+                  "Expression": {
+                    "Hierarchy": {
+                      "Expression": {
+                        "PropertyVariationSource": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "Done Work"
+                            }
+                          },
+                          "Name": "Variation",
+                          "Property": "ClosedDate"
+                        }
+                      },
+                      "Hierarchy": "Datumshierarchie"
+                    }
+                  },
+                  "Level": "Jahr"
+                }
+              },
+              "queryRef": "Done Work.ClosedDate.Variation.Datumshierarchie.Jahr",
+              "nativeQueryRef": "ClosedDate Jahr",
+              "active": true
+            },
+            {
+              "field": {
+                "HierarchyLevel": {
+                  "Expression": {
+                    "Hierarchy": {
+                      "Expression": {
+                        "PropertyVariationSource": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "Done Work"
+                            }
+                          },
+                          "Name": "Variation",
+                          "Property": "ClosedDate"
+                        }
+                      },
+                      "Hierarchy": "Datumshierarchie"
+                    }
+                  },
+                  "Level": "Monat"
+                }
+              },
+              "queryRef": "Done Work.ClosedDate.Variation.Datumshierarchie.Monat",
+              "nativeQueryRef": "ClosedDate Monat",
+              "active": true
+            },
+            {
+              "field": {
+                "HierarchyLevel": {
+                  "Expression": {
+                    "Hierarchy": {
+                      "Expression": {
+                        "PropertyVariationSource": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "Done Work"
+                            }
+                          },
+                          "Name": "Variation",
+                          "Property": "ClosedDate"
+                        }
+                      },
+                      "Hierarchy": "Datumshierarchie"
+                    }
+                  },
+                  "Level": "Tag"
+                }
+              },
+              "queryRef": "Done Work.ClosedDate.Variation.Datumshierarchie.Tag",
+              "nativeQueryRef": "ClosedDate Tag",
+              "active": false
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Done Work"
+                    }
+                  },
+                  "Property": "Completed Actual Effort Dev"
+                }
+              },
+              "queryRef": "Done Work.Completed Actual Effort Dev",
+              "nativeQueryRef": "Completed actual effort",
+              "displayName": "Recorded actual effort"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Completed effort | monthly contribution by area'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "dc8d9c1daad683322ad5",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Backlog"
+              }
+            },
+            "Property": "AreaPath"
+          }
+        },
+        "type": "TopN",
+        "howCreated": "User"
+      },
+      {
+        "name": "fafb4e8722090314ae7a",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Done Work"
+              }
+            },
+            "Property": "AreaPath"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "eff5a8e0c0231eb3022a",
+        "field": {
+          "HierarchyLevel": {
+            "Expression": {
+              "Hierarchy": {
+                "Expression": {
+                  "PropertyVariationSource": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "Done Work"
+                      }
+                    },
+                    "Name": "Variation",
+                    "Property": "ClosedDate"
+                  }
+                },
+                "Hierarchy": "Datumshierarchie"
+              }
+            },
+            "Level": "Jahr"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "bed3359154da640cd7e4",
+        "field": {
+          "HierarchyLevel": {
+            "Expression": {
+              "Hierarchy": {
+                "Expression": {
+                  "PropertyVariationSource": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "Done Work"
+                      }
+                    },
+                    "Name": "Variation",
+                    "Property": "ClosedDate"
+                  }
+                },
+                "Hierarchy": "Datumshierarchie"
+              }
+            },
+            "Level": "Monat"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "6a8a162108628130dc76",
+        "field": {
+          "HierarchyLevel": {
+            "Expression": {
+              "Hierarchy": {
+                "Expression": {
+                  "PropertyVariationSource": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "Done Work"
+                      }
+                    },
+                    "Name": "Variation",
+                    "Property": "ClosedDate"
+                  }
+                },
+                "Hierarchy": "Datumshierarchie"
+              }
+            },
+            "Level": "Tag"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "055ea9c378cbb6dc3c57",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Done Work"
+              }
+            },
+            "Property": "Completed Actual Effort Dev"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

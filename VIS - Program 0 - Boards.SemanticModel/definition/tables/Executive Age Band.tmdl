@@ -1,0 +1,60 @@
+table 'Executive Age Band'
+	lineageTag: 3df118ba-06e4-4879-b494-d52dece16d96
+
+	column Band
+		dataType: string
+		lineageTag: f7ed971b-7258-46d2-b9c0-e4aa49068521
+		summarizeBy: none
+		sourceColumn: [Band]
+		sortByColumn: 'Sort Order'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Minimum Days'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 9f621a43-d6e8-4723-8b9a-6d9d614bdb73
+		summarizeBy: none
+		sourceColumn: [Minimum Days]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Maximum Days'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: a42be837-f9ae-46a8-89cd-22174fc60721
+		summarizeBy: none
+		sourceColumn: [Maximum Days]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sort Order'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 74fbbd86-1466-429c-87a7-d98cb8d439c8
+		summarizeBy: none
+		sourceColumn: [Sort Order]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Executive Age Band' = calculated
+		mode: import
+		source =
+				DATATABLE (
+				    "Band", STRING,
+				    "Minimum Days", INTEGER,
+				    "Maximum Days", INTEGER,
+				    "Sort Order", INTEGER,
+				    {
+				        { "0-14 days", 0, 14, 1 },
+				        { "15-30 days", 15, 30, 2 },
+				        { "31-60 days", 31, 60, 3 },
+				        { "61+ days", 61, 999999, 4 }
+				    }
+				)
+
+	annotation PBI_Id = 8a451834ab2b4d5791e753d38ce95ea7
+

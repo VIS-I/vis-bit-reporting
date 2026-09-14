@@ -1,0 +1,711 @@
+table 'Done Work'
+	lineageTag: e77aee8e-2a48-4c53-bb8e-9112d0d79c9a
+
+	measure 'Completed Items' = COUNTROWS ( 'Done Work' )
+		formatString: #,0
+		lineageTag: c99e151a-4613-48aa-9fe6-22c21f3285e0
+
+	measure 'Throughput (30d)' =
+			VAR EndDate = TODAY ()
+			RETURN
+			    CALCULATE (
+			        [Completed Items],
+			        FILTER (
+			            ALL ( 'Done Work'[ClosedDate] ),
+			            'Done Work'[ClosedDate] >= EndDate - 29 &&
+			            'Done Work'[ClosedDate] <= EndDate
+			        )
+			    )
+		formatString: #,0
+		lineageTag: 2f342f28-fcb4-4b44-82c4-848fd8e0e445
+
+	measure 'Throughput (90d)' =
+			VAR EndDate = TODAY ()
+			RETURN
+			    CALCULATE (
+			        [Completed Items],
+			        FILTER (
+			            ALL ( 'Done Work'[ClosedDate] ),
+			            'Done Work'[ClosedDate] >= EndDate - 89 &&
+			            'Done Work'[ClosedDate] <= EndDate
+			        )
+			    )
+		formatString: #,0
+		lineageTag: 6eb9fca9-a577-4ec5-96ca-0a0ddeead5bc
+
+	measure 'Average Lead Time' = AVERAGE ( 'Done Work'[Lead Time Days] )
+		formatString: #,0.0
+		lineageTag: 8eac40d2-c64c-423f-bce8-cfe1a220dc2b
+
+	measure 'Average Cycle Time' = AVERAGE ( 'Done Work'[Cycle Time Days] )
+		formatString: #,0.0
+		lineageTag: d9d9207d-17c7-4aa2-b33a-6e36861c1dc7
+
+	measure 'Median Lead Time' =
+			VAR SelectedAreas = VALUES ( 'Team / Area'[AreaPath] )
+			VAR TeamAreaFilter =
+			    FILTER (
+			        VALUES ( 'Done Work'[AreaPath] ),
+			        NOT ISFILTERED ( 'Team / Area'[Team] ) ||
+			        'Done Work'[AreaPath] IN SelectedAreas
+			    )
+			RETURN
+			CALCULATE (
+			    MEDIAN ( 'Done Work'[Lead Time Days] ),
+			    'Done Work'[WorkItemType] = "User Story",
+			    TeamAreaFilter
+			)
+		formatString: #,0.0
+		lineageTag: 736cece9-1862-4f06-9d74-0dfe2f77efac
+
+	measure 'Median Cycle Time' =
+			VAR SelectedAreas = VALUES ( 'Team / Area'[AreaPath] )
+			VAR TeamAreaFilter =
+			    FILTER (
+			        VALUES ( 'Done Work'[AreaPath] ),
+			        NOT ISFILTERED ( 'Team / Area'[Team] ) ||
+			        'Done Work'[AreaPath] IN SelectedAreas
+			    )
+			RETURN
+			CALCULATE (
+			    MEDIAN ( 'Done Work'[Cycle Time Days] ),
+			    'Done Work'[WorkItemType] = "User Story",
+			    TeamAreaFilter
+			)
+		formatString: #,0.0
+		lineageTag: d1c74586-8f89-4b97-9966-d6d64e9cef7d
+
+	measure 'Story Throughput (30d)' =
+			VAR EndDate = TODAY ()
+			RETURN
+			    CALCULATE (
+			        [Story Throughput],
+			        FILTER (
+			            ALL ( 'Done Work'[ClosedDate] ),
+			            'Done Work'[ClosedDate] >= EndDate - 29 &&
+			            'Done Work'[ClosedDate] <= EndDate
+			        )
+			    )
+		formatString: #,0
+		lineageTag: 42d14695-d00a-4b4c-bbd3-92e2e363072e
+
+	measure 'Defect Rate' =
+			VAR SelectedAreas = VALUES ( 'Team / Area'[AreaPath] )
+			VAR TeamAreaFilter =
+			    FILTER (
+			        VALUES ( 'Done Work'[AreaPath] ),
+			        NOT ISFILTERED ( 'Team / Area'[Team] ) ||
+			        'Done Work'[AreaPath] IN SelectedAreas
+			    )
+			VAR CompletedBugs =
+			    CALCULATE (
+			        DISTINCTCOUNT ( 'Done Work'[WorkItemId] ),
+			        REMOVEFILTERS ( 'Done Work'[WorkItemType] ),
+			        'Done Work'[WorkItemType] = "Bug",
+			        TeamAreaFilter
+			    )
+			VAR CompletedStories =
+			    CALCULATE (
+			        DISTINCTCOUNT ( 'Done Work'[WorkItemId] ),
+			        REMOVEFILTERS ( 'Done Work'[WorkItemType] ),
+			        'Done Work'[WorkItemType] = "User Story",
+			        TeamAreaFilter
+			    )
+			RETURN
+			    DIVIDE ( CompletedBugs, CompletedBugs + CompletedStories )
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: e050c43e-889a-4d9f-8685-c1d562af3697
+
+	measure 'Median Lead Time (90d)' =
+			VAR EndDate = TODAY ()
+			RETURN
+			    CALCULATE (
+			        [Median Lead Time],
+			        FILTER (
+			            ALL ( 'Done Work'[ClosedDate] ),
+			            'Done Work'[ClosedDate] >= EndDate - 89 &&
+			            'Done Work'[ClosedDate] <= EndDate
+			        )
+			    )
+		formatString: #,0.0
+		lineageTag: 24c7e108-9d40-4696-b1cf-c7213b60b791
+
+	measure 'Median Cycle Time (90d)' =
+			VAR EndDate = TODAY ()
+			RETURN
+			    CALCULATE (
+			        [Median Cycle Time],
+			        FILTER (
+			            ALL ( 'Done Work'[ClosedDate] ),
+			            'Done Work'[ClosedDate] >= EndDate - 89 &&
+			            'Done Work'[ClosedDate] <= EndDate
+			        )
+			    )
+		formatString: #,0.0
+		lineageTag: 0478b227-d428-450c-8dc2-5f550aa6c20d
+
+	measure 'Defect Rate (90d)' =
+			VAR EndDate = TODAY ()
+			RETURN
+			    CALCULATE (
+			        [Defect Rate],
+			        FILTER (
+			            ALL ( 'Done Work'[ClosedDate] ),
+			            'Done Work'[ClosedDate] >= EndDate - 89 &&
+			            'Done Work'[ClosedDate] <= EndDate
+			        )
+			    )
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: bd9e09ba-464d-4277-98f8-8b6a951e4abd
+
+	measure 'Story Throughput (90d)' =
+			VAR EndDate = TODAY ()
+			RETURN
+			    CALCULATE (
+			        [Story Throughput],
+			        FILTER (
+			            ALL ( 'Done Work'[ClosedDate] ),
+			            'Done Work'[ClosedDate] >= EndDate - 89 &&
+			            'Done Work'[ClosedDate] <= EndDate
+			        )
+			    )
+		formatString: #,0
+		lineageTag: 9f9fda65-9a89-49a5-a61b-e5573d825b48
+
+	measure 'Median Lead Time (90d) Color' =
+			VAR EndDate = TODAY ()
+			VAR CurrentValue = [Median Lead Time (90d)]
+			VAR PreviousValue =
+			    CALCULATE (
+			        [Median Lead Time],
+			        FILTER (
+			            ALL ( 'Done Work'[ClosedDate] ),
+			            'Done Work'[ClosedDate] >= EndDate - 179 &&
+			            'Done Work'[ClosedDate] <= EndDate - 90
+			        )
+			    )
+			VAR ChangeRatio = DIVIDE ( CurrentValue - PreviousValue, PreviousValue )
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        ISBLANK ( CurrentValue ) || ISBLANK ( PreviousValue ), "#6B7280",
+			        ChangeRatio <= -0.1, "#2E7D32",
+			        ChangeRatio <= 0.1, "#EF6C00",
+			        "#C62828"
+			    )
+		lineageTag: c44a1888-c02f-4a79-a9f1-a58d68183af9
+
+	measure 'Median Cycle Time (90d) Color' =
+			VAR EndDate = TODAY ()
+			VAR CurrentValue = [Median Cycle Time (90d)]
+			VAR PreviousValue =
+			    CALCULATE (
+			        [Median Cycle Time],
+			        FILTER (
+			            ALL ( 'Done Work'[ClosedDate] ),
+			            'Done Work'[ClosedDate] >= EndDate - 179 &&
+			            'Done Work'[ClosedDate] <= EndDate - 90
+			        )
+			    )
+			VAR ChangeRatio = DIVIDE ( CurrentValue - PreviousValue, PreviousValue )
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        ISBLANK ( CurrentValue ) || ISBLANK ( PreviousValue ), "#6B7280",
+			        ChangeRatio <= -0.1, "#2E7D32",
+			        ChangeRatio <= 0.1, "#EF6C00",
+			        "#C62828"
+			    )
+		lineageTag: 28403f44-4eda-4127-8666-61e025db928f
+
+	measure 'Defect Rate (90d) Color' =
+			VAR EndDate = TODAY ()
+			VAR CurrentValue = [Defect Rate (90d)]
+			VAR PreviousValue =
+			    CALCULATE (
+			        [Defect Rate],
+			        FILTER (
+			            ALL ( 'Done Work'[ClosedDate] ),
+			            'Done Work'[ClosedDate] >= EndDate - 179 &&
+			            'Done Work'[ClosedDate] <= EndDate - 90
+			        )
+			    )
+			VAR ChangeRatio = DIVIDE ( CurrentValue - PreviousValue, PreviousValue )
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        ISBLANK ( CurrentValue ) || ISBLANK ( PreviousValue ), "#6B7280",
+			        ChangeRatio <= -0.1, "#2E7D32",
+			        ChangeRatio <= 0.1, "#EF6C00",
+			        "#C62828"
+			    )
+		lineageTag: 7479a82d-c265-4b6e-9bf7-c09ac9c33246
+
+	measure 'Story Throughput (90d) Color' =
+			VAR EndDate = TODAY ()
+			VAR CurrentValue = [Story Throughput (90d)]
+			VAR PreviousValue =
+			    CALCULATE (
+			        DISTINCTCOUNT ( 'Done Work'[WorkItemId] ),
+			        'Done Work'[WorkItemType] = "User Story",
+			        FILTER (
+			            ALL ( 'Done Work'[ClosedDate] ),
+			            'Done Work'[ClosedDate] >= EndDate - 179 &&
+			            'Done Work'[ClosedDate] <= EndDate - 90
+			        )
+			    )
+			VAR ChangeRatio = DIVIDE ( CurrentValue - PreviousValue, PreviousValue )
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        ISBLANK ( CurrentValue ) || ISBLANK ( PreviousValue ), "#6B7280",
+			        ChangeRatio >= 0.1, "#2E7D32",
+			        ChangeRatio >= -0.1, "#EF6C00",
+			        "#C62828"
+			    )
+		lineageTag: 931948af-664d-4261-928b-73570e03bfc3
+
+	measure 'Estimated Effort per Team Member (90d Monthly Avg)' =
+			VAR EndDate = TODAY ()
+			VAR DateWindow =
+			    FILTER (
+			        ALL ( 'Done Work'[ClosedDate] ),
+			        'Done Work'[ClosedDate] >= EndDate - 89 &&
+			        'Done Work'[ClosedDate] <= EndDate
+			    )
+			VAR EstimatedEffort90d =
+			    CALCULATE (
+			        SUMX (
+			            VALUES ( 'Done Work'[WorkItemId] ),
+			            CALCULATE ( MAX ( 'Done Work'[Estimated Effort Dev] ) )
+			        ),
+			        DateWindow
+			    )
+			VAR TeamMembers90d =
+			    CALCULATE (
+			        DISTINCTCOUNT ( 'Done Work'[UserName] ),
+			        DateWindow,
+			        NOT ISBLANK ( 'Done Work'[UserName] ),
+			        'Done Work'[UserName] <> "NoAssignee"
+			    )
+			RETURN
+			    DIVIDE ( EstimatedEffort90d, TeamMembers90d * 3 )
+		formatString: #,0.0
+		lineageTag: f132711a-bf6d-4aee-8028-4f5fd9aa5f9e
+
+	measure 'Estimated Effort per Team Member (90d) Color' =
+			SWITCH (
+			    TRUE (),
+			    [Estimated Effort per Team Member (90d Monthly Avg)] > 30, "#C62828",
+			    [Estimated Effort per Team Member (90d Monthly Avg)] > 20, "#2E7D32",
+			    "#EF6C00"
+			)
+		lineageTag: 8511f0d3-f475-488f-8db3-764ad861839e
+
+	measure 'Delivered Estimated Effort' =
+			SUMX (
+			    VALUES ( 'Done Work'[WorkItemId] ),
+			    CALCULATE ( MAX ( 'Done Work'[Estimated Effort Dev] ) )
+			)
+		formatString: #,0.0
+		lineageTag: ed851ddb-f1e8-48a7-a14c-70f970e2653b
+
+	measure 'Story Throughput' =
+			VAR SelectedAreas = VALUES ( 'Team / Area'[AreaPath] )
+			VAR TeamAreaFilter =
+			    FILTER (
+			        VALUES ( 'Done Work'[AreaPath] ),
+			        NOT ISFILTERED ( 'Team / Area'[Team] ) ||
+			        'Done Work'[AreaPath] IN SelectedAreas
+			    )
+			RETURN
+			    CALCULATE (
+			        DISTINCTCOUNT ( 'Done Work'[WorkItemId] ),
+			        'Done Work'[WorkItemType] = "User Story",
+			        TeamAreaFilter
+			    )
+		formatString: #,0
+		lineageTag: 51c11f7e-a9ec-4903-a065-0c22572945b7
+
+	measure 'Completed Actual Effort Dev' =
+			SUMX (
+			    VALUES ( 'Done Work'[WorkItemId] ),
+			    CALCULATE ( MAX ( 'Done Work'[Actual Effort Dev] ) )
+			)
+		formatString: #,0.0
+		lineageTag: 516ccf3f-cd09-4ac6-a931-9acd56c79fef
+
+	measure 'Median Lead Time by Month' = [Median Lead Time]
+		formatString: #,0.0
+		lineageTag: 58c4c907-3540-43ed-b102-81b484a4d68c
+
+	measure 'Median Cycle Time by Month' = [Median Cycle Time]
+		formatString: #,0.0
+		lineageTag: 24d940e5-733f-4f5f-a5b0-ce82e7ec0fc5
+
+	measure 'Defect Rate by Month' = [Defect Rate]
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 841f2e6f-0b7b-47ae-a005-0562ab9f52a0
+
+	measure 'Story Throughput by Month' = [Story Throughput]
+		formatString: #,0
+		lineageTag: 34c995c4-832e-4ed6-be50-b88b8a91755a
+
+	measure 'Delivered Estimated Effort Trend (3m)' =
+			VAR WindowStart = EOMONTH ( TODAY (), -3 ) + 1
+			RETURN
+			    IF (
+			        MAX ( 'Done Work'[ClosedDate] ) >= WindowStart,
+			        [Delivered Estimated Effort]
+			    )
+		formatString: #,0.0
+		lineageTag: af97e4c4-840b-465f-aab1-9accc350225b
+
+	column WorkItemId
+		dataType: int64
+		formatString: 0
+		lineageTag: 42bda073-c569-4a67-8fce-108c99dbe652
+		summarizeBy: none
+		sourceColumn: WorkItemId
+
+		annotation SummarizationSetBy = Automatic
+
+	column Title
+		dataType: string
+		lineageTag: 58dda840-2fac-4c54-80a8-fa9aa52f9b0d
+		summarizeBy: none
+		sourceColumn: Title
+
+		annotation SummarizationSetBy = Automatic
+
+	column WorkItemType
+		dataType: string
+		lineageTag: 6d18bdc1-f218-4e6b-b0ed-1bdf068e605b
+		summarizeBy: none
+		sourceColumn: WorkItemType
+
+		annotation SummarizationSetBy = Automatic
+
+	column ChangedDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: d07afdfa-f8fe-4e1c-8eaa-e63d98b1364a
+		summarizeBy: none
+		sourceColumn: ChangedDate
+
+		variation Variation
+			isDefault
+			relationship: 7857d994-3ab6-42ce-83e1-4d80fd26f046
+			defaultHierarchy: LocalDateTable_932855f3-b438-4f97-a276-1a06a93a27a3.Datumshierarchie
+
+		annotation SummarizationSetBy = Automatic
+
+	column CreatedDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 00c02c17-ac4b-4975-8843-e8291f1f740f
+		summarizeBy: none
+		sourceColumn: CreatedDate
+
+		variation Variation
+			isDefault
+			relationship: 907347a5-dd78-4c88-a747-c634973108a4
+			defaultHierarchy: LocalDateTable_d0d45679-acd1-47e7-90b7-4f4164580d52.Datumshierarchie
+
+		annotation SummarizationSetBy = Automatic
+
+	column State
+		dataType: string
+		lineageTag: ca27e7f1-52ff-4ac0-86d5-c77d6a2cb672
+		summarizeBy: none
+		sourceColumn: State
+
+		annotation SummarizationSetBy = Automatic
+
+	column ActivatedDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 8a4e24f7-6dff-41c2-b292-0e09170899c9
+		summarizeBy: none
+		sourceColumn: ActivatedDate
+
+		variation Variation
+			isDefault
+			relationship: 8b684889-16b7-4c10-bd59-784af30ebbe2
+			defaultHierarchy: LocalDateTable_483d5e66-7192-4b15-aea1-5b89a68cd665.Datumshierarchie
+
+		annotation SummarizationSetBy = Automatic
+
+	column ClosedDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 171e97d2-596e-4c7e-b880-bc93b3e16fe3
+		summarizeBy: none
+		sourceColumn: ClosedDate
+
+		variation Variation
+			isDefault
+			relationship: fc87d3d9-ba21-45e8-9a0c-dfc63dea2540
+			defaultHierarchy: LocalDateTable_2e708b22-6658-43e6-ab70-335d5a9b0422.Datumshierarchie
+
+		annotation SummarizationSetBy = Automatic
+
+	column Priority
+		dataType: int64
+		formatString: 0
+		lineageTag: 1167c1b7-97b9-4548-8d0c-987756654860
+		summarizeBy: sum
+		sourceColumn: Priority
+
+		annotation SummarizationSetBy = Automatic
+
+	column Severity
+		dataType: string
+		lineageTag: 55450cb3-8265-4be5-ada5-e6daef49c7b0
+		summarizeBy: none
+		sourceColumn: Severity
+
+		annotation SummarizationSetBy = Automatic
+
+	column ValueArea
+		dataType: string
+		lineageTag: 51963b72-e26b-486e-8ec5-6d54dd0b69ff
+		summarizeBy: none
+		sourceColumn: ValueArea
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Actual Feature Effort'
+		dataType: double
+		lineageTag: b4d6ccf1-4956-4960-ab04-75811caa67b9
+		summarizeBy: sum
+		sourceColumn: Actual Feature Effort
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column StartDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: c51793fb-01c4-478f-ac2d-d550f3707af4
+		summarizeBy: none
+		sourceColumn: StartDate
+
+		variation Variation
+			isDefault
+			relationship: 70bf77b3-b8a5-44fc-9703-18643a00b2bd
+			defaultHierarchy: LocalDateTable_4be33718-506c-44df-b25c-4fd3693fefb7.Datumshierarchie
+
+		annotation SummarizationSetBy = Automatic
+
+	column StoryPoints
+		dataType: double
+		lineageTag: b41a4022-a430-4760-8ae2-356301a018f1
+		summarizeBy: sum
+		sourceColumn: StoryPoints
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column StateChangeDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 255f2daa-f498-4260-a40b-b511b7822b1b
+		summarizeBy: none
+		sourceColumn: StateChangeDate
+
+		variation Variation
+			isDefault
+			relationship: b433dfa5-b7cd-4d64-9831-7cc7b32d871b
+			defaultHierarchy: LocalDateTable_52a7b7d9-7906-450f-a699-fbe4e125fc1c.Datumshierarchie
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Actual Effort Dev'
+		dataType: int64
+		formatString: 0
+		lineageTag: bc284c7e-da66-4a9d-ba43-e80a446c647e
+		summarizeBy: sum
+		sourceColumn: Actual Effort Dev
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Estimated Effort Dev'
+		dataType: int64
+		formatString: 0
+		lineageTag: afde3f5f-5377-4562-8e67-5d33722979f0
+		summarizeBy: sum
+		sourceColumn: Estimated Effort Dev
+
+		annotation SummarizationSetBy = Automatic
+
+	column LinkTypeName
+		dataType: string
+		lineageTag: 60beea6a-27fc-4fbe-87d7-01ffb24bd8ac
+		summarizeBy: none
+		sourceColumn: LinkTypeName
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Linked.LinkedWorkItemId'
+		dataType: string
+		lineageTag: f0eab70e-c307-413b-87f8-7bf03aab0e35
+		summarizeBy: none
+		sourceColumn: Linked.LinkedWorkItemId
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Linked.LinkedWorkItemState'
+		dataType: string
+		lineageTag: 334f6ca0-c694-4234-b6c8-e55a293e1ec6
+		summarizeBy: none
+		sourceColumn: Linked.LinkedWorkItemState
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Linked.Actual Feature Effort'
+		dataType: string
+		lineageTag: 0012eb4c-f21b-4f03-a7b8-7881de79e242
+		summarizeBy: none
+		sourceColumn: Linked.Actual Feature Effort
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Linked.Actual Effort Dev'
+		dataType: string
+		lineageTag: d68141b5-3379-46a1-8896-33d99b545202
+		summarizeBy: none
+		sourceColumn: Linked.Actual Effort Dev
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Linked.Estimated Effort Dev'
+		dataType: string
+		lineageTag: 8bdce8d2-71af-44b8-bac1-1713056da2e5
+		summarizeBy: none
+		sourceColumn: Linked.Estimated Effort Dev
+
+		annotation SummarizationSetBy = Automatic
+
+	column AreaPath
+		dataType: string
+		lineageTag: 3d027850-4da3-4d0b-890c-87b72d52c84c
+		summarizeBy: none
+		sourceColumn: AreaPath
+
+		annotation SummarizationSetBy = Automatic
+
+	column IterationName
+		dataType: string
+		lineageTag: a0216c8d-36a7-4cb4-a528-8472333114b6
+		summarizeBy: none
+		sourceColumn: IterationName
+
+		annotation SummarizationSetBy = Automatic
+
+	column UserName
+		dataType: string
+		lineageTag: 2f2f5b19-2921-4c86-b18e-7db46ec4bc6e
+		summarizeBy: none
+		sourceColumn: UserName
+
+		annotation SummarizationSetBy = Automatic
+
+	column UserRealName
+		dataType: string
+		lineageTag: e1840ea3-9d94-46cd-9910-85afa511b920
+		summarizeBy: none
+		sourceColumn: UserRealName
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ChangedBy.UserName'
+		dataType: string
+		lineageTag: 3d6f698e-132b-4939-a528-18a0ac5e3e19
+		summarizeBy: none
+		sourceColumn: ChangedBy.UserName
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'CreatedBy.UserName'
+		dataType: string
+		lineageTag: fe2e351a-efeb-4009-be37-3531b002ff42
+		summarizeBy: none
+		sourceColumn: CreatedBy.UserName
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ResolvedBy.UserName'
+		dataType: string
+		lineageTag: 40f39dc3-97c7-49b8-879d-71e5653023f9
+		summarizeBy: none
+		sourceColumn: ResolvedBy.UserName
+
+		annotation SummarizationSetBy = Automatic
+
+	column Tags
+		dataType: string
+		lineageTag: cd641b7e-4258-4b19-9d04-bf6d13e42e15
+		summarizeBy: none
+		sourceColumn: Tags
+
+		annotation SummarizationSetBy = Automatic
+
+	column ReviewedBy
+		dataType: string
+		lineageTag: 4ab0b9f3-ccae-408c-80e5-934be9118211
+		summarizeBy: none
+		sourceColumn: ReviewedBy
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Missing Estimate'
+		dataType: string
+		lineageTag: bdd59829-fb9c-43a9-afa3-6449fff3d5a9
+		summarizeBy: none
+		sourceColumn: Missing Estimate
+
+		annotation SummarizationSetBy = Automatic
+
+	column Link
+		dataType: string
+		lineageTag: 979e8e13-8f95-4ac7-a8a3-a9c0dfae796a
+		dataCategory: WebUrl
+		summarizeBy: none
+		sourceColumn: Link
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Lead Time Days'
+		dataType: double
+		lineageTag: 86ac2153-1984-45da-97af-77841dc8dda9
+		summarizeBy: sum
+		sourceColumn: Lead Time Days
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Cycle Time Days'
+		dataType: double
+		lineageTag: dcbdd81b-62ca-4b75-a73f-5ec700ab6aa9
+		summarizeBy: sum
+		sourceColumn: Cycle Time Days
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'Done Work' = m
+		mode: import
+		source =
+				let
+				    Source = PowerBI.Dataflows(null),
+				    #"1d7f83bd-9b20-42de-9fc3-0f113e2024b2" = Source{[workspaceId="1d7f83bd-9b20-42de-9fc3-0f113e2024b2"]}[Data],
+				    #"1d72647c-62cb-46ba-91f9-0eb5c71bb512" = #"1d7f83bd-9b20-42de-9fc3-0f113e2024b2"{[dataflowId="1d72647c-62cb-46ba-91f9-0eb5c71bb512"]}[Data],
+				    #"Done Work1" = #"1d72647c-62cb-46ba-91f9-0eb5c71bb512"{[entity="Done Work"]}[Data]
+				in
+				    #"Done Work1"
+

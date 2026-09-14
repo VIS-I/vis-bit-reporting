@@ -1,0 +1,85 @@
+table 'Feature User Stories'
+	lineageTag: 444bcbb2-cd3d-45ae-a36f-2698e69fc861
+
+	column 'Feature Work Item Id'
+		dataType: int64
+		formatString: 0
+		lineageTag: c95269de-8f67-416c-980a-771540a8ad1e
+		summarizeBy: none
+		sourceColumn: Feature Work Item Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'User Story'
+		dataType: string
+		lineageTag: 38e395f1-2e9e-4d20-b95d-a04d0600c243
+		summarizeBy: none
+		sourceColumn: User Story
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'User Story Id'
+		dataType: int64
+		formatString: 0
+		lineageTag: d7854df9-c97f-4a55-b69b-2bd293450351
+		summarizeBy: none
+		sourceColumn: User Story Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column State
+		dataType: string
+		lineageTag: bde81856-336d-4e1c-9ec4-9d6253c7fd2b
+		summarizeBy: none
+		sourceColumn: State
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'State Category'
+		dataType: string
+		lineageTag: f343f01f-6cd0-4077-b4bf-b1bd8ad4f39a
+		summarizeBy: none
+		sourceColumn: State Category
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Actual Effort Dev'
+		dataType: double
+		lineageTag: 26a967d1-3e87-4fbd-852c-f0aaf9954508
+		summarizeBy: sum
+		sourceColumn: Actual Effort Dev
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Estimated Effort Dev'
+		dataType: double
+		lineageTag: d377459e-b4b7-4f50-a7d8-bb1a6999bb42
+		summarizeBy: sum
+		sourceColumn: Estimated Effort Dev
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Link
+		dataType: string
+		lineageTag: 30f5bbb8-bdc4-4ee2-a553-20ed12b1d9d1
+		dataCategory: WebUrl
+		summarizeBy: none
+		sourceColumn: Link
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Feature User Stories' = m
+		mode: import
+		source =
+				let
+				    Source = PowerBI.Dataflows(null),
+				    #"1d7f83bd-9b20-42de-9fc3-0f113e2024b2" = Source{[workspaceId="1d7f83bd-9b20-42de-9fc3-0f113e2024b2"]}[Data],
+				    #"1d72647c-62cb-46ba-91f9-0eb5c71bb512" = #"1d7f83bd-9b20-42de-9fc3-0f113e2024b2"{[dataflowId="1d72647c-62cb-46ba-91f9-0eb5c71bb512"]}[Data],
+				    FeatureUserStories = #"1d72647c-62cb-46ba-91f9-0eb5c71bb512"{[entity="Feature User Stories"]}[Data]
+				in
+				    FeatureUserStories
+

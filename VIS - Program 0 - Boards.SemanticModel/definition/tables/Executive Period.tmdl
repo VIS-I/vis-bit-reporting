@@ -1,0 +1,61 @@
+table 'Executive Period'
+	lineageTag: 1fb76e59-1317-448c-a836-edf98857f30b
+
+	column Label
+		dataType: string
+		lineageTag: f6a01e03-aaef-41ad-9e10-1027eb35a9d5
+		summarizeBy: none
+		sourceColumn: [Label]
+		sortByColumn: 'Sort Order'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Kind
+		dataType: string
+		isHidden
+		lineageTag: 221137ca-7dd9-474b-aeb2-54197ea50ba7
+		summarizeBy: none
+		sourceColumn: [Kind]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Offset
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 4b354934-7253-4938-bf81-09daa6889346
+		summarizeBy: none
+		sourceColumn: [Offset]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sort Order'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 843a6e81-bab2-4c19-88f1-f45900693a36
+		summarizeBy: none
+		sourceColumn: [Sort Order]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Executive Period' = calculated
+		mode: import
+		source =
+				VAR DataAsOf =
+				    CALCULATE (
+				        MAX ( 'Work Item Snapshot'[DateValue] ),
+				        REMOVEFILTERS ( 'Work Item Snapshot' )
+				    )
+				RETURN
+				    UNION (
+				        ROW ( "Label", FORMAT ( EOMONTH ( DataAsOf, -3 ), "MMMM yyyy", "en-US" ), "Kind", "Month", "Offset", -3, "Sort Order", 1 ),
+				        ROW ( "Label", FORMAT ( EOMONTH ( DataAsOf, -2 ), "MMMM yyyy", "en-US" ), "Kind", "Month", "Offset", -2, "Sort Order", 2 ),
+				        ROW ( "Label", FORMAT ( EOMONTH ( DataAsOf, -1 ), "MMMM yyyy", "en-US" ), "Kind", "Month", "Offset", -1, "Sort Order", 3 ),
+				        ROW ( "Label", "Current backlog", "Kind", "Current Backlog", "Offset", 0, "Sort Order", 4 ),
+				        ROW ( "Label", "Change vs " & FORMAT ( EOMONTH ( DataAsOf, -2 ), "MMMM", "en-US" ), "Kind", "Change", "Offset", -1, "Sort Order", 5 ),
+				        ROW ( "Label", "Status", "Kind", "Status", "Offset", -1, "Sort Order", 6 )
+				    )
+
+	annotation PBI_Id = 1f937ed43b4a419995fb4da9c0eb694e
+

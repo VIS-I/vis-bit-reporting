@@ -1,0 +1,26 @@
+table Tags
+	lineageTag: 18ae4f4a-3794-4105-8a5e-4c6416f84c21
+
+	column WorkItemId
+		formatString: 0
+		lineageTag: 2c5312bd-9289-4bb2-b6a5-ac10dd08da01
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [WorkItemId]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Tag
+		lineageTag: 91a89fde-229b-4300-bfc3-041e534f64a2
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Tag]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Tags = calculated
+		mode: import
+		source = DISTINCT( SELECTCOLUMNS( GENERATE( Backlog, ADDCOLUMNS( FILTER( GENERATESERIES(1, PATHLENGTH(SUBSTITUTE(Backlog[Tags], ",", "|"))), TRUE() ), "Tag", TRIM(PATHITEM(SUBSTITUTE(Backlog[Tags], ",", "|"), [Value], TEXT)) ) ), "WorkItemId", Backlog[WorkItemId], "Tag", [Tag] ) )
+
+	annotation PBI_Id = e467bfb8832449119d30871d0af8193e
+

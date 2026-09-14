@@ -1,0 +1,8 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "e538fe5f1b5c5018874d",
+  "displayName": "Completed Features",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280
+}

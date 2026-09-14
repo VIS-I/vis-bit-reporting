@@ -1,0 +1,257 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "e8f56624ad37414e701a",
+  "position": {
+    "x": 15,
+    "y": 195,
+    "z": 7000,
+    "height": 250,
+    "width": 1249,
+    "tabOrder": 7000
+  },
+  "visual": {
+    "visualType": "Gantt1448688115699",
+    "query": {
+      "queryState": {
+        "Task": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Features"
+                    }
+                  },
+                  "Property": "Title"
+                }
+              },
+              "queryRef": "Features.Title",
+              "nativeQueryRef": "Title"
+            }
+          ]
+        },
+        "Legend": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Features"
+                    }
+                  },
+                  "Property": "StateCategory"
+                }
+              },
+              "queryRef": "Features.StateCategory",
+              "nativeQueryRef": "StateCategory"
+            }
+          ]
+        },
+        "StartDate": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Features"
+                    }
+                  },
+                  "Property": "ActivatedDate"
+                }
+              },
+              "queryRef": "Features.ActivatedDate",
+              "nativeQueryRef": "ActivatedDate"
+            }
+          ]
+        },
+        "EndDate": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Features"
+                        }
+                      },
+                      "Property": "Planned End Date"
+                    }
+                  },
+                  "Function": 3
+                }
+              },
+              "queryRef": "Min(Features.Planned End Date)",
+              "nativeQueryRef": "Earliest Planned End Date"
+            }
+          ]
+        },
+        "Completion": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Features"
+                    }
+                  },
+                  "Property": "Feature Completion %"
+                }
+              },
+              "queryRef": "Features.Feature Completion %",
+              "nativeQueryRef": "Feature Completion %"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Features"
+                  }
+                },
+                "Property": "ActivatedDate"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "scrollToCurrentTime": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "5a008bef7400c69d5502",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Backlog"
+              }
+            },
+            "Property": "State"
+          }
+        },
+        "type": "Categorical",
+        "howCreated": "User",
+        "objects": {
+          "general": [
+            {
+              "properties": {
+                "isInvertedSelectionMode": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "true"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "6bf3ff9a70abe8209964",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Features"
+              }
+            },
+            "Property": "Title"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "3119fc79a7a02dce7b73",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Features"
+              }
+            },
+            "Property": "StateCategory"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "418aea129560edebe91c",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Features"
+              }
+            },
+            "Property": "ActivatedDate"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "216b4490333814bc37b7",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Features"
+                  }
+                },
+                "Property": "Planned End Date"
+              }
+            },
+            "Function": 3
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "7ea803f42d1005898e21",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Features"
+              }
+            },
+            "Property": "Feature Completion %"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

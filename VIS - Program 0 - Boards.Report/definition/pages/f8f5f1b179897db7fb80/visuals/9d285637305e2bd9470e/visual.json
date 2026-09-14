@@ -1,0 +1,91 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "9d285637305e2bd9470e",
+  "position": {
+    "x": 747,
+    "y": 195,
+    "z": 14000,
+    "height": 250,
+    "width": 517,
+    "tabOrder": 14000
+  },
+  "visual": {
+    "visualType": "scatterChart",
+    "query": {
+      "queryState": {
+        "X": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Done Work"
+                    }
+                  },
+                  "Property": "Estimated Effort Dev"
+                }
+              },
+              "queryRef": "Done Work.Estimated Effort Dev",
+              "nativeQueryRef": "Estimated Effort",
+              "active": true,
+              "displayName": "Estimated Effort"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Done Work"
+                    }
+                  },
+                  "Property": "Actual Effort Dev"
+                }
+              },
+              "queryRef": "Done Work.Actual Effort Dev",
+              "nativeQueryRef": "Actual Effort",
+              "displayName": "Actual Effort"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "0a215ce4eed42a408131",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Done Work"
+              }
+            },
+            "Property": "Estimated Effort Dev"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "185002030153b97b70e0",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Done Work"
+              }
+            },
+            "Property": "Actual Effort Dev"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

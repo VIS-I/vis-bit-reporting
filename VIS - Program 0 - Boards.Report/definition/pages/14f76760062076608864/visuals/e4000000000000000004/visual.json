@@ -1,0 +1,144 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "e4000000000000000004",
+  "position": {
+    "x": 645,
+    "y": 195,
+    "z": 12000,
+    "height": 185,
+    "width": 619,
+    "tabOrder": 12000
+  },
+  "visual": {
+    "visualType": "lineStackedColumnComboChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "HierarchyLevel": {
+                  "Expression": {
+                    "Hierarchy": {
+                      "Expression": {
+                        "PropertyVariationSource": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "Done Work"
+                            }
+                          },
+                          "Name": "Variation",
+                          "Property": "ClosedDate"
+                        }
+                      },
+                      "Hierarchy": "Datumshierarchie"
+                    }
+                  },
+                  "Level": "Jahr"
+                }
+              },
+              "queryRef": "Done Work.ClosedDate.Variation.Datumshierarchie.Jahr",
+              "nativeQueryRef": "Year",
+              "active": true
+            },
+            {
+              "field": {
+                "HierarchyLevel": {
+                  "Expression": {
+                    "Hierarchy": {
+                      "Expression": {
+                        "PropertyVariationSource": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "Done Work"
+                            }
+                          },
+                          "Name": "Variation",
+                          "Property": "ClosedDate"
+                        }
+                      },
+                      "Hierarchy": "Datumshierarchie"
+                    }
+                  },
+                  "Level": "Monat"
+                }
+              },
+              "queryRef": "Done Work.ClosedDate.Variation.Datumshierarchie.Monat",
+              "nativeQueryRef": "Month",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Done Work"
+                    }
+                  },
+                  "Property": "Defect Rate by Month"
+                }
+              },
+              "queryRef": "Done Work.Defect Rate by Month",
+              "nativeQueryRef": "Closed defect mix",
+              "displayName": "Defect mix by month"
+            }
+          ]
+        },
+        "Y2": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Done Work"
+                    }
+                  },
+                  "Property": "Median Lead Time by Month"
+                }
+              },
+              "queryRef": "Done Work.Median Lead Time by Month",
+              "nativeQueryRef": "Lead time (days)",
+              "displayName": "Lead time | median days"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Done Work"
+                    }
+                  },
+                  "Property": "Median Cycle Time by Month"
+                }
+              },
+              "queryRef": "Done Work.Median Cycle Time by Month",
+              "nativeQueryRef": "Cycle time (days)",
+              "displayName": "Cycle time | median days"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Delivery health | monthly trend'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

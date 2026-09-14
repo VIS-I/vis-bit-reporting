@@ -1,0 +1,39 @@
+table 'Team / Area'
+	lineageTag: 936a2b83-afb8-48b8-8160-d2c9dac251d8
+
+	column AreaPath
+		dataType: string
+		lineageTag: d3437de9-e93b-4fef-b57e-d08c935c607f
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [AreaPath]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Team =
+			VAR TeamPath = SUBSTITUTE ( 'Team / Area'[AreaPath], "\", "|" )
+			RETURN
+			    PATHITEM ( TeamPath, PATHLENGTH ( TeamPath ), TEXT )
+		dataType: string
+		lineageTag: 6d494dad-d750-433d-bb14-c615fa54e8a4
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Team / Area' = calculated
+		mode: import
+		source =
+				DISTINCT (
+				    FILTER (
+				        UNION (
+				            SELECTCOLUMNS ( Backlog, "AreaPath", Backlog[AreaPath] ),
+				            SELECTCOLUMNS ( 'Done Work', "AreaPath", 'Done Work'[AreaPath] ),
+				            SELECTCOLUMNS ( 'Work Item Snapshot', "AreaPath", 'Work Item Snapshot'[AreaPath] ),
+				            SELECTCOLUMNS ( 'Cumulative Flow Diagram', "AreaPath", 'Cumulative Flow Diagram'[AreaPath] )
+				        ),
+				        NOT ISBLANK ( [AreaPath] )
+				    )
+				)
+
+	annotation PBI_Id = 2e23caf719e74ae19309d5c62b94df56
+

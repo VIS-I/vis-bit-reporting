@@ -1,0 +1,398 @@
+table 'Work Item Snapshot'
+	lineageTag: 9b55cffe-770b-4a5d-8dd9-7ee3d3c967d6
+
+	measure 'Open Estimated Effort' =
+			VAR SelectedAreas = VALUES ( 'Team / Area'[AreaPath] )
+			VAR TeamAreaFilter =
+			    FILTER (
+			        VALUES ( 'Work Item Snapshot'[AreaPath] ),
+			        NOT ISFILTERED ( 'Team / Area'[Team] ) ||
+			        'Work Item Snapshot'[AreaPath] IN SelectedAreas
+			    )
+			RETURN
+			    CALCULATE (
+			        SUMX (
+			            VALUES ( 'Work Item Snapshot'[WorkItemId] ),
+			            CALCULATE ( MAX ( 'Work Item Snapshot'[Custom_EstimatedEffortQG2] ) )
+			        ),
+			        TeamAreaFilter
+			    )
+		formatString: #,0.0
+		lineageTag: 35b28142-b16a-4c33-aad5-932695fd072d
+
+	measure 'Active Team Members at Snapshot' =
+			VAR SnapshotDates = VALUES ( 'Work Item Snapshot'[DateValue] )
+			VAR SelectedAreas = VALUES ( 'Team / Area'[AreaPath] )
+			VAR TeamAreaFilter =
+			    FILTER (
+			        VALUES ( 'Cumulative Flow Diagram'[AreaPath] ),
+			        NOT ISFILTERED ( 'Team / Area'[Team] ) ||
+			        'Cumulative Flow Diagram'[AreaPath] IN SelectedAreas
+			    )
+			RETURN
+			    CALCULATE (
+			        DISTINCTCOUNT ( 'Cumulative Flow Diagram'[AssignedTo.UserName] ),
+			        TREATAS ( SnapshotDates, 'Cumulative Flow Diagram'[DateValue] ),
+			        TeamAreaFilter,
+			        FILTER (
+			            'Cumulative Flow Diagram',
+			            NOT ISBLANK ( 'Cumulative Flow Diagram'[AssignedTo.UserName] ) &&
+			            NOT (
+			                'Cumulative Flow Diagram'[State]
+			                    IN { "Done", "Closed", "Removed", "Completed" }
+			            )
+			        )
+			    )
+		formatString: #,0
+		lineageTag: c37e29cb-caf1-45f9-bffd-0563948ee851
+
+	measure 'Open Effort per Team Member' = DIVIDE ( [Open Estimated Effort], [Active Team Members at Snapshot] )
+		formatString: #,0.0
+		lineageTag: 24dab733-5264-446a-8c99-157772692aa5
+
+	measure 'Open Stories at Snapshot' =
+			VAR SnapshotDate = MAX ( 'Work Item Snapshot'[DateValue] )
+			VAR SelectedAreas = VALUES ( 'Team / Area'[AreaPath] )
+			VAR TeamAreaFilter =
+			    FILTER (
+			        VALUES ( 'Work Item Snapshot'[AreaPath] ),
+			        NOT ISFILTERED ( 'Team / Area'[Team] ) ||
+			        'Work Item Snapshot'[AreaPath] IN SelectedAreas
+			    )
+			RETURN
+			    CALCULATE (
+			        DISTINCTCOUNT ( 'Work Item Snapshot'[WorkItemId] ),
+			        'Work Item Snapshot'[DateValue] = SnapshotDate,
+			        TeamAreaFilter
+			    )
+		formatString: #,0
+		lineageTag: f3dfd710-3910-4dd5-a488-577facaf04d4
+
+	measure 'Stories Done on Snapshot Date' =
+			VAR SnapshotDate = MAX ( 'Work Item Snapshot'[DateValue] )
+			RETURN
+			    IF (
+			        NOT ISBLANK ( SnapshotDate ),
+			        CALCULATE (
+			            [Story Throughput],
+			            FILTER (
+			                ALL ( 'Done Work'[ClosedDate] ),
+			                'Done Work'[ClosedDate] >= SnapshotDate &&
+			                'Done Work'[ClosedDate] < SnapshotDate + 1
+			            )
+			        )
+			    )
+		formatString: #,0
+		lineageTag: b2b07f43-14f5-47e5-9dc3-60833dbf8e24
+
+	measure 'Load Target Lower' = 20
+		formatString: #,0
+		lineageTag: 6162fc16-a08f-4bbd-b049-4bfca52b2d20
+
+	measure 'Load Target Upper' = 30
+		formatString: #,0
+		lineageTag: c718af53-6468-4125-901a-f62f390c95e0
+
+	measure 'Latest Open Effort per Team Member' =
+			VAR LatestSnapshot =
+			    CALCULATE (
+			        MAX ( 'Work Item Snapshot'[DateValue] ),
+			        REMOVEFILTERS ( 'Work Item Snapshot'[DateValue] )
+			    )
+			RETURN
+			    CALCULATE (
+			        [Open Effort per Team Member],
+			        'Work Item Snapshot'[DateValue] = LatestSnapshot
+			    )
+		formatString: #,0.0
+		lineageTag: a9442f0f-e5c7-49db-8f0b-35d5fcae84c1
+
+	measure 'Snapshot Slow Movers %' =
+			VAR SnapshotDate = MAX ( 'Work Item Snapshot'[DateValue] )
+			VAR EligibleStories =
+			    CALCULATE (
+			        DISTINCTCOUNT ( 'Work Item Snapshot'[WorkItemId] ),
+			        FILTER (
+			            'Work Item Snapshot',
+			            NOT ( 'Work Item Snapshot'[State] IN { "In Concept", "On Hold" } )
+			        )
+			    )
+			VAR SlowMovers =
+			    CALCULATE (
+			        DISTINCTCOUNT ( 'Work Item Snapshot'[WorkItemId] ),
+			        FILTER (
+			            'Work Item Snapshot',
+			            NOT ( 'Work Item Snapshot'[State] IN { "In Concept", "On Hold" } ) &&
+			            NOT ISBLANK ( 'Work Item Snapshot'[ChangedDate] ) &&
+			            DATEDIFF ( 'Work Item Snapshot'[ChangedDate], SnapshotDate, DAY ) > 30
+			        )
+			    )
+			RETURN
+			    DIVIDE ( SlowMovers, EligibleStories )
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: b492c00f-b3c5-4747-9984-20878840abca
+
+	measure 'Latest Slow Movers %' =
+			VAR LatestSnapshot =
+			    CALCULATE (
+			        MAX ( 'Work Item Snapshot'[DateValue] ),
+			        REMOVEFILTERS ( 'Work Item Snapshot'[DateValue] )
+			    )
+			RETURN
+			    CALCULATE (
+			        [Snapshot Slow Movers %],
+			        'Work Item Snapshot'[DateValue] = LatestSnapshot
+			    )
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 736650f3-d501-4844-8d4b-25bd1c67d7e4
+
+	measure 'Latest Open Effort Color' =
+			SWITCH (
+			    TRUE (),
+			    ISBLANK ( [Latest Open Effort per Team Member] ), "#6B7280",
+			    [Latest Open Effort per Team Member] > 30, "#C62828",
+			    [Latest Open Effort per Team Member] > 20, "#2E7D32",
+			    "#EF6C00"
+			)
+		lineageTag: 03c4f581-1b70-4526-b03e-2645fdcbd501
+
+	measure 'Latest Slow Movers Color' =
+			SWITCH (
+			    TRUE (),
+			    ISBLANK ( [Latest Slow Movers %] ), "#6B7280",
+			    [Latest Slow Movers %] <= 0.15, "#2E7D32",
+			    [Latest Slow Movers %] <= 0.25, "#EF6C00",
+			    "#C62828"
+			)
+		lineageTag: 160291e6-1bce-4504-b5dd-25aadd2654f8
+
+	column WorkItemId
+		dataType: int64
+		formatString: 0
+		lineageTag: afbd7f5a-4e50-46d2-85a8-bb9f49200345
+		summarizeBy: count
+		sourceColumn: WorkItemId
+
+		annotation SummarizationSetBy = Automatic
+
+	column DateValue
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 8bf7ffb5-ef79-4c2c-b27f-eaafe6917a35
+		summarizeBy: none
+		sourceColumn: DateValue
+
+		variation Variation
+			isDefault
+			relationship: d468f0ab-6bf6-430a-b435-aa2839c098f9
+			defaultHierarchy: LocalDateTable_fe780380-69b5-4850-9290-757ee29275bc.Datumshierarchie
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Title
+		dataType: string
+		lineageTag: 0f7f78e2-49ee-49a0-b4e9-1dd7afbad972
+		summarizeBy: none
+		sourceColumn: Title
+
+		annotation SummarizationSetBy = Automatic
+
+	column WorkItemType
+		dataType: string
+		lineageTag: dd451d8e-20b9-42fc-a66e-748c77feff42
+		summarizeBy: none
+		sourceColumn: WorkItemType
+
+		annotation SummarizationSetBy = Automatic
+
+	column ChangedDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 10c474d4-4a2e-402f-910d-40e82544960b
+		summarizeBy: none
+		sourceColumn: ChangedDate
+
+		variation Variation
+			isDefault
+			relationship: dfd66fb3-20f5-414c-8439-c0bccb108876
+			defaultHierarchy: LocalDateTable_12702f0c-c764-4808-91e9-d3bad3b6f2bd.Datumshierarchie
+
+		annotation SummarizationSetBy = Automatic
+
+	column CreatedDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 489f60bf-c949-4823-b6d8-ad1e759536dc
+		summarizeBy: none
+		sourceColumn: CreatedDate
+
+		variation Variation
+			isDefault
+			relationship: bfba74cb-3db3-4616-adac-482db6ac7c04
+			defaultHierarchy: LocalDateTable_e6244b1b-0ca8-44cd-8a83-687075953447.Datumshierarchie
+
+		annotation SummarizationSetBy = Automatic
+
+	column State
+		dataType: string
+		lineageTag: 0a4da1ff-4767-49b4-a654-65fe1729f460
+		summarizeBy: none
+		sourceColumn: State
+
+		annotation SummarizationSetBy = Automatic
+
+	column ActivatedDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 83b14912-435e-46bb-8b99-2a39d32de70c
+		summarizeBy: none
+		sourceColumn: ActivatedDate
+
+		variation Variation
+			isDefault
+			relationship: c4e39d56-f85b-46b0-985c-f954b8a211c8
+			defaultHierarchy: LocalDateTable_1be9919c-8699-44db-8d0f-101e364ce44b.Datumshierarchie
+
+		annotation SummarizationSetBy = Automatic
+
+	column ClosedDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: e475755e-ad77-49de-868f-e0e7a79063ec
+		summarizeBy: none
+		sourceColumn: ClosedDate
+
+		variation Variation
+			isDefault
+			relationship: 0cfa9616-1266-463a-96fe-4ee7b59124f0
+			defaultHierarchy: LocalDateTable_76ac6125-b03b-440b-b6e1-5ad7fbf6b4c3.Datumshierarchie
+
+		annotation SummarizationSetBy = Automatic
+
+	column Priority
+		dataType: int64
+		formatString: 0
+		lineageTag: 7952ea7c-caa0-469d-8af9-9fa0559bb682
+		summarizeBy: sum
+		sourceColumn: Priority
+
+		annotation SummarizationSetBy = Automatic
+
+	column Severity
+		dataType: string
+		lineageTag: 89cdf44b-b254-4303-ae8c-1164d4fa2716
+		summarizeBy: none
+		sourceColumn: Severity
+
+		annotation SummarizationSetBy = Automatic
+
+	column ValueArea
+		dataType: string
+		lineageTag: 8436b71b-e64d-4546-af96-43ad28c67ce6
+		summarizeBy: none
+		sourceColumn: ValueArea
+
+		annotation SummarizationSetBy = Automatic
+
+	column StateCategory
+		dataType: string
+		lineageTag: 7ece1e5f-dd25-4679-859e-b9b0e69a22db
+		summarizeBy: none
+		sourceColumn: StateCategory
+
+		annotation SummarizationSetBy = Automatic
+
+	column StateChangeDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 51f43d5a-3ebb-4ead-9f0d-989be55fea8e
+		summarizeBy: none
+		sourceColumn: StateChangeDate
+
+		variation Variation
+			isDefault
+			relationship: f52a40ac-4544-4d35-ad7e-bbe17b2e60f2
+			defaultHierarchy: LocalDateTable_d67f2a5c-6bad-425c-a2d0-cc537b8af774.Datumshierarchie
+
+		annotation SummarizationSetBy = Automatic
+
+	column Custom_ActualEffort
+		dataType: double
+		lineageTag: d9d62fe9-3fc4-4d33-841c-334f24fce61a
+		summarizeBy: sum
+		sourceColumn: Custom_ActualEffort
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Custom_EstimatedEffortQG2
+		dataType: double
+		lineageTag: bf666af8-c77c-47e5-8a7a-9fabc6d2df15
+		summarizeBy: sum
+		sourceColumn: Custom_EstimatedEffortQG2
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column AreaPath
+		dataType: string
+		lineageTag: da850595-6f90-4f1a-a240-50a24e630799
+		summarizeBy: none
+		sourceColumn: AreaPath
+
+		annotation SummarizationSetBy = Automatic
+
+	column IterationName
+		dataType: string
+		lineageTag: 13a5f7bc-dccb-4d0e-9e88-ac5b326e9baf
+		summarizeBy: none
+		sourceColumn: IterationName
+
+		annotation SummarizationSetBy = Automatic
+
+	column Tags
+		dataType: string
+		lineageTag: 37baface-b4fc-4fb6-96ff-52a061da8d71
+		summarizeBy: none
+		sourceColumn: Tags
+
+		annotation SummarizationSetBy = Automatic
+
+	column SnapshotDateTime
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: a34d830c-1a8b-4126-b881-a1d333ccb90a
+		summarizeBy: none
+		sourceColumn: SnapshotDateTime
+
+		variation Variation
+			isDefault
+			relationship: dc8e58b3-cfc6-4f7a-8942-36f42998dacf
+			defaultHierarchy: LocalDateTable_e5da3616-204c-4f16-bc1a-a00979047896.Datumshierarchie
+
+		annotation SummarizationSetBy = Automatic
+
+	column Link
+		dataType: string
+		lineageTag: 4ca21c31-ecfd-4c4d-bcff-4dc24a8d6f97
+		dataCategory: WebUrl
+		summarizeBy: none
+		sourceColumn: Link
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Work Item Snapshot' = m
+		mode: import
+		source =
+				let
+				    Source = PowerBI.Dataflows(null),
+				    #"1d7f83bd-9b20-42de-9fc3-0f113e2024b2" = Source{[workspaceId="1d7f83bd-9b20-42de-9fc3-0f113e2024b2"]}[Data],
+				    #"1d72647c-62cb-46ba-91f9-0eb5c71bb512" = #"1d7f83bd-9b20-42de-9fc3-0f113e2024b2"{[dataflowId="1d72647c-62cb-46ba-91f9-0eb5c71bb512"]}[Data],
+				    #"Work Item Snapshot1" = #"1d72647c-62cb-46ba-91f9-0eb5c71bb512"{[entity="Work Item Snapshot"]}[Data]
+				in
+				    #"Work Item Snapshot1"
+
