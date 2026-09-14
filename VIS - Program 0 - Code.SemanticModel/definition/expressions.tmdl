@@ -1,0 +1,24 @@
+expression Organization = "ZEISSgroup-VIS" meta [IsParameterQuery = true, IsParameterQueryRequired = false, Type = type text]
+	lineageTag: c4a7a574-5492-4867-942c-5d9ec5237124
+
+	annotation PBI_ResultType = Text
+
+expression Project = "VIS - Program 0" meta [IsParameterQuery = true, IsParameterQueryRequired = false, Type = type text]
+	lineageTag: 11a369eb-0d26-420e-bc27-d2c005c873ff
+
+	annotation PBI_ResultType = Text
+
+expression FromDate =
+		// let
+		//     UtcTodayStart = DateTimeZone.RemoveZone(Date.StartOfDay(DateTimeZone.UtcNow())),
+		//     WindowStart = UtcTodayStart - #duration(90, 0, 0, 0)
+		// in #"WindowStart"
+		
+		let
+		    UtcTodayStart = DateTimeZone.RemoveZone(Date.StartOfDay(DateTimeZone.UtcNow())),
+		    WindowStart = UtcTodayStart - #duration(90, 0, 0, 0)
+		in #"WindowStart"
+	lineageTag: 5c494fb2-241c-496e-92bc-f1bae9c0a94a
+
+	annotation PBI_ResultType = DateTime
+

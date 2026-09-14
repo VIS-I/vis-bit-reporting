@@ -1,0 +1,25 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: de-DE
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["Repositories","Pull Requests","Commits","Organization","Project","FromDate"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_ProTooling = ["WebModelingEdit","DevMode","TMDL-Extension"]
+
+ref table Repositories
+ref table 'Pull Requests'
+ref table Commits
+ref table DateTableTemplate_a862d57a-d491-46a0-899a-31b24d5fca90
+ref table LocalDateTable_98fdf02c-dbbf-4d90-be63-1c1b4f238f30
+ref table LocalDateTable_00a1c90c-fd22-4930-beb4-aed918020f83
+ref table LocalDateTable_6986d847-7a1b-4d69-8bb9-227062355905
+ref table LocalDateTable_75e6573d-cf7b-4755-a497-224da3ddb28c
+ref table LocalDateTable_855a2367-95d9-41c7-af28-9ebc7d700274
+ref table LocalDateTable_06ec6899-cc96-4cfb-9feb-7b119382c62b
+

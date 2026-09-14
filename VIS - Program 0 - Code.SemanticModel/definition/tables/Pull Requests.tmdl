@@ -1,0 +1,396 @@
+table 'Pull Requests'
+	lineageTag: 301de131-3c8c-4a8a-af50-b20153e03f92
+
+	column repoId
+		dataType: string
+		lineageTag: 7d8aa425-88b1-4721-86c7-c31490332cd3
+		summarizeBy: none
+		sourceColumn: repoId
+
+		annotation SummarizationSetBy = Automatic
+
+	column repoName
+		dataType: string
+		lineageTag: 0b5389ab-f9eb-4cf6-8436-f713d2cc3294
+		summarizeBy: none
+		sourceColumn: repoName
+
+		annotation SummarizationSetBy = Automatic
+
+	column isDisabled
+		dataType: string
+		lineageTag: 2c2717de-a72c-468b-96fe-0d435d6c348f
+		summarizeBy: none
+		sourceColumn: isDisabled
+
+		annotation SummarizationSetBy = Automatic
+
+	column repository
+		dataType: string
+		lineageTag: 0c5cd199-292d-4fcb-bbd0-5ea92fc24812
+		summarizeBy: none
+		sourceColumn: repository
+
+		annotation SummarizationSetBy = Automatic
+
+	column pullRequestId
+		dataType: int64
+		formatString: 0
+		lineageTag: 1d094843-4f8f-45dd-ae29-b8a6f61289d4
+		summarizeBy: count
+		sourceColumn: pullRequestId
+
+		annotation SummarizationSetBy = Automatic
+
+	column status
+		dataType: string
+		lineageTag: 3497319d-6e1a-4700-b2f4-6cb75a457ae1
+		summarizeBy: none
+		sourceColumn: status
+
+		annotation SummarizationSetBy = Automatic
+
+	column displayName
+		dataType: string
+		lineageTag: 5cf68678-bb0e-4219-8d38-3d77c02e9444
+		summarizeBy: none
+		sourceColumn: displayName
+
+		annotation SummarizationSetBy = Automatic
+
+	column uniqueName
+		dataType: string
+		lineageTag: 48813ac4-6970-4e23-b12b-85068d41e59b
+		summarizeBy: none
+		sourceColumn: uniqueName
+
+		annotation SummarizationSetBy = Automatic
+
+	column creationDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 1bcd8713-dd00-4020-b4c8-807638219b93
+		summarizeBy: none
+		sourceColumn: creationDate
+
+		variation Variation
+			isDefault
+			relationship: 5e839f55-3618-449a-8f27-184ee62e7639
+			defaultHierarchy: LocalDateTable_6986d847-7a1b-4d69-8bb9-227062355905.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column closedDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: cc69478f-f7bb-45da-89e0-89c0d07a9ed8
+		summarizeBy: none
+		sourceColumn: closedDate
+
+		variation Variation
+			isDefault
+			relationship: 05093d26-ec74-4c75-b361-d8168d433e22
+			defaultHierarchy: LocalDateTable_75e6573d-cf7b-4755-a497-224da3ddb28c.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column title
+		dataType: string
+		lineageTag: f1a13ff5-cd1a-45eb-a320-14bbc9a4ab21
+		summarizeBy: none
+		sourceColumn: title
+
+		annotation SummarizationSetBy = Automatic
+
+	column Team
+		dataType: string
+		lineageTag: 233af97f-96ed-4c28-896a-0981dfb3b249
+		summarizeBy: none
+		sourceColumn: Team
+
+		annotation SummarizationSetBy = Automatic
+
+	column reviewerDisplayName
+		dataType: string
+		lineageTag: 662af6ec-6bf5-421c-a206-38dcb4cc3766
+		summarizeBy: none
+		sourceColumn: reviewerDisplayName
+
+		annotation SummarizationSetBy = Automatic
+
+	column reviewerUniqueName
+		dataType: string
+		lineageTag: 385a0723-cd1b-439b-9f38-4e1bb3131ca7
+		summarizeBy: none
+		sourceColumn: reviewerUniqueName
+
+		annotation SummarizationSetBy = Automatic
+
+	column extractedAt
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 828ec71d-cfbe-46b8-94bf-fa39f823701f
+		summarizeBy: none
+		sourceColumn: extractedAt
+
+		variation Variation
+			isDefault
+			relationship: 5dfab599-d138-4236-be53-2e1f60f48f07
+			defaultHierarchy: LocalDateTable_855a2367-95d9-41c7-af28-9ebc7d700274.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column extractedDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 393ff863-5686-40f7-8a29-f014a352a7c1
+		summarizeBy: none
+		sourceColumn: extractedDate
+
+		variation Variation
+			isDefault
+			relationship: 3c3fce02-8421-4817-969a-3bcc0026c1bb
+			defaultHierarchy: LocalDateTable_06ec6899-cc96-4cfb-9feb-7b119382c62b.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column snapshotId
+		dataType: string
+		lineageTag: 41f66987-d7c9-45af-b3b8-54857ea5637a
+		summarizeBy: none
+		sourceColumn: snapshotId
+
+		annotation SummarizationSetBy = Automatic
+
+	column sourceRefName
+		dataType: string
+		lineageTag: 2f9e9afb-0fc3-42e2-819a-9286ef708a29
+		summarizeBy: none
+		sourceColumn: sourceRefName
+
+		annotation SummarizationSetBy = Automatic
+
+	column targetRefName
+		dataType: string
+		lineageTag: 51997a63-5b61-454c-a62f-9a2c12a1ee3e
+		summarizeBy: none
+		sourceColumn: targetRefName
+
+		annotation SummarizationSetBy = Automatic
+
+	column createdByType
+		dataType: string
+		lineageTag: 0d4b01df-24b9-436d-b64e-b05dc6b9b141
+		summarizeBy: none
+		sourceColumn: createdByType
+
+		annotation SummarizationSetBy = Automatic
+
+	column isDraft
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 5823610b-7270-4af9-a567-79cb9fcb8c00
+		summarizeBy: none
+		sourceColumn: isDraft
+
+		annotation SummarizationSetBy = Automatic
+
+	column mergeStatus
+		dataType: string
+		lineageTag: f57b30cc-8c7a-44ba-862a-0361bd5d7b9d
+		summarizeBy: none
+		sourceColumn: mergeStatus
+
+		annotation SummarizationSetBy = Automatic
+
+	column isRenovatePr
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 1b47cfce-2fe8-4bd6-b183-b053f537f101
+		summarizeBy: none
+		sourceColumn: isRenovatePr
+
+		annotation SummarizationSetBy = Automatic
+
+	column updateTypeHint
+		dataType: string
+		lineageTag: 2e312f46-8ba4-42a0-a01f-d05d11a86f7d
+		summarizeBy: none
+		sourceColumn: updateTypeHint
+
+		annotation SummarizationSetBy = Automatic
+
+	column labelNames
+		dataType: string
+		lineageTag: 4ad0007a-5139-4425-bbec-d102d4a578a2
+		summarizeBy: none
+		sourceColumn: labelNames
+
+		annotation SummarizationSetBy = Automatic
+
+	column reviewerCount
+		dataType: int64
+		formatString: 0
+		lineageTag: f3823a3e-1c9e-430b-8907-039b2fca6b07
+		summarizeBy: sum
+		sourceColumn: reviewerCount
+
+		annotation SummarizationSetBy = Automatic
+
+	column reviewerDisplayNames
+		dataType: string
+		lineageTag: 80fc99e1-021f-49ea-a900-c98c55d159a4
+		summarizeBy: none
+		sourceColumn: reviewerDisplayNames
+
+		annotation SummarizationSetBy = Automatic
+
+	column reviewerUniqueNames
+		dataType: string
+		lineageTag: e448ec87-df75-446f-a085-026ea4bc61dd
+		summarizeBy: none
+		sourceColumn: reviewerUniqueNames
+
+		annotation SummarizationSetBy = Automatic
+
+	column approvedReviewerCount
+		dataType: int64
+		formatString: 0
+		lineageTag: 30911a86-e45c-4bbd-a2fb-c1719ef4e557
+		summarizeBy: sum
+		sourceColumn: approvedReviewerCount
+
+		annotation SummarizationSetBy = Automatic
+
+	column rejectedReviewerCount
+		dataType: int64
+		formatString: 0
+		lineageTag: c2606f01-3667-49a5-9dc5-a5e0d0791c0e
+		summarizeBy: sum
+		sourceColumn: rejectedReviewerCount
+
+		annotation SummarizationSetBy = Automatic
+
+	column waitingReviewerCount
+		dataType: int64
+		formatString: 0
+		lineageTag: f187a5a0-b608-408c-a7bc-ba5019256885
+		summarizeBy: sum
+		sourceColumn: waitingReviewerCount
+
+		annotation SummarizationSetBy = Automatic
+
+	column reviewerVotes
+		dataType: string
+		lineageTag: 69450388-f27c-438b-8b0b-29c84e1795d6
+		summarizeBy: none
+		sourceColumn: reviewerVotes
+
+		annotation SummarizationSetBy = Automatic
+
+	column activeThreadCount
+		dataType: int64
+		formatString: 0
+		lineageTag: bc337e0c-2a07-4a86-8976-45b8baa5cae1
+		summarizeBy: sum
+		sourceColumn: activeThreadCount
+
+		annotation SummarizationSetBy = Automatic
+
+	column policyCount
+		dataType: int64
+		formatString: 0
+		lineageTag: 1b4a63b6-8221-43d3-a7e7-436dc9a98282
+		summarizeBy: sum
+		sourceColumn: policyCount
+
+		annotation SummarizationSetBy = Automatic
+
+	column blockingPolicyCount
+		dataType: int64
+		formatString: 0
+		lineageTag: a78930d5-6b55-46e8-a4ca-68322e3e142f
+		summarizeBy: sum
+		sourceColumn: blockingPolicyCount
+
+		annotation SummarizationSetBy = Automatic
+
+	column approvedBlockingPolicyCount
+		dataType: int64
+		formatString: 0
+		lineageTag: e3921242-8ade-4608-99d9-de0351ed34bc
+		summarizeBy: sum
+		sourceColumn: approvedBlockingPolicyCount
+
+		annotation SummarizationSetBy = Automatic
+
+	column failedBlockingPolicyCount
+		dataType: int64
+		formatString: 0
+		lineageTag: 4b818a6f-46be-466e-b2df-c43308691238
+		summarizeBy: sum
+		sourceColumn: failedBlockingPolicyCount
+
+		annotation SummarizationSetBy = Automatic
+
+	column pendingBlockingPolicyCount
+		dataType: int64
+		formatString: 0
+		lineageTag: b838983b-554f-490b-8f28-46d663b2beac
+		summarizeBy: sum
+		sourceColumn: pendingBlockingPolicyCount
+
+		annotation SummarizationSetBy = Automatic
+
+	column failedBlockingPolicyNames
+		dataType: string
+		lineageTag: d62029c1-e1a5-447c-9907-d35a23434fc8
+		summarizeBy: none
+		sourceColumn: failedBlockingPolicyNames
+
+		annotation SummarizationSetBy = Automatic
+
+	column area
+		dataType: string
+		lineageTag: 40269cb9-de6c-4c9c-b0bb-f2e6157b222d
+		summarizeBy: none
+		sourceColumn: area
+
+		annotation SummarizationSetBy = Automatic
+
+	column daysOpen
+		dataType: double
+		lineageTag: f40ad7b3-c4ae-4a4b-acaf-385cdc3ce997
+		summarizeBy: sum
+		sourceColumn: daysOpen
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'Pull Requests' = m
+		mode: import
+		source =
+				let
+				    Source = PowerBI.Dataflows(null),
+				    Workspace = Source{[workspaceId="1d7f83bd-9b20-42de-9fc3-0f113e2024b2"]}[Data],
+				    Repos = Workspace{[dataflowId="b4231eab-5517-456d-8f37-6d807330f9c9"]}[Data],
+				    PullRequests = Repos{[entity="Pull Requests"]}[Data],
+				    WithLegacyColumns = Table.AddColumn(
+				        Table.AddColumn(
+				            Table.AddColumn(PullRequests, "isDisabled", each null, type nullable text),
+				            "repository", each [repoName], type nullable text
+				        ),
+				        "Team", each [area], type nullable text
+				    ),
+				    WithReviewers = Table.AddColumn(
+				        Table.AddColumn(WithLegacyColumns, "reviewerDisplayName", each [reviewerDisplayNames], type nullable text),
+				        "reviewerUniqueName", each [reviewerUniqueNames], type nullable text
+				    )
+				in
+				    WithReviewers
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,50 @@
+table Repositories
+	lineageTag: 811d843a-4762-4ecf-9385-1d7414616c48
+
+	column repoId
+		dataType: string
+		lineageTag: a13e8cb2-1e94-4abb-824f-a8dd9614da45
+		summarizeBy: none
+		sourceColumn: repoId
+
+		annotation SummarizationSetBy = Automatic
+
+	column repoName
+		dataType: string
+		lineageTag: f1a38abf-99b6-42d9-ba74-4cfc3e1a9601
+		summarizeBy: none
+		sourceColumn: repoName
+
+		annotation SummarizationSetBy = Automatic
+
+	column isDisabled
+		dataType: string
+		lineageTag: bb7e26f0-d09e-4f60-976a-9a8f6b7656bf
+		summarizeBy: none
+		sourceColumn: isDisabled
+
+		annotation SummarizationSetBy = Automatic
+
+	column Team
+		dataType: string
+		lineageTag: 7a4ebd67-073f-43e7-8351-57e4af5597ad
+		summarizeBy: none
+		sourceColumn: Team
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Repositories = m
+		mode: import
+		source =
+				let
+				    Source = PowerBI.Dataflows(null),
+				    Workspace = Source{[workspaceId="1d7f83bd-9b20-42de-9fc3-0f113e2024b2"]}[Data],
+				    Repos = Workspace{[dataflowId="b4231eab-5517-456d-8f37-6d807330f9c9"]}[Data],
+				    Commits = Repos{[entity="Commits"]}[Data],
+				    RepositoryRows = Table.Distinct(Table.SelectColumns(Commits, {"repoId", "repoName", "Team"})),
+				    WithIsDisabled = Table.AddColumn(RepositoryRows, "isDisabled", each null, type nullable text)
+				in
+				    WithIsDisabled
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,30 @@
+relationship b3f48751-1a43-4cef-9ab6-ffa343a215a9
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Commits.authorDate
+	toColumn: LocalDateTable_98fdf02c-dbbf-4d90-be63-1c1b4f238f30.Date
+
+relationship 0441471a-caff-461f-b94d-8313010f2289
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Commits.committerDate
+	toColumn: LocalDateTable_00a1c90c-fd22-4930-beb4-aed918020f83.Date
+
+relationship 5e839f55-3618-449a-8f27-184ee62e7639
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Pull Requests'.creationDate
+	toColumn: LocalDateTable_6986d847-7a1b-4d69-8bb9-227062355905.Date
+
+relationship 05093d26-ec74-4c75-b361-d8168d433e22
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Pull Requests'.closedDate
+	toColumn: LocalDateTable_75e6573d-cf7b-4755-a497-224da3ddb28c.Date
+
+relationship 5dfab599-d138-4236-be53-2e1f60f48f07
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Pull Requests'.extractedAt
+	toColumn: LocalDateTable_855a2367-95d9-41c7-af28-9ebc7d700274.Date
+
+relationship 3c3fce02-8421-4817-969a-3bcc0026c1bb
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Pull Requests'.extractedDate
+	toColumn: LocalDateTable_06ec6899-cc96-4cfb-9feb-7b119382c62b.Date
+
