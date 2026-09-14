@@ -1,0 +1,204 @@
+table 'Pull Requests Review Turnaround'
+	lineageTag: 90ffa319-d849-4dbe-92b3-8ae435638da2
+
+	column extractedAt
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: c795f709-5ffe-4d68-9019-d174990e11ad
+		summarizeBy: none
+		sourceColumn: extractedAt
+
+		variation Variation
+			isDefault
+			relationship: b5002657-7e67-4f54-9327-4b61b26d751c
+			defaultHierarchy: LocalDateTable_500f9100-c272-4700-863d-838add824108.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column repoName
+		dataType: string
+		lineageTag: 64189a1c-bdd0-4f75-ada5-3e7f56849dac
+		summarizeBy: none
+		sourceColumn: repoName
+
+		annotation SummarizationSetBy = Automatic
+
+	column area
+		dataType: string
+		lineageTag: ec4cefd1-7ce7-43f2-9b58-1d05626c274b
+		summarizeBy: none
+		sourceColumn: area
+
+		annotation SummarizationSetBy = Automatic
+
+	column pullRequestId
+		dataType: int64
+		formatString: 0
+		lineageTag: 2bc40bd4-a74f-4adf-8487-a0745cd3b9d6
+		summarizeBy: none
+		sourceColumn: pullRequestId
+
+		annotation SummarizationSetBy = Automatic
+
+	column status
+		dataType: string
+		lineageTag: 100c2ccc-e753-4214-a40d-86943c88d067
+		summarizeBy: none
+		sourceColumn: status
+
+		annotation SummarizationSetBy = Automatic
+
+	column sourceRefName
+		dataType: string
+		lineageTag: e88ebf3e-2c06-4ca5-abc2-9020b6d7cbea
+		summarizeBy: none
+		sourceColumn: sourceRefName
+
+		annotation SummarizationSetBy = Automatic
+
+	column sourceBranchName
+		dataType: string
+		lineageTag: 816f3140-3a8d-456c-b052-0cb201530aa2
+		summarizeBy: none
+		sourceColumn: sourceBranchName
+
+		annotation SummarizationSetBy = Automatic
+
+	column isDraft
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 94c987c1-b045-4790-bc4d-63dca3878848
+		summarizeBy: none
+		sourceColumn: isDraft
+
+		annotation SummarizationSetBy = Automatic
+
+	column reviewerCount
+		dataType: int64
+		formatString: 0
+		lineageTag: ea2e5bc1-4121-451a-9f70-a0b6d59b59cd
+		summarizeBy: sum
+		sourceColumn: reviewerCount
+
+		annotation SummarizationSetBy = Automatic
+
+	column approvedReviewerCount
+		dataType: int64
+		formatString: 0
+		lineageTag: 695e15ed-cd89-4293-9d9b-1e122390b906
+		summarizeBy: sum
+		sourceColumn: approvedReviewerCount
+
+		annotation SummarizationSetBy = Automatic
+
+	column rejectedReviewerCount
+		dataType: int64
+		formatString: 0
+		lineageTag: 5c30f80d-e61a-4c3f-bf51-773d6edc0118
+		summarizeBy: sum
+		sourceColumn: rejectedReviewerCount
+
+		annotation SummarizationSetBy = Automatic
+
+	column waitingReviewerCount
+		dataType: int64
+		formatString: 0
+		lineageTag: 2199d99b-7dc4-428c-a8a8-e3da539f3b66
+		summarizeBy: sum
+		sourceColumn: waitingReviewerCount
+
+		annotation SummarizationSetBy = Automatic
+
+	column activeThreadCount
+		dataType: int64
+		formatString: 0
+		lineageTag: be30f23c-6953-4022-a0cf-3c4bcc2168bf
+		summarizeBy: sum
+		sourceColumn: activeThreadCount
+
+		annotation SummarizationSetBy = Automatic
+
+	column creationDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 4ae7572e-5170-491f-8ff1-c35b6ad8d666
+		summarizeBy: none
+		sourceColumn: creationDate
+
+		variation Variation
+			isDefault
+			relationship: 500026c0-6cde-4f47-8fbf-978f94306685
+			defaultHierarchy: LocalDateTable_5eb0ec69-53b6-4a6d-aabd-2accfa1a5e3b.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column closedDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 0f9c426b-429c-427b-b358-292088b7b802
+		summarizeBy: none
+		sourceColumn: closedDate
+
+		variation Variation
+			isDefault
+			relationship: 59c926e7-2fd4-4b41-820a-1ec771c2daf8
+			defaultHierarchy: LocalDateTable_fefe11d4-69ca-47c1-b305-c1ac8400ed35.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column isClosed
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: e3ecdc8d-1489-49a0-9116-0dc56fb22b68
+		summarizeBy: none
+		sourceColumn: isClosed
+
+		annotation SummarizationSetBy = Automatic
+
+	column reviewTurnaroundDays
+		dataType: double
+		lineageTag: b07dfe95-23e0-4a19-838e-a752d9167994
+		summarizeBy: sum
+		sourceColumn: reviewTurnaroundDays
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column reviewTurnaroundRating
+		dataType: string
+		lineageTag: 9102520a-6e75-4b96-8679-3aaf4ee81efc
+		summarizeBy: none
+		sourceColumn: reviewTurnaroundRating
+
+		annotation SummarizationSetBy = Automatic
+
+	column hasReviewDecision
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: c0734dc2-4ec4-4662-8b8a-2c6b572aa0df
+		summarizeBy: none
+		sourceColumn: hasReviewDecision
+
+		annotation SummarizationSetBy = Automatic
+
+	column isUnreviewedStalePr
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: cb581f54-e4e4-4851-8675-83beecf18b28
+		summarizeBy: none
+		sourceColumn: isUnreviewedStalePr
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Pull Requests Review Turnaround' = m
+		mode: import
+		source =
+				let
+				    Source = PowerBI.Dataflows(null),
+				    #"1d7f83bd-9b20-42de-9fc3-0f113e2024b2" = Source{[workspaceId="1d7f83bd-9b20-42de-9fc3-0f113e2024b2"]}[Data],
+				    #"b4231eab-5517-456d-8f37-6d807330f9c9" = #"1d7f83bd-9b20-42de-9fc3-0f113e2024b2"{[dataflowId="b4231eab-5517-456d-8f37-6d807330f9c9"]}[Data],
+				    #"Pull Requests Review Turnaround1" = #"b4231eab-5517-456d-8f37-6d807330f9c9"{[entity="Pull Requests Review Turnaround"]}[Data]
+				in
+				    #"Pull Requests Review Turnaround1"
+

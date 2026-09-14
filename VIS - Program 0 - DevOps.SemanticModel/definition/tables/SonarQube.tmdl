@@ -1,0 +1,123 @@
+table SonarQube
+	lineageTag: b3546b18-54ef-4133-aeea-c8d21ae8b547
+
+	column portfolio_key
+		dataType: string
+		lineageTag: b0a1feae-1f35-4765-94ec-2f8f366a2510
+		summarizeBy: none
+		sourceColumn: portfolio_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column project_key
+		dataType: string
+		lineageTag: d671e8c4-2e07-4b0f-9948-5f687ceafe35
+		summarizeBy: none
+		sourceColumn: project_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column metric
+		dataType: string
+		lineageTag: 1392420d-d709-4203-9561-36f2888beb43
+		summarizeBy: none
+		sourceColumn: metric
+
+		annotation SummarizationSetBy = Automatic
+
+	column date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: a6021fc4-e10d-48d7-a7fe-b0c0bf5ae70e
+		summarizeBy: none
+		sourceColumn: date
+
+		variation Variation
+			isDefault
+			relationship: 7ad3066f-64fb-4ed5-abda-a1364f0f507f
+			defaultHierarchy: LocalDateTable_81044172-6161-49f2-97d3-7a173eb7df57.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column month
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: fd7a882c-c554-4a6d-8b3f-8e6fbf839f2e
+		summarizeBy: none
+		sourceColumn: month
+
+		variation Variation
+			isDefault
+			relationship: 4f82e1d8-b427-4b0b-abb2-fa4c10a2c482
+			defaultHierarchy: LocalDateTable_037a6220-dbad-4482-acb1-e40dde948a14.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column month_name
+		dataType: string
+		lineageTag: 54894c34-917a-47e2-90a2-3f72a5b21120
+		summarizeBy: none
+		sourceColumn: month_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column year
+		dataType: int64
+		formatString: 0
+		lineageTag: 9810f8ca-6e8f-4cb9-aa85-c0a955e877e0
+		summarizeBy: sum
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column year_month
+		dataType: string
+		lineageTag: ef7cdb3d-ed94-49b8-a681-75d190defc53
+		summarizeBy: none
+		sourceColumn: year_month
+
+		annotation SummarizationSetBy = Automatic
+
+	column sonar_rating
+		dataType: double
+		lineageTag: d892e28f-2db8-439f-939a-0d4e1b295e54
+		summarizeBy: sum
+		sourceColumn: sonar_rating
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column rating_letter
+		dataType: string
+		lineageTag: 04086545-ca7d-43b7-b2b3-f0b011869a86
+		summarizeBy: none
+		sourceColumn: rating_letter
+
+		annotation SummarizationSetBy = Automatic
+
+	column kpi_percent
+		dataType: double
+		lineageTag: c62a5058-9318-42cb-83e5-df02cde25830
+		summarizeBy: sum
+		sourceColumn: kpi_percent
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition SonarQube = m
+		mode: import
+		source =
+				let
+				    Source = PowerBI.Dataflows(null),
+				    #"1d7f83bd-9b20-42de-9fc3-0f113e2024b2" = Source{[workspaceId="1d7f83bd-9b20-42de-9fc3-0f113e2024b2"]}[Data],
+				    #"b4231eab-5517-456d-8f37-6d807330f9c9" = #"1d7f83bd-9b20-42de-9fc3-0f113e2024b2"{[dataflowId="b4231eab-5517-456d-8f37-6d807330f9c9"]}[Data],
+				    SonarQube1 = #"b4231eab-5517-456d-8f37-6d807330f9c9"{[entity="SonarQube"]}[Data]
+				in
+				    SonarQube1
+

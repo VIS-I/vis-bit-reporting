@@ -1,0 +1,73 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "b906077e3a4f0fc859c3",
+  "position": {
+    "x": 741.15501519756845,
+    "y": 0,
+    "z": 6000,
+    "height": 65.167173252279639,
+    "width": 176.048632218845,
+    "tabOrder": 6000
+  },
+  "visual": {
+    "visualType": "slicer",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Messages"
+                    }
+                  },
+                  "Property": "entityType"
+                }
+              },
+              "queryRef": "Messages.entityType",
+              "nativeQueryRef": "Entities",
+              "active": true,
+              "displayName": "Entities"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "data": [
+        {
+          "properties": {
+            "mode": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Dropdown'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "a6684f80e1c0525348e0",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Messages"
+              }
+            },
+            "Property": "entityType"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
+  }
+}

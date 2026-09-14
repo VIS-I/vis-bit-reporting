@@ -1,0 +1,94 @@
+table 'Pull Request Work Items'
+	lineageTag: 764f30d7-dd38-40be-bf49-78a2d23df211
+
+	column extractedAt
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 56187bc1-d63f-47c4-99c7-88e0e6d40766
+		summarizeBy: none
+		sourceColumn: extractedAt
+
+		variation Variation
+			isDefault
+			relationship: 9c6c69db-4a3b-4865-935f-5f84143137d7
+			defaultHierarchy: LocalDateTable_15d43dd9-43f9-4b01-919d-5f3a746aec9a.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column extractedDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 22306c9a-f830-4df2-97dc-12f7d9242b93
+		summarizeBy: none
+		sourceColumn: extractedDate
+
+		variation Variation
+			isDefault
+			relationship: b044577a-9557-4240-a155-ce7a0c219583
+			defaultHierarchy: LocalDateTable_1e3c0008-5fcb-4c88-a643-e779cb4929c4.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column snapshotId
+		dataType: string
+		lineageTag: bb323c6e-12cf-4487-b8c2-f2f0084256be
+		summarizeBy: none
+		sourceColumn: snapshotId
+
+		annotation SummarizationSetBy = Automatic
+
+	column repoId
+		dataType: string
+		lineageTag: bb6fb5a6-d9c6-423a-ab4d-2667d86bd5c5
+		summarizeBy: none
+		sourceColumn: repoId
+
+		annotation SummarizationSetBy = Automatic
+
+	column repoName
+		dataType: string
+		lineageTag: 8f3af960-8cda-4c9f-850f-5c0c7262e041
+		summarizeBy: none
+		sourceColumn: repoName
+
+		annotation SummarizationSetBy = Automatic
+
+	column pullRequestId
+		dataType: int64
+		formatString: 0
+		lineageTag: ce5c029d-d4a2-4ef0-a2e1-6b3fbd70a5d4
+		summarizeBy: none
+		sourceColumn: pullRequestId
+
+		annotation SummarizationSetBy = Automatic
+
+	column workItemId
+		dataType: int64
+		formatString: 0
+		lineageTag: acec8fb5-78c1-4fd0-9b44-7ed629ed9137
+		summarizeBy: count
+		sourceColumn: workItemId
+
+		annotation SummarizationSetBy = Automatic
+
+	column workItemUrl
+		dataType: string
+		lineageTag: 9ee211b8-f1b8-45d1-bb3d-8f899b19202b
+		summarizeBy: none
+		sourceColumn: workItemUrl
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Pull Request Work Items' = m
+		mode: import
+		source =
+				let
+				    Source = PowerBI.Dataflows(null),
+				    #"1d7f83bd-9b20-42de-9fc3-0f113e2024b2" = Source{[workspaceId="1d7f83bd-9b20-42de-9fc3-0f113e2024b2"]}[Data],
+				    #"b4231eab-5517-456d-8f37-6d807330f9c9" = #"1d7f83bd-9b20-42de-9fc3-0f113e2024b2"{[dataflowId="b4231eab-5517-456d-8f37-6d807330f9c9"]}[Data],
+				    #"Pull Request Work Items1" = #"b4231eab-5517-456d-8f37-6d807330f9c9"{[entity="Pull Request Work Items"]}[Data]
+				in
+				    #"Pull Request Work Items1"
+

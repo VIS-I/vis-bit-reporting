@@ -1,0 +1,66 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "19d00dceb63acb5ce52b",
+  "position": {
+    "x": 979.60708390953289,
+    "y": 464.1886960788687,
+    "z": 7000,
+    "height": 53.353793995628315,
+    "width": 274.80858277200338,
+    "tabOrder": 7000
+  },
+  "visual": {
+    "visualType": "multiRowCard",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Pull Requests Review Turnaround"
+                        }
+                      },
+                      "Property": "reviewTurnaroundDays"
+                    }
+                  },
+                  "Function": 6
+                }
+              },
+              "queryRef": "Sum(Pull Requests Review Turnaround.reviewTurnaroundDays)",
+              "nativeQueryRef": "Median of reviewTurnaroundDays"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Aggregation": {
+                "Expression": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "Pull Requests Review Turnaround"
+                      }
+                    },
+                    "Property": "reviewTurnaroundDays"
+                  }
+                },
+                "Function": 6
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

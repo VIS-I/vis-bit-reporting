@@ -1,0 +1,73 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "ac851cb633c7abb6b303",
+  "position": {
+    "x": 474.35294117647061,
+    "y": 0,
+    "z": 6000,
+    "height": 60,
+    "width": 201.25,
+    "tabOrder": 6000
+  },
+  "visual": {
+    "visualType": "slicer",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Pull Requests"
+                    }
+                  },
+                  "Property": "area"
+                }
+              },
+              "queryRef": "Pull Requests.area",
+              "nativeQueryRef": "Area",
+              "active": true,
+              "displayName": "Area"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "data": [
+        {
+          "properties": {
+            "mode": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Dropdown'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "22a693077d30748c9637",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Pull Requests"
+              }
+            },
+            "Property": "area"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
+  }
+}

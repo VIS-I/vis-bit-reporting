@@ -1,0 +1,170 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "fcd0fbcfd2b94f775fa5",
+  "position": {
+    "x": 10,
+    "y": 374,
+    "z": 0,
+    "height": 346,
+    "width": 1270,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "pivotTable",
+    "query": {
+      "queryState": {
+        "Columns": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Messages"
+                    }
+                  },
+                  "Property": "environment"
+                }
+              },
+              "queryRef": "Messages.environment",
+              "nativeQueryRef": "environment",
+              "active": true
+            }
+          ]
+        },
+        "Rows": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Messages"
+                    }
+                  },
+                  "Property": "entityName"
+                }
+              },
+              "queryRef": "Messages.entityName",
+              "nativeQueryRef": "entityName",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Messages"
+                    }
+                  },
+                  "Property": "subscription"
+                }
+              },
+              "queryRef": "Messages.subscription",
+              "nativeQueryRef": "subscription",
+              "active": false
+            }
+          ]
+        },
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Messages"
+                        }
+                      },
+                      "Property": "messages"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(Messages.messages)",
+              "nativeQueryRef": "# messages",
+              "displayName": "# messages"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Messages"
+                        }
+                      },
+                      "Property": "deadLetters"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(Messages.deadLetters)",
+              "nativeQueryRef": "# deadLetters",
+              "displayName": "# deadLetters"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Messages"
+                  }
+                },
+                "Property": "entityName"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ]
+      }
+    },
+    "expansionStates": [
+      {
+        "roles": [
+          "Rows"
+        ],
+        "levels": [
+          {
+            "queryRefs": [
+              "Messages.entityName"
+            ],
+            "isCollapsed": true,
+            "identityKeys": [
+              {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Messages"
+                    }
+                  },
+                  "Property": "entityName"
+                }
+              }
+            ],
+            "isPinned": true
+          },
+          {
+            "queryRefs": [
+              "Messages.subscription"
+            ],
+            "isCollapsed": true,
+            "isPinned": true
+          }
+        ],
+        "root": {}
+      }
+    ],
+    "drillFilterOtherVisuals": true
+  }
+}

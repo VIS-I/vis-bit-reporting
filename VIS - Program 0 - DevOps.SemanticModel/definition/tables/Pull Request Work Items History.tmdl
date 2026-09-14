@@ -1,0 +1,184 @@
+table 'Pull Request Work Items History'
+	lineageTag: d2abfeb8-305a-4370-a9ea-79b0680c59b4
+
+	column Name
+		dataType: string
+		lineageTag: d06b846e-3321-4d39-94b4-9cb040c5a308
+		summarizeBy: none
+		sourceColumn: Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Extension
+		dataType: string
+		lineageTag: d7194ea8-e17e-40d7-a6e7-d71e5161e466
+		summarizeBy: none
+		sourceColumn: Extension
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Date accessed'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 413011b0-1542-4e3b-93db-5696f0cce299
+		summarizeBy: none
+		sourceColumn: Date accessed
+
+		variation Variation
+			isDefault
+			relationship: 90e23997-cc59-462c-8ae3-f6660412c49c
+			defaultHierarchy: LocalDateTable_137fde82-3204-4060-b727-a50cfdaf8a7b.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Date modified'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 27bf841b-0415-4761-9605-c9012864928d
+		summarizeBy: none
+		sourceColumn: Date modified
+
+		variation Variation
+			isDefault
+			relationship: d6feb2b2-2281-4226-b542-4783f6cac9a6
+			defaultHierarchy: LocalDateTable_7e743497-2ff3-4820-ab75-496cd8e5104e.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Date created'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 0e35dd17-f30c-40cf-bf8f-a5e550ac2bdb
+		summarizeBy: none
+		sourceColumn: Date created
+
+		variation Variation
+			isDefault
+			relationship: 65cfaa41-7459-4aa0-938c-0886011ae24a
+			defaultHierarchy: LocalDateTable_67019c7b-2fdb-4170-82b6-e008a5e8c8d0.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Folder Path'
+		dataType: string
+		lineageTag: 72fff548-b0cc-484b-bd80-e68a086368df
+		summarizeBy: none
+		sourceColumn: Folder Path
+
+		annotation SummarizationSetBy = Automatic
+
+	column snapshotDateText
+		dataType: string
+		lineageTag: e0267859-4389-4fa9-b6c1-dec1829e726f
+		summarizeBy: none
+		sourceColumn: snapshotDateText
+
+		annotation SummarizationSetBy = Automatic
+
+	column snapshotDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 8c5567cc-0383-42cd-929a-c71d63176654
+		summarizeBy: none
+		sourceColumn: snapshotDate
+
+		variation Variation
+			isDefault
+			relationship: 866772ac-c3e6-46e8-9b23-f627e3de769e
+			defaultHierarchy: LocalDateTable_dc5103f3-3711-4ea6-aed1-5d98f885225c.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column extractedAt
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 6e1a28bc-2d16-479f-ba5d-4624d12ecbf9
+		summarizeBy: none
+		sourceColumn: extractedAt
+
+		variation Variation
+			isDefault
+			relationship: eb2d5527-e2f9-4569-9301-eb7adc8c8ae6
+			defaultHierarchy: LocalDateTable_10f6db12-49ff-4d87-b923-73cda19bcdba.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column extractedDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 7eae18b3-ce44-4ed6-86c6-50cdcf4f060f
+		summarizeBy: none
+		sourceColumn: extractedDate
+
+		variation Variation
+			isDefault
+			relationship: 2669c808-6282-4eb2-a0c0-b55f17f1ef5c
+			defaultHierarchy: LocalDateTable_ba0933f7-a786-47b8-88a2-114b8bd00e6c.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column snapshotId
+		dataType: string
+		lineageTag: 565814d2-1561-4aa2-a5e8-9d3741a7ecb1
+		summarizeBy: none
+		sourceColumn: snapshotId
+
+		annotation SummarizationSetBy = Automatic
+
+	column repoId
+		dataType: string
+		lineageTag: a776ba50-1197-4629-91ad-c37d92deeeb9
+		summarizeBy: none
+		sourceColumn: repoId
+
+		annotation SummarizationSetBy = Automatic
+
+	column repoName
+		dataType: string
+		lineageTag: 2cdf8301-cfb8-4542-a74f-e1cc1c55d043
+		summarizeBy: none
+		sourceColumn: repoName
+
+		annotation SummarizationSetBy = Automatic
+
+	column pullRequestId
+		dataType: int64
+		formatString: 0
+		lineageTag: ca593611-27b2-4344-9b2b-cf3cda942b0b
+		summarizeBy: none
+		sourceColumn: pullRequestId
+
+		annotation SummarizationSetBy = Automatic
+
+	column workItemId
+		dataType: int64
+		formatString: 0
+		lineageTag: b47cc591-7ab3-4b21-a204-316a59078b65
+		summarizeBy: count
+		sourceColumn: workItemId
+
+		annotation SummarizationSetBy = Automatic
+
+	column workItemUrl
+		dataType: string
+		lineageTag: 05208f7c-671d-4fb9-a3ae-57acb4a716a6
+		summarizeBy: none
+		sourceColumn: workItemUrl
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Pull Request Work Items History' = m
+		mode: import
+		source =
+				let
+				    Source = PowerBI.Dataflows(null),
+				    #"1d7f83bd-9b20-42de-9fc3-0f113e2024b2" = Source{[workspaceId="1d7f83bd-9b20-42de-9fc3-0f113e2024b2"]}[Data],
+				    #"b4231eab-5517-456d-8f37-6d807330f9c9" = #"1d7f83bd-9b20-42de-9fc3-0f113e2024b2"{[dataflowId="b4231eab-5517-456d-8f37-6d807330f9c9"]}[Data],
+				    #"Pull Request Work Items History1" = #"b4231eab-5517-456d-8f37-6d807330f9c9"{[entity="Pull Request Work Items History"]}[Data]
+				in
+				    #"Pull Request Work Items History1"
+

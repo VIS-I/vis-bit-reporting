@@ -1,0 +1,197 @@
+relationship c4aa1000-e06b-43a9-9785-c6b60a9efdfd
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Deployments.deploymentDate
+	toColumn: LocalDateTable_5a5934d2-66c5-4ae3-af2f-bf1a87eb5ebd.Date
+
+relationship e1704ee7-ca54-4e8a-9ea9-223b919e965b
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Deployments.deploymentTime
+	toColumn: LocalDateTable_f46a9ca5-b3c4-49b5-964d-36f131934921.Date
+
+relationship a29bdeb7-4f5f-4434-839a-1fd550e0ef0a
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Deployments.tagCreationTime
+	toColumn: LocalDateTable_bc40b234-8dfb-4414-a921-3cbc7dfcca7b.Date
+
+relationship 2f299908-aa5b-4cf8-83b3-b20f0df341f7
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Pull Requests'.creationDate
+	toColumn: LocalDateTable_819473f0-1341-40f4-8159-86363e1469de.Date
+
+relationship c1d9349a-0192-409d-a599-4be441e63be4
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Pull Requests'.closedDate
+	toColumn: LocalDateTable_85c92b4f-912a-42b9-877b-eed2eaf6559b.Date
+
+relationship 41ff32d7-4eb9-4a6b-a8e4-ef4ffd54af81
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Commits.authorDate
+	toColumn: LocalDateTable_a5482fcc-a50a-4b98-9050-96983a1b1fc7.Date
+
+relationship 6f150db7-b6c1-413e-9ab3-388d2dbaacda
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Commits.committerDate
+	toColumn: LocalDateTable_cfcf17c1-405d-4c02-8730-dd87213a911e.Date
+
+relationship a0d7e2c5-5c94-4239-a298-0b745bbf4af3
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Kalender.Date
+	toColumn: LocalDateTable_3c4567d3-6a95-49b5-a29f-e971cb149c00.Date
+
+relationship b9105219-c6e6-4638-91d6-39fa977b776e
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Pull Requests'.extractedAt
+	toColumn: LocalDateTable_b1a2f12a-c20f-4ec0-abca-96aa24405f6a.Date
+
+relationship 26698d70-6545-420f-98dd-81b116adde42
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Pull Requests'.extractedDate
+	toColumn: LocalDateTable_e648805b-fab3-4767-8688-de971d251c19.Date
+
+relationship 24e76931-2343-488d-b937-cd63c8dc9ae5
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Pull Requests Review Turnaround History'.snapshotDate
+	toColumn: LocalDateTable_2b694ff6-5cfd-41c4-8373-105b7635a957.Date
+
+relationship 3b5647cb-bacb-404d-aaf7-d698a3c18cbe
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Pull Requests Review Turnaround History'.extractedAt
+	toColumn: LocalDateTable_37cc6c25-7eb0-46b2-9204-82ffef2ab7f1.Date
+
+relationship 24dba534-461c-419c-ab71-49da35d545a5
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Pull Requests Review Turnaround History'.creationDate
+	toColumn: LocalDateTable_a17b600f-cd26-4d47-ab5b-afa76af1ba02.Date
+
+relationship 955d64d1-aa23-4db1-b497-1ad5a0b9706a
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Pull Requests Review Turnaround History'.closedDate
+	toColumn: LocalDateTable_85ed67fc-dabd-48a8-b488-88684578b549.Date
+
+relationship b5002657-7e67-4f54-9327-4b61b26d751c
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Pull Requests Review Turnaround'.extractedAt
+	toColumn: LocalDateTable_500f9100-c272-4700-863d-838add824108.Date
+
+relationship 500026c0-6cde-4f47-8fbf-978f94306685
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Pull Requests Review Turnaround'.creationDate
+	toColumn: LocalDateTable_5eb0ec69-53b6-4a6d-aabd-2accfa1a5e3b.Date
+
+relationship 59c926e7-2fd4-4b41-820a-1ec771c2daf8
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Pull Requests Review Turnaround'.closedDate
+	toColumn: LocalDateTable_fefe11d4-69ca-47c1-b305-c1ac8400ed35.Date
+
+relationship 5ec29808-3c15-4318-b91f-4ffd343a8f79
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Pull Requests History'.'Date accessed'
+	toColumn: LocalDateTable_fbd94a03-93fb-4b72-9979-1573d2cbfe1b.Date
+
+relationship c21fcbfe-7715-4beb-a54a-6226af91cca2
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Pull Requests History'.'Date modified'
+	toColumn: LocalDateTable_5bf79563-7157-45a8-a9fb-323f0861e297.Date
+
+relationship 90d20463-5520-49e9-9934-5b53fa7a09aa
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Pull Requests History'.'Date created'
+	toColumn: LocalDateTable_b97c71e8-ea45-437c-8af0-3f6e8e51e199.Date
+
+relationship 6c64d46c-ee04-402e-bd84-01f6b50f8920
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Pull Requests History'.snapshotDate
+	toColumn: LocalDateTable_5ee9d00d-6619-4410-acaa-08f67d010c20.Date
+
+relationship c40408e7-29cf-4570-835d-8a678eaf9817
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Pull Requests History'.extractedAt
+	toColumn: LocalDateTable_be3fcec2-912c-4fc6-a54d-e88d04c8aea0.Date
+
+relationship e3851dc6-9cb5-4fc5-bcb5-6e5e991fedfe
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Pull Requests History'.extractedDate
+	toColumn: LocalDateTable_ad53f9c8-f693-47cc-b561-f2451941011e.Date
+
+relationship 8f8324ea-4432-4aaf-b799-31932a742415
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Pull Requests History'.creationDate
+	toColumn: LocalDateTable_a665822f-97b1-4653-acc5-dbd1832c113b.Date
+
+relationship b072edd2-8c0b-4d6b-abc3-d2da9a2cd25b
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Pull Requests History'.closedDate
+	toColumn: LocalDateTable_03536580-4833-4f0d-b89e-3161fb3b60a2.Date
+
+relationship 9c6c69db-4a3b-4865-935f-5f84143137d7
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Pull Request Work Items'.extractedAt
+	toColumn: LocalDateTable_15d43dd9-43f9-4b01-919d-5f3a746aec9a.Date
+
+relationship b044577a-9557-4240-a155-ce7a0c219583
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Pull Request Work Items'.extractedDate
+	toColumn: LocalDateTable_1e3c0008-5fcb-4c88-a643-e779cb4929c4.Date
+
+relationship 90e23997-cc59-462c-8ae3-f6660412c49c
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Pull Request Work Items History'.'Date accessed'
+	toColumn: LocalDateTable_137fde82-3204-4060-b727-a50cfdaf8a7b.Date
+
+relationship d6feb2b2-2281-4226-b542-4783f6cac9a6
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Pull Request Work Items History'.'Date modified'
+	toColumn: LocalDateTable_7e743497-2ff3-4820-ab75-496cd8e5104e.Date
+
+relationship 65cfaa41-7459-4aa0-938c-0886011ae24a
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Pull Request Work Items History'.'Date created'
+	toColumn: LocalDateTable_67019c7b-2fdb-4170-82b6-e008a5e8c8d0.Date
+
+relationship 866772ac-c3e6-46e8-9b23-f627e3de769e
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Pull Request Work Items History'.snapshotDate
+	toColumn: LocalDateTable_dc5103f3-3711-4ea6-aed1-5d98f885225c.Date
+
+relationship eb2d5527-e2f9-4569-9301-eb7adc8c8ae6
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Pull Request Work Items History'.extractedAt
+	toColumn: LocalDateTable_10f6db12-49ff-4d87-b923-73cda19bcdba.Date
+
+relationship 2669c808-6282-4eb2-a0c0-b55f17f1ef5c
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Pull Request Work Items History'.extractedDate
+	toColumn: LocalDateTable_ba0933f7-a786-47b8-88a2-114b8bd00e6c.Date
+
+relationship 7ad3066f-64fb-4ed5-abda-a1364f0f507f
+	joinOnDateBehavior: datePartOnly
+	fromColumn: SonarQube.date
+	toColumn: LocalDateTable_81044172-6161-49f2-97d3-7a173eb7df57.Date
+
+relationship 4f82e1d8-b427-4b0b-abb2-fa4c10a2c482
+	joinOnDateBehavior: datePartOnly
+	fromColumn: SonarQube.month
+	toColumn: LocalDateTable_037a6220-dbad-4482-acb1-e40dde948a14.Date
+
+relationship AutoDetected_fb90e97c-f08f-4b07-92b7-d05276456943
+	fromColumn: 'Pull Requests Review Turnaround History'.pullRequestId
+	toColumn: 'Pull Requests'.pullRequestId
+
+relationship AutoDetected_4d8e5ed6-8d68-4c2f-86e1-958079a73429
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: 'Pull Requests Review Turnaround'.pullRequestId
+	toColumn: 'Pull Requests'.pullRequestId
+
+relationship AutoDetected_18c2e698-4110-4e6a-af6d-56b3c35abab3
+	fromColumn: 'Pull Requests History'.pullRequestId
+	toColumn: 'Pull Requests'.pullRequestId
+
+relationship AutoDetected_dce5e71e-a66f-4de1-b236-d5ee56a9bd9b
+	fromColumn: 'Pull Request Work Items'.pullRequestId
+	toColumn: 'Pull Requests'.pullRequestId
+
+relationship AutoDetected_93705990-e114-414c-809e-31735393a650
+	fromColumn: 'Pull Request Work Items History'.pullRequestId
+	toColumn: 'Pull Requests'.pullRequestId
+

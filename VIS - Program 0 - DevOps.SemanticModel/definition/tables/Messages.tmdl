@@ -1,0 +1,82 @@
+table Messages
+	lineageTag: ca2bb6bc-2242-499c-9e41-db6903cbcdca
+
+	column environment
+		dataType: string
+		lineageTag: 1ff62c07-3cec-4f95-a4d4-8621557f82a0
+		summarizeBy: none
+		sourceColumn: environment
+
+		annotation SummarizationSetBy = Automatic
+
+	column locationCode
+		dataType: string
+		lineageTag: 97fc5e95-0fca-41a1-a440-0cd4c7e35e83
+		summarizeBy: none
+		sourceColumn: locationCode
+
+		annotation SummarizationSetBy = Automatic
+
+	column entityType
+		dataType: string
+		lineageTag: f0738936-6d67-4a02-9d81-bc7ca8fb2d27
+		summarizeBy: none
+		sourceColumn: entityType
+
+		annotation SummarizationSetBy = Automatic
+
+	column entityName
+		dataType: string
+		lineageTag: c7aedc7d-ec17-4743-b4c9-66b2a59703ce
+		summarizeBy: none
+		sourceColumn: entityName
+
+		annotation SummarizationSetBy = Automatic
+
+	column subscription
+		dataType: string
+		lineageTag: 210e21f5-a9ef-48ef-8e55-d669f35cc6d4
+		summarizeBy: none
+		sourceColumn: subscription
+
+		annotation SummarizationSetBy = Automatic
+
+	column deadLetters
+		dataType: int64
+		formatString: 0
+		lineageTag: 7379f51f-ed92-43b3-a93d-867aeda9bfb0
+		summarizeBy: sum
+		sourceColumn: deadLetters
+
+		annotation SummarizationSetBy = Automatic
+
+	column messages
+		dataType: int64
+		formatString: 0
+		lineageTag: 3bba4c62-29c2-4f69-a731-c1c3d3243b91
+		summarizeBy: sum
+		sourceColumn: messages
+
+		annotation SummarizationSetBy = Automatic
+
+	column area
+		dataType: string
+		lineageTag: 4847793f-99b9-4357-bc6a-d77bb4bd211e
+		summarizeBy: none
+		sourceColumn: area
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Messages = m
+		mode: import
+		source =
+				let
+				    Source = PowerBI.Dataflows(null),
+				    Workspace = Source{[workspaceId="1d7f83bd-9b20-42de-9fc3-0f113e2024b2"]}[Data],
+				    Repos = Workspace{[dataflowId="b4231eab-5517-456d-8f37-6d807330f9c9"]}[Data],
+				    Messages = Repos{[entity="ServiceBus Messages"]}[Data]
+				in
+				    Messages
+
+	annotation PBI_ResultType = Table
+

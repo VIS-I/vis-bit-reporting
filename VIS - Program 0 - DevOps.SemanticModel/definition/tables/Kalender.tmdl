@@ -1,0 +1,66 @@
+table Kalender
+	lineageTag: e161a72e-e14b-4b75-ac08-63c2e60de379
+
+	column Date
+		formatString: General Date
+		lineageTag: c2ef6f24-eaba-4b25-b436-66f288fb4723
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		variation Variation
+			isDefault
+			relationship: a0d7e2c5-5c94-4239-a298-0b745bbf4af3
+			defaultHierarchy: LocalDateTable_3c4567d3-6a95-49b5-a29f-e971cb149c00.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		formatString: 0
+		lineageTag: 21b30d8d-228c-4532-9a78-fe66eae5e038
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Year]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month
+		formatString: 0
+		lineageTag: 8e07fdbe-ff13-4c52-9dc3-3a47bb2cf385
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Month]
+
+		annotation SummarizationSetBy = Automatic
+
+	column YYYY-MM
+		lineageTag: 177f9eb6-d672-4da8-a9b0-fc41fc90e111
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [YYYY-MM]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Day
+		formatString: 0
+		lineageTag: dce55734-dc93-4f1e-87e8-89c9394ae3b2
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Day]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Kalender = calculated
+		mode: import
+		source =
+				
+				ADDCOLUMNS(
+				    CALENDAR(DATE(2024,1,1), TODAY()),
+				    "Year", YEAR([Date]),
+				    "Month", MONTH([Date]),
+				    "YYYY-MM", FORMAT([Date], "YYYY-MM"),
+				    "Day", DAY([Date])
+				)
+
+	annotation PBI_Id = 621f65f3714b40b7868d6eef61510053
+

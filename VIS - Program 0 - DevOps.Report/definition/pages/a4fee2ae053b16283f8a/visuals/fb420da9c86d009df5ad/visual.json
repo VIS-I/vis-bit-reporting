@@ -1,0 +1,85 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "fb420da9c86d009df5ad",
+  "position": {
+    "x": 340,
+    "y": 141,
+    "z": 2000,
+    "height": 233,
+    "width": 312,
+    "tabOrder": 2000
+  },
+  "visual": {
+    "visualType": "pieChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Messages"
+                    }
+                  },
+                  "Property": "environment"
+                }
+              },
+              "queryRef": "Messages.environment",
+              "nativeQueryRef": "environment",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Messages"
+                        }
+                      },
+                      "Property": "deadLetters"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(Messages.deadLetters)",
+              "nativeQueryRef": "Summe von deadLetters"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Aggregation": {
+                "Expression": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "Messages"
+                      }
+                    },
+                    "Property": "deadLetters"
+                  }
+                },
+                "Function": 0
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

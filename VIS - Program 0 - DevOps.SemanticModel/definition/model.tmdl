@@ -1,0 +1,64 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: de-DE
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["Deployments","Messages","Commits","Pull Requests","Pull Requests Review Turnaround History","Pull Requests Review Turnaround","Pull Requests History","Pull Request Work Items","Pull Request Work Items History","SonarQube"]
+
+annotation PBI_ProTooling = ["WebModelingEdit","DevMode","TMDL-Extension"]
+
+ref table Deployments
+ref table DateTableTemplate_60fa8379-1e8b-44d1-a6b3-f7b52f401641
+ref table LocalDateTable_5a5934d2-66c5-4ae3-af2f-bf1a87eb5ebd
+ref table LocalDateTable_f46a9ca5-b3c4-49b5-964d-36f131934921
+ref table LocalDateTable_bc40b234-8dfb-4414-a921-3cbc7dfcca7b
+ref table Messages
+ref table 'Pull Requests'
+ref table LocalDateTable_819473f0-1341-40f4-8159-86363e1469de
+ref table LocalDateTable_85c92b4f-912a-42b9-877b-eed2eaf6559b
+ref table Commits
+ref table LocalDateTable_a5482fcc-a50a-4b98-9050-96983a1b1fc7
+ref table LocalDateTable_cfcf17c1-405d-4c02-8730-dd87213a911e
+ref table Kalender
+ref table LocalDateTable_3c4567d3-6a95-49b5-a29f-e971cb149c00
+ref table LocalDateTable_b1a2f12a-c20f-4ec0-abca-96aa24405f6a
+ref table LocalDateTable_e648805b-fab3-4767-8688-de971d251c19
+ref table 'Pull Requests Review Turnaround History'
+ref table LocalDateTable_2b694ff6-5cfd-41c4-8373-105b7635a957
+ref table LocalDateTable_37cc6c25-7eb0-46b2-9204-82ffef2ab7f1
+ref table LocalDateTable_a17b600f-cd26-4d47-ab5b-afa76af1ba02
+ref table LocalDateTable_85ed67fc-dabd-48a8-b488-88684578b549
+ref table 'Pull Requests Review Turnaround'
+ref table LocalDateTable_500f9100-c272-4700-863d-838add824108
+ref table LocalDateTable_5eb0ec69-53b6-4a6d-aabd-2accfa1a5e3b
+ref table LocalDateTable_fefe11d4-69ca-47c1-b305-c1ac8400ed35
+ref table 'Pull Requests History'
+ref table LocalDateTable_fbd94a03-93fb-4b72-9979-1573d2cbfe1b
+ref table LocalDateTable_5bf79563-7157-45a8-a9fb-323f0861e297
+ref table LocalDateTable_b97c71e8-ea45-437c-8af0-3f6e8e51e199
+ref table LocalDateTable_5ee9d00d-6619-4410-acaa-08f67d010c20
+ref table LocalDateTable_be3fcec2-912c-4fc6-a54d-e88d04c8aea0
+ref table LocalDateTable_ad53f9c8-f693-47cc-b561-f2451941011e
+ref table LocalDateTable_a665822f-97b1-4653-acc5-dbd1832c113b
+ref table LocalDateTable_03536580-4833-4f0d-b89e-3161fb3b60a2
+ref table 'Pull Request Work Items'
+ref table LocalDateTable_15d43dd9-43f9-4b01-919d-5f3a746aec9a
+ref table LocalDateTable_1e3c0008-5fcb-4c88-a643-e779cb4929c4
+ref table 'Pull Request Work Items History'
+ref table LocalDateTable_137fde82-3204-4060-b727-a50cfdaf8a7b
+ref table LocalDateTable_7e743497-2ff3-4820-ab75-496cd8e5104e
+ref table LocalDateTable_67019c7b-2fdb-4170-82b6-e008a5e8c8d0
+ref table LocalDateTable_dc5103f3-3711-4ea6-aed1-5d98f885225c
+ref table LocalDateTable_10f6db12-49ff-4d87-b923-73cda19bcdba
+ref table LocalDateTable_ba0933f7-a786-47b8-88a2-114b8bd00e6c
+ref table SonarQube
+ref table LocalDateTable_81044172-6161-49f2-97d3-7a173eb7df57
+ref table LocalDateTable_037a6220-dbad-4482-acb1-e40dde948a14
+
+ref cultureInfo en-US
+

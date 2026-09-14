@@ -1,0 +1,224 @@
+table Deployments
+	lineageTag: 77ec785c-e22d-448e-a8e3-07c03f895d32
+
+	measure 'Average Deployment Age (Days)' =
+			
+			AVERAGE ( Deployments[daysDeployedAgo] )
+		formatString: 0
+		lineageTag: dabba8c1-789e-48ca-8922-2572d53eb2a3
+
+	measure 'Deployment Age Target (Days)' = 60
+		formatString: 0
+		lineageTag: 18e2a34b-79df-409b-b9e2-a3a4cd22dfc2
+
+	measure 'Deployment Health Status' =
+			
+			VAR DeploymentAge = [Average Deployment Age (Days)]
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        ISBLANK ( DeploymentAge ), "No deployment data",
+			        DeploymentAge < 60, "Green",
+			        DeploymentAge <= 90, "Orange",
+			        "Red"
+			    )
+		lineageTag: 61fb6f36-04ff-4c5e-8c0a-6e7f0327f4b0
+
+	measure 'Deployment Health Color' =
+			
+			SWITCH (
+			    [Deployment Health Status],
+			    "Green", "#107C10",
+			    "Orange", "#FF8C00",
+			    "Red", "#D13438",
+			    "#808080"
+			)
+		lineageTag: d2da26d7-b4de-48de-9cf9-e1e3ecddafd3
+
+	column instance
+		dataType: string
+		lineageTag: b7ffbc3e-7737-454d-8c44-7be108e08098
+		summarizeBy: none
+		sourceColumn: instance
+
+		annotation SummarizationSetBy = Automatic
+
+	column environment
+		dataType: string
+		lineageTag: 4cd841d8-75c2-4649-8c1b-47439b0f9dda
+		summarizeBy: none
+		sourceColumn: environment
+
+		annotation SummarizationSetBy = Automatic
+
+	column locationCode
+		dataType: string
+		lineageTag: f0e18cf7-0a06-4c72-8618-88ce69656fbc
+		summarizeBy: none
+		sourceColumn: locationCode
+
+		annotation SummarizationSetBy = Automatic
+
+	column serviceName
+		dataType: string
+		lineageTag: 34d2e6b7-c1f9-4393-b065-63d8a5574beb
+		summarizeBy: none
+		sourceColumn: serviceName
+
+		annotation SummarizationSetBy = Automatic
+
+	column serviceVersion
+		dataType: string
+		lineageTag: 2b88feaa-696e-425e-8a0d-1968040b70e0
+		summarizeBy: none
+		sourceColumn: serviceVersion
+
+		annotation SummarizationSetBy = Automatic
+
+	column deploymentDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 0f7876b2-b57c-4d9f-ada1-b572375c2535
+		summarizeBy: none
+		sourceColumn: deploymentDate
+
+		variation Variation
+			isDefault
+			relationship: c4aa1000-e06b-43a9-9785-c6b60a9efdfd
+			defaultHierarchy: LocalDateTable_5a5934d2-66c5-4ae3-af2f-bf1a87eb5ebd.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column deploymentTime
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 62ff5143-968a-4799-b870-f61e9f1c6430
+		summarizeBy: none
+		sourceColumn: deploymentTime
+
+		variation Variation
+			isDefault
+			relationship: e1704ee7-ca54-4e8a-9ea9-223b919e965b
+			defaultHierarchy: LocalDateTable_f46a9ca5-b3c4-49b5-964d-36f131934921.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column tagCreationTime
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 9c69f464-4126-4262-92cc-5dee4636483e
+		summarizeBy: none
+		sourceColumn: tagCreationTime
+
+		variation Variation
+			isDefault
+			relationship: a29bdeb7-4f5f-4434-839a-1fd550e0ef0a
+			defaultHierarchy: LocalDateTable_bc40b234-8dfb-4414-a921-3cbc7dfcca7b.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column latestVersion
+		dataType: string
+		lineageTag: 6647f816-cf75-47a9-a37b-5f06439611c2
+		summarizeBy: none
+		sourceColumn: latestVersion
+
+		annotation SummarizationSetBy = Automatic
+
+	column isLatestVersionDeployed
+		dataType: string
+		lineageTag: a785d4a6-4080-4364-a371-eabe91e30d3b
+		summarizeBy: none
+		sourceColumn: isLatestVersionDeployed
+
+		annotation SummarizationSetBy = Automatic
+
+	column daysCreatedToDeployed
+		dataType: int64
+		formatString: 0
+		lineageTag: fed8c4ac-ff40-44aa-b550-23910b8607cc
+		summarizeBy: sum
+		sourceColumn: daysCreatedToDeployed
+
+		annotation SummarizationSetBy = Automatic
+
+	column status
+		dataType: string
+		lineageTag: e2779028-0df0-4baa-bdab-e4cbd84d0a7c
+		summarizeBy: none
+		sourceColumn: status
+
+		annotation SummarizationSetBy = Automatic
+
+	column platform
+		dataType: string
+		lineageTag: a78dfdf4-f846-4ebd-8ffb-c8e22826bd09
+		summarizeBy: none
+		sourceColumn: platform
+
+		annotation SummarizationSetBy = Automatic
+
+	column source
+		dataType: string
+		lineageTag: 7c37323c-7aed-406f-948d-19245cb6a3e0
+		summarizeBy: none
+		sourceColumn: source
+
+		annotation SummarizationSetBy = Automatic
+
+	column daysDeployedAgo
+		dataType: int64
+		formatString: 0
+		lineageTag: f2cf3181-e29b-4ec9-8b69-2732a2e61e68
+		summarizeBy: sum
+		sourceColumn: daysDeployedAgo
+
+		annotation SummarizationSetBy = Automatic
+
+	column area
+		dataType: string
+		lineageTag: db27edc9-7fcd-4235-997d-11fd9abd586d
+		summarizeBy: none
+		sourceColumn: area
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Deployment Health' =
+			
+			SWITCH (
+			    TRUE (),
+			    ISBLANK ( [daysDeployedAgo] ), "No deployment data",
+			    [daysDeployedAgo] < 60, "Green",
+			    [daysDeployedAgo] <= 90, "Orange",
+			    "Red"
+			)
+		lineageTag: 2ba5f339-c4e6-417c-a935-3ee6f1d5e5cd
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Compliance Status'
+		dataType: string
+		lineageTag: 5eed5d06-11e3-4ea3-b8c3-e47a0e6de33b
+		summarizeBy: none
+		sourceColumn: Compliance Status
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Deployments = m
+		mode: import
+		source =
+				let
+				    Source = PowerBI.Dataflows(null),
+				    Workspace = Source{[workspaceId="1d7f83bd-9b20-42de-9fc3-0f113e2024b2"]}[Data],
+				    Repos = Workspace{[dataflowId="b4231eab-5517-456d-8f37-6d807330f9c9"]}[Data],
+				    Deployments = Repos{[entity="Deployments"]}[Data],
+				    WithComplianceStatus = Table.AddColumn(Deployments, "Compliance Status", each
+				        if [daysDeployedAgo] <> null and [daysDeployedAgo] < 60 then "Compliant" else "Non-compliant", type text)
+				in
+				    WithComplianceStatus
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

@@ -1,0 +1,220 @@
+table 'Pull Requests Review Turnaround History'
+	lineageTag: ba12c608-aa68-4f78-9d75-7a44c0d76e85
+
+	column snapshotDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 5d11aab8-0af9-4a6d-bba9-d7027ca4fcee
+		summarizeBy: none
+		sourceColumn: snapshotDate
+
+		variation Variation
+			isDefault
+			relationship: 24e76931-2343-488d-b937-cd63c8dc9ae5
+			defaultHierarchy: LocalDateTable_2b694ff6-5cfd-41c4-8373-105b7635a957.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column extractedAt
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 564154d7-626d-47ef-90a0-c210d15ebc19
+		summarizeBy: none
+		sourceColumn: extractedAt
+
+		variation Variation
+			isDefault
+			relationship: 3b5647cb-bacb-404d-aaf7-d698a3c18cbe
+			defaultHierarchy: LocalDateTable_37cc6c25-7eb0-46b2-9204-82ffef2ab7f1.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column repoName
+		dataType: string
+		lineageTag: c00d3fdb-93c9-4d11-8681-c98a64d05f4f
+		summarizeBy: none
+		sourceColumn: repoName
+
+		annotation SummarizationSetBy = Automatic
+
+	column area
+		dataType: string
+		lineageTag: ac7959f0-dee9-483e-a307-cd7617a8654a
+		summarizeBy: none
+		sourceColumn: area
+
+		annotation SummarizationSetBy = Automatic
+
+	column pullRequestId
+		dataType: int64
+		formatString: 0
+		lineageTag: 49894f65-4530-41c1-8594-2a0e605284d4
+		summarizeBy: none
+		sourceColumn: pullRequestId
+
+		annotation SummarizationSetBy = Automatic
+
+	column status
+		dataType: string
+		lineageTag: 2a5a5f25-2063-496d-b846-418a345088b5
+		summarizeBy: none
+		sourceColumn: status
+
+		annotation SummarizationSetBy = Automatic
+
+	column sourceRefName
+		dataType: string
+		lineageTag: 3353c6c8-75f2-4f30-8893-99ee653b97e4
+		summarizeBy: none
+		sourceColumn: sourceRefName
+
+		annotation SummarizationSetBy = Automatic
+
+	column sourceBranchName
+		dataType: string
+		lineageTag: 3f8ced39-7754-4311-b3c2-12e060f91d07
+		summarizeBy: none
+		sourceColumn: sourceBranchName
+
+		annotation SummarizationSetBy = Automatic
+
+	column isDraft
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 4d5a8c96-df7b-4a6b-87cc-ef464892f482
+		summarizeBy: none
+		sourceColumn: isDraft
+
+		annotation SummarizationSetBy = Automatic
+
+	column reviewerCount
+		dataType: int64
+		formatString: 0
+		lineageTag: 4bbabeb1-59fb-465a-8df2-9f6259427de7
+		summarizeBy: sum
+		sourceColumn: reviewerCount
+
+		annotation SummarizationSetBy = Automatic
+
+	column approvedReviewerCount
+		dataType: int64
+		formatString: 0
+		lineageTag: f0fb8807-e297-415c-8fb7-bc83b992ce41
+		summarizeBy: sum
+		sourceColumn: approvedReviewerCount
+
+		annotation SummarizationSetBy = Automatic
+
+	column rejectedReviewerCount
+		dataType: int64
+		formatString: 0
+		lineageTag: 34535e8e-bbcf-447a-9fdd-c7af45d0068b
+		summarizeBy: sum
+		sourceColumn: rejectedReviewerCount
+
+		annotation SummarizationSetBy = Automatic
+
+	column waitingReviewerCount
+		dataType: int64
+		formatString: 0
+		lineageTag: 14c6cc1f-0b79-4e0b-9806-f7b3ecb3b599
+		summarizeBy: sum
+		sourceColumn: waitingReviewerCount
+
+		annotation SummarizationSetBy = Automatic
+
+	column activeThreadCount
+		dataType: int64
+		formatString: 0
+		lineageTag: 7e19a869-99d1-4e2e-b7f8-cce396ff199b
+		summarizeBy: sum
+		sourceColumn: activeThreadCount
+
+		annotation SummarizationSetBy = Automatic
+
+	column creationDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 83ac1962-69ea-48f7-9ed5-7391281f3c2d
+		summarizeBy: none
+		sourceColumn: creationDate
+
+		variation Variation
+			isDefault
+			relationship: 24dba534-461c-419c-ab71-49da35d545a5
+			defaultHierarchy: LocalDateTable_a17b600f-cd26-4d47-ab5b-afa76af1ba02.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column closedDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: f2ac7de6-ee5c-4c87-abff-82665752251f
+		summarizeBy: none
+		sourceColumn: closedDate
+
+		variation Variation
+			isDefault
+			relationship: 955d64d1-aa23-4db1-b497-1ad5a0b9706a
+			defaultHierarchy: LocalDateTable_85ed67fc-dabd-48a8-b488-88684578b549.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column isClosed
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 4d96f03f-16bc-44fd-96c6-fff1a2fc3834
+		summarizeBy: none
+		sourceColumn: isClosed
+
+		annotation SummarizationSetBy = Automatic
+
+	column reviewTurnaroundDays
+		dataType: double
+		lineageTag: b3080ec1-eb65-4496-ae86-08f3de8dcf12
+		summarizeBy: sum
+		sourceColumn: reviewTurnaroundDays
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column reviewTurnaroundRating
+		dataType: string
+		lineageTag: b0c7148b-67ef-483a-a827-fdf1e8cff20a
+		summarizeBy: none
+		sourceColumn: reviewTurnaroundRating
+
+		annotation SummarizationSetBy = Automatic
+
+	column hasReviewDecision
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: efa5916f-5cb6-45d3-90eb-6556770cf681
+		summarizeBy: none
+		sourceColumn: hasReviewDecision
+
+		annotation SummarizationSetBy = Automatic
+
+	column isUnreviewedStalePr
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 7e42c0dd-bb58-432a-889e-2bcd528f28fa
+		summarizeBy: none
+		sourceColumn: isUnreviewedStalePr
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Pull Requests Review Turnaround History' = m
+		mode: import
+		source =
+				let
+				    Source = PowerBI.Dataflows(null),
+				    #"1d7f83bd-9b20-42de-9fc3-0f113e2024b2" = Source{[workspaceId="1d7f83bd-9b20-42de-9fc3-0f113e2024b2"]}[Data],
+				    #"b4231eab-5517-456d-8f37-6d807330f9c9" = #"1d7f83bd-9b20-42de-9fc3-0f113e2024b2"{[dataflowId="b4231eab-5517-456d-8f37-6d807330f9c9"]}[Data],
+				    #"Pull Requests Review Turnaround History1" = #"b4231eab-5517-456d-8f37-6d807330f9c9"{[entity="Pull Requests Review Turnaround History"]}[Data]
+				in
+				    #"Pull Requests Review Turnaround History1"
+

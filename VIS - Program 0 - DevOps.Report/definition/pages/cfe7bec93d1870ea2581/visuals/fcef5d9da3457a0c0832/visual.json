@@ -1,0 +1,66 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "fcef5d9da3457a0c0832",
+  "position": {
+    "x": 980.33795779988407,
+    "y": 592.822500780657,
+    "z": 11000,
+    "height": 59.2007851184369,
+    "width": 274.80858277200338,
+    "tabOrder": 11000
+  },
+  "visual": {
+    "visualType": "multiRowCard",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Pull Requests Review Turnaround History"
+                        }
+                      },
+                      "Property": "approvedReviewerCount"
+                    }
+                  },
+                  "Function": 6
+                }
+              },
+              "queryRef": "Sum(Pull Requests Review Turnaround History.approvedReviewerCount)",
+              "nativeQueryRef": "Median of approvedReviewerCount"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Aggregation": {
+                "Expression": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "Pull Requests Review Turnaround History"
+                      }
+                    },
+                    "Property": "approvedReviewerCount"
+                  }
+                },
+                "Function": 6
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

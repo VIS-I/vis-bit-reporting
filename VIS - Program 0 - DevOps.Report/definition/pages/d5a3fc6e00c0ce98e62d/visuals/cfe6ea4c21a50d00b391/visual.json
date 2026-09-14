@@ -1,0 +1,123 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "cfe6ea4c21a50d00b391",
+  "position": {
+    "x": 828.86429365018785,
+    "y": 71.56162803517968,
+    "z": 18000,
+    "height": 264.70854642139278,
+    "width": 450.907733930404,
+    "tabOrder": 18000
+  },
+  "visual": {
+    "visualType": "lineStackedColumnComboChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Commits"
+                    }
+                  },
+                  "Property": "authorType"
+                }
+              },
+              "queryRef": "Commits.authorType",
+              "nativeQueryRef": "authorType",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Commits"
+                        }
+                      },
+                      "Property": "Add"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(Commits.Add)",
+              "nativeQueryRef": "Sum of Add"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Commits"
+                        }
+                      },
+                      "Property": "Edit"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(Commits.Edit)",
+              "nativeQueryRef": "Sum of Edit"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Commits"
+                        }
+                      },
+                      "Property": "Delete"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(Commits.Delete)",
+              "nativeQueryRef": "Sum of Delete"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Aggregation": {
+                "Expression": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "Commits"
+                      }
+                    },
+                    "Property": "Add"
+                  }
+                },
+                "Function": 0
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

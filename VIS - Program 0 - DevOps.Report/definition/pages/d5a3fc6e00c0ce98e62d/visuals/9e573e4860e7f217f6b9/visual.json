@@ -1,0 +1,158 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "9e573e4860e7f217f6b9",
+  "position": {
+    "x": 10,
+    "y": 553.75,
+    "z": 5000,
+    "height": 150,
+    "width": 1237.5,
+    "tabOrder": 5000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Commits"
+                    }
+                  },
+                  "Property": "commitId"
+                }
+              },
+              "queryRef": "Commits.commitId",
+              "nativeQueryRef": "commitId"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Commits"
+                    }
+                  },
+                  "Property": "comment"
+                }
+              },
+              "queryRef": "Commits.comment",
+              "nativeQueryRef": "comment"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Commits"
+                    }
+                  },
+                  "Property": "authorName"
+                }
+              },
+              "queryRef": "Commits.authorName",
+              "nativeQueryRef": "authorName"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Commits"
+                    }
+                  },
+                  "Property": "repoName"
+                }
+              },
+              "queryRef": "Commits.repoName",
+              "nativeQueryRef": "repoName"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "408.3921219117005D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Commits.comment"
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "b75ce38f809300d60ec9",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Commits"
+              }
+            },
+            "Property": "commitId"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "66e0110e31710626b979",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Commits"
+              }
+            },
+            "Property": "comment"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "f41aa939553ce0aa89cd",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Commits"
+              }
+            },
+            "Property": "authorName"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "f966d2c5bdb54a9a9eab",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Commits"
+              }
+            },
+            "Property": "repoName"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
+  }
+}

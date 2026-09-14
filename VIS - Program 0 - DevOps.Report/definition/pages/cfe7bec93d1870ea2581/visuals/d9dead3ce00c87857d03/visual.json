@@ -1,0 +1,133 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "d9dead3ce00c87857d03",
+  "position": {
+    "x": 0,
+    "y": 425.3686041843244,
+    "z": 13000,
+    "height": 294.54217781148236,
+    "width": 979.37101307043758,
+    "tabOrder": 13000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Pull Requests Review Turnaround"
+                    }
+                  },
+                  "Property": "pullRequestId"
+                }
+              },
+              "queryRef": "Pull Requests Review Turnaround.pullRequestId",
+              "nativeQueryRef": "pullRequestId"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Pull Requests Review Turnaround"
+                    }
+                  },
+                  "Property": "repoName"
+                }
+              },
+              "queryRef": "Pull Requests Review Turnaround.repoName",
+              "nativeQueryRef": "repoName"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Pull Requests Review Turnaround"
+                    }
+                  },
+                  "Property": "creationDate"
+                }
+              },
+              "queryRef": "Pull Requests Review Turnaround.creationDate",
+              "nativeQueryRef": "creationDate"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Pull Requests Review Turnaround"
+                        }
+                      },
+                      "Property": "waitingReviewerCount"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(Pull Requests Review Turnaround.waitingReviewerCount)",
+              "nativeQueryRef": "Sum of waitingReviewerCount"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Pull Requests Review Turnaround"
+                        }
+                      },
+                      "Property": "reviewTurnaroundDays"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(Pull Requests Review Turnaround.reviewTurnaroundDays)",
+              "nativeQueryRef": "Sum of reviewTurnaroundDays"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Pull Requests Review Turnaround"
+                    }
+                  },
+                  "Property": "isUnreviewedStalePr"
+                }
+              },
+              "queryRef": "Pull Requests Review Turnaround.isUnreviewedStalePr",
+              "nativeQueryRef": "isUnreviewedStalePr"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "total": [
+        {
+          "properties": {
+            "totals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}
