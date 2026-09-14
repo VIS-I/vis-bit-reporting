@@ -1,0 +1,68 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "deploymentAgeLegend",
+  "position": {
+    "x": 1048,
+    "y": 399,
+    "z": 15000,
+    "height": 132,
+    "width": 231,
+    "tabOrder": 15000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Deployment age",
+                    "textStyle": {
+                      "fontSize": "11pt",
+                      "fontWeight": "bold"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Fresh | 0-59 days"
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Aging | 60-90 days"
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Stale | 91+ days"
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Based on days since deployment.",
+                    "textStyle": {
+                      "fontSize": "8pt"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,715 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "deploymentDetailsTable",
+  "position": {
+    "x": 31.124620060790274,
+    "y": 75.866261398176292,
+    "z": 1000,
+    "height": 628.32826747720367,
+    "width": 1248.8753799392098,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Deployment Snapshot"
+                    }
+                  },
+                  "Property": "serviceName"
+                }
+              },
+              "queryRef": "Deployment Snapshot.serviceName",
+              "nativeQueryRef": "Service",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Deployment Snapshot"
+                    }
+                  },
+                  "Property": "environmentDisplayName"
+                }
+              },
+              "queryRef": "Deployment Snapshot.environmentDisplayName",
+              "nativeQueryRef": "Environment",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Deployment Snapshot"
+                    }
+                  },
+                  "Property": "locationCode"
+                }
+              },
+              "queryRef": "Deployment Snapshot.locationCode",
+              "nativeQueryRef": "Location",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Deployment Snapshot"
+                    }
+                  },
+                  "Property": "platform"
+                }
+              },
+              "queryRef": "Deployment Snapshot.platform",
+              "nativeQueryRef": "Platform",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Deployment Snapshot"
+                    }
+                  },
+                  "Property": "status"
+                }
+              },
+              "queryRef": "Deployment Snapshot.status",
+              "nativeQueryRef": "Status",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Deployment Snapshot"
+                    }
+                  },
+                  "Property": "workloadName"
+                }
+              },
+              "queryRef": "Deployment Snapshot.workloadName",
+              "nativeQueryRef": "Workload",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Deployment Snapshot"
+                    }
+                  },
+                  "Property": "runtimeContext"
+                }
+              },
+              "queryRef": "Deployment Snapshot.runtimeContext",
+              "nativeQueryRef": "Namespace / Environment",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Deployment Snapshot"
+                    }
+                  },
+                  "Property": "serviceVersion"
+                }
+              },
+              "queryRef": "Deployment Snapshot.serviceVersion",
+              "nativeQueryRef": "Version",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Deployment Snapshot"
+                    }
+                  },
+                  "Property": "image"
+                }
+              },
+              "queryRef": "Deployment Snapshot.image",
+              "nativeQueryRef": "Container image",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Deployment Snapshot"
+                    }
+                  },
+                  "Property": "revisionName"
+                }
+              },
+              "queryRef": "Deployment Snapshot.revisionName",
+              "nativeQueryRef": "ACA revision",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Deployment Snapshot"
+                    }
+                  },
+                  "Property": "pipelineName"
+                }
+              },
+              "queryRef": "Deployment Snapshot.pipelineName",
+              "nativeQueryRef": "Pipeline",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Deployment Snapshot"
+                    }
+                  },
+                  "Property": "buildId"
+                }
+              },
+              "queryRef": "Deployment Snapshot.buildId",
+              "nativeQueryRef": "Build ID",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Deployment Snapshot"
+                    }
+                  },
+                  "Property": "buildNumber"
+                }
+              },
+              "queryRef": "Deployment Snapshot.buildNumber",
+              "nativeQueryRef": "Build number",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Deployment Snapshot"
+                    }
+                  },
+                  "Property": "repositoryName"
+                }
+              },
+              "queryRef": "Deployment Snapshot.repositoryName",
+              "nativeQueryRef": "Repository",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Deployment Snapshot"
+                    }
+                  },
+                  "Property": "sourceBranch"
+                }
+              },
+              "queryRef": "Deployment Snapshot.sourceBranch",
+              "nativeQueryRef": "Source ref",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Deployment Snapshot"
+                    }
+                  },
+                  "Property": "deployedTag"
+                }
+              },
+              "queryRef": "Deployment Snapshot.deployedTag",
+              "nativeQueryRef": "Deployed tag",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Deployment Snapshot"
+                    }
+                  },
+                  "Property": "sourceVersion"
+                }
+              },
+              "queryRef": "Deployment Snapshot.sourceVersion",
+              "nativeQueryRef": "Commit",
+              "active": true
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Deployment Snapshot"
+                    }
+                  },
+                  "Property": "Last Deployed"
+                }
+              },
+              "queryRef": "Deployment Snapshot.Last Deployed",
+              "nativeQueryRef": "Last deployed",
+              "active": true
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Deployment Snapshot"
+                    }
+                  },
+                  "Property": "Last Deployed in Days"
+                }
+              },
+              "queryRef": "Deployment Snapshot.Last Deployed in Days",
+              "nativeQueryRef": "Last deployed (days)",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Deployment Snapshot"
+                    }
+                  },
+                  "Property": "snapshotModifiedAt"
+                }
+              },
+              "queryRef": "Deployment Snapshot.snapshotModifiedAt",
+              "nativeQueryRef": "Snapshot updated",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Deployment Snapshot"
+                    }
+                  },
+                  "Property": "pipelineRunUrl"
+                }
+              },
+              "queryRef": "Deployment Snapshot.pipelineRunUrl",
+              "nativeQueryRef": "Pipeline run",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Deployment Snapshot"
+                    }
+                  },
+                  "Property": "repoTagUrl"
+                }
+              },
+              "queryRef": "Deployment Snapshot.repoTagUrl",
+              "nativeQueryRef": "Repo/tag",
+              "active": true
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Deployment Snapshot"
+                  }
+                },
+                "Property": "Last Deployed"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "values": [
+        {
+          "properties": {
+            "urlIcon": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Deployment Snapshot.pipelineRunUrl"
+          }
+        },
+        {
+          "properties": {
+            "urlIcon": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Deployment Snapshot.repoTagUrl"
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "3b348ff07c74ca8354e3",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Deployment Snapshot"
+              }
+            },
+            "Property": "serviceName"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "395dc7b806957e04a267",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Deployment Snapshot"
+              }
+            },
+            "Property": "environmentDisplayName"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "59d7759c13ad4b65b6fb",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Deployment Snapshot"
+              }
+            },
+            "Property": "locationCode"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "1ba794b0250f168da798",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Deployment Snapshot"
+              }
+            },
+            "Property": "platform"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "9a88705751e1a766d2dc",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Deployment Snapshot"
+              }
+            },
+            "Property": "status"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "a02015a4ae9c920e8a97",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Deployment Snapshot"
+              }
+            },
+            "Property": "workloadName"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "d0de9c0377877a4cd449",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Deployment Snapshot"
+              }
+            },
+            "Property": "runtimeContext"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "1ab5840e61d1cf69d30b",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Deployment Snapshot"
+              }
+            },
+            "Property": "serviceVersion"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "b6051e748bfbce2711be",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Deployment Snapshot"
+              }
+            },
+            "Property": "image"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "4f74ba2bf1c4d32215bd",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Deployment Snapshot"
+              }
+            },
+            "Property": "revisionName"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "2b85a2b00fbbae1f09f1",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Deployment Snapshot"
+              }
+            },
+            "Property": "pipelineName"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "72eda01d59445186ebbb",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Deployment Snapshot"
+              }
+            },
+            "Property": "buildId"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "c9cc2b09112f58088797",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Deployment Snapshot"
+              }
+            },
+            "Property": "buildNumber"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "ef07ee05218687cf884a",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Deployment Snapshot"
+              }
+            },
+            "Property": "repositoryName"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "01ce62bf5e87fc93d7db",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Deployment Snapshot"
+              }
+            },
+            "Property": "sourceBranch"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "e907ab10aa699e186bf7",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Deployment Snapshot"
+              }
+            },
+            "Property": "deployedTag"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "67ebf5aa46198688c014",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Deployment Snapshot"
+              }
+            },
+            "Property": "sourceVersion"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "1b2acd511a9e0046e4b1",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Deployment Snapshot"
+              }
+            },
+            "Property": "Last Deployed"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "e804e6d7ec5326f48fb1",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Deployment Snapshot"
+              }
+            },
+            "Property": "Last Deployed in Days"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "a08027c41880375455d5",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Deployment Snapshot"
+              }
+            },
+            "Property": "snapshotModifiedAt"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "9255eac1d6b1a15b32c0",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Deployment Snapshot"
+              }
+            },
+            "Property": "pipelineRunUrl"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "44243a02f1e46794a2ca",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Deployment Snapshot"
+              }
+            },
+            "Property": "repoTagUrl"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
+  }
+}

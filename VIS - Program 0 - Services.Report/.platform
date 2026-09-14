@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "VIS - Program 0 - Services"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "d3887caf-3f17-bca5-4ea2-c3587c47cc18"
+  }
+}

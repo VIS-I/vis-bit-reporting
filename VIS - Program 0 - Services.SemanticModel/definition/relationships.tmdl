@@ -1,0 +1,5 @@
+relationship f16d5c7b-e3b2-45c6-bb58-da8b446daa6c
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Deployment Snapshot'.deploymentDate
+	toColumn: LocalDateTable_446ead61-7893-4bd8-aa81-07d74c6f7755.Date
+

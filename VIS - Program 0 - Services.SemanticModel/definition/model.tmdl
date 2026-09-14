@@ -1,0 +1,20 @@
+model 'VIS - Program 0 - Services'
+	culture: de-DE
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: de-DE
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_ProTooling = ["TMDL-Extension","DevMode"]
+
+annotation PBI_QueryOrder = ["Deployment Snapshot"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+ref table DateTableTemplate_90875423-ed00-48cd-aa3d-3a1b53db80ce
+ref table 'Deployment Snapshot'
+ref table LocalDateTable_446ead61-7893-4bd8-aa81-07d74c6f7755
+
+ref cultureInfo de-DE
+

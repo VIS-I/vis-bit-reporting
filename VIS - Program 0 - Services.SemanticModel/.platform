@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "VIS - Program 0 - Services"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "28765d52-fdbf-bdf4-499b-d416a8d9ef67"
+  }
+}

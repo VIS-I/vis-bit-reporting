@@ -1,0 +1,125 @@
+cultureInfo de-DE
+
+	linguisticMetadata =
+			{
+			  "Version": "2.0.0",
+			  "Language": "en-US",
+			  "Entities": {
+			    "deployment_snapshot.snapshotmodifiedat": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Deployment Snapshot",
+			          "ConceptualProperty": "snapshotModifiedAt"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "deployment_snapshot.average_deployment_age_days": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Deployment Snapshot",
+			          "ConceptualProperty": "Average Deployment Age (Days)"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Avg. Deployment Age": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "deployment_snapshot.latest_snapshot_updated": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Deployment Snapshot",
+			          "ConceptualProperty": "Latest Snapshot Updated"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Snapshot Updated": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "deployment_snapshot.services": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Deployment Snapshot",
+			          "ConceptualProperty": "Services"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Services": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "deployment_snapshot.running_deployments": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Deployment Snapshot",
+			          "ConceptualProperty": "Running Deployments"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Running": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "deployment_snapshot.stopped_deployments": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Deployment Snapshot",
+			          "ConceptualProperty": "Stopped Deployments"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Stopped": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    }
+			  }
+			}
+		contentType: json
+
